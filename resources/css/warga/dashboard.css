@@ -1,0 +1,20 @@
+/* CSS dashboard WARGA - sapaan + kondisi kosong */
+
+/* Judul sapaan + sub deskripsi */
+.dash h1 { font-size: 1.6rem; margin: 0 0 6px; color: #0077b6; }
+.dash-sub { color: #6b7280; margin: 0 0 24px; }
+/* Kartu kondisi kosong: tengah, garis putus-putus, tanpa angka palsu */
+.empty-state { border: 1.5px dashed #00b4d8; border-radius: 14px; padding: 36px 24px; text-align: center; background: #fff; }
+.empty-state h2 { margin: 0 0 8px; font-size: 1.1rem; }
+.empty-state p { margin: 0 0 20px; color: #6b7280; font-size: 14px; }
+/* Tombol pil biru tua agar teks putih lolos kontras */
+.btn-dash { display: inline-block; background: #0077b6; color: #fff; padding: 12px 30px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-dash:hover { background: #005b85; }
+.btn-dash:active { transform: scale(.98); }
+
+/* HP (≤480px): judul mengecil, kartu lebih rapat, tombol selebar layar */
+@media (max-width: 480px) {
+  .dash h1 { font-size: 1.3rem; }
+  .empty-state { padding: 24px 16px; }
+  .btn-dash { display: block; text-align: center; }
+}

@@ -1,0 +1,51 @@
+/* Satu palet terkunci untuk seluruh situs */
+:root {
+  --desa-blue: #00b4d8;
+  --desa-blue-dark: #0077b6;
+  --desa-blue-deep: #005b85;
+  --desa-navy: #023e8a;
+  --desa-sky: #caf0f8;
+  --desa-ink: #1f2937;
+  --desa-muted: #6b7280;
+  --desa-paper: #fffffc;
+}
+/* Aturan radius: tombol pil, kartu 14px, permukaan kecil 8px */
+
+/* Reset dasar + font */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Figtree', sans-serif; color: var(--desa-ink); background: #f3f4f6; }
+
+/* Link lompat konten: sembunyi sampai difokuskan keyboard */
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--desa-blue-dark); color: #fff; padding: 8px 16px; z-index: 300; border-radius: 0 0 8px 0; }
+.skip-link:focus { left: 0; }
+
+/* Kerangka 2 kolom setinggi layar */
+.admin-shell { display: flex; min-height: 100vh; }
+
+/* Kolom kanan: melebar mengisi sisa layar */
+.admin-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+/* Bar atas putih: tombol menu HP + judul + nama pengguna */
+.admin-topbar { background: #fff; box-shadow: 0 1px 4px rgba(0, 119, 182, .1); padding: 12px 20px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; }
+/* Tombol hamburger: hanya tampil di HP */
+.sidebar-toggle { display: none; background: none; border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 10px; cursor: pointer; color: var(--desa-ink); }
+.sidebar-toggle .ph { font-size: 22px; display: block; }
+/* Judul halaman di bar atas (terdorong kiri) */
+.topbar-title { font-weight: 700; font-size: 1rem; margin-right: auto; }
+/* Nama admin di kanan bar atas */
+.topbar-user { font-size: 13px; color: var(--desa-muted); }
+/* Area konten dengan batas lebar */
+.admin-content { flex: 1; padding: 28px 24px; max-width: 1200px; width: 100%; margin: 0 auto; }
+
+/* Fokus keyboard yg jelas untuk semua link dan tombol */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--desa-blue-dark); outline-offset: 2px; }
+
+/* HP/tablet (≤860px): konten lebih rapat (aturan laci sidebar ada di partials/sidebar.css) */
+@media (max-width: 860px) {
+  .sidebar-toggle { display: block; }
+  .admin-content { padding: 18px 14px; }
+}
+
+/* Gerak minimal: matikan transisi bila pengguna meminta */
+@media (prefers-reduced-motion: reduce) {
+  .admin-sidebar { transition: none; }
+}

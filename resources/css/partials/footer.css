@@ -1,0 +1,26 @@
+/* CSS FOOTER publik - identitas kiri, sosmed kanan, hak cipta bawah (variabel dari layouts/warga.css) */
+
+/* Kaki halaman biru tua */
+.site-footer { background: var(--desa-navy); color: var(--desa-sky); margin-top: auto; }
+/* Baris atas: identitas kiri + sosmed kanan; boleh menekuk di HP */
+.footer-inner { max-width: 1100px; margin: 0 auto; padding: 18px 20px 14px; font-size: 13px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+/* Blok identitas balai desa */
+.footer-brand-block { display: flex; flex-direction: column; gap: 2px; }
+/* Nama balai desa (teks biasa, bukan link) */
+.footer-brand { color: #fff; font-weight: 700; font-size: 15px; margin: 0; }
+/* Alamat di bawah nama */
+.footer-alamat { margin: 0; color: #ade8f4; }
+/* Ikon sosmed: terdorong ke kanan */
+.footer-sosmed { display: flex; gap: 10px; margin-left: auto; }
+/* Tiap ikon dalam lingkaran outline */
+.footer-sosmed a { width: 38px; height: 38px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ade8f4; text-decoration: none; }
+.footer-sosmed a:hover { background: var(--desa-blue-dark); border-color: var(--desa-blue-dark); color: #fff; }
+.footer-sosmed .ph { font-size: 20px; }
+/* Hak cipta: baris bawah selebar footer, rata tengah */
+.footer-copy { width: 100%; margin: 10px 0 0; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .15); text-align: center; }
+
+/* HP (≤600px): identitas dan sosmed menumpuk tengah */
+@media (max-width: 600px) {
+  .footer-inner { justify-content: center; text-align: center; }
+  .footer-sosmed { margin-left: 0; }
+}

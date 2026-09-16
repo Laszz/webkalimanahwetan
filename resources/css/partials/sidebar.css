@@ -1,0 +1,30 @@
+/* CSS SIDEBAR admin - dipakai dashboard admin (variabel warna dari layouts/admin.css) */
+
+/* Sidebar kiri biru tua, menempel saat scroll */
+.admin-sidebar { width: 240px; flex-shrink: 0; background: var(--desa-navy); color: var(--desa-sky); position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 20px 14px; display: flex; flex-direction: column; }
+/* Logo/nama desa di atas */
+.sidebar-brand { display: block; color: #fff; font-weight: 700; font-size: 1.05rem; text-decoration: none; padding: 6px 10px 18px; }
+/* Tautan navigasi bertumpuk */
+.sidebar-menu { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.sidebar-menu a { display: block; color: #ade8f4; text-decoration: none; font-size: 14px; padding: 10px 12px; border-radius: 8px; }
+.sidebar-menu a:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+/* Menu halaman aktif (class active oleh sidebar.js) */
+.sidebar-menu a.active { background: var(--desa-blue-dark); color: #fff; }
+/* Bagian akun di bawah: terdorong ke dasar sidebar */
+.sidebar-user { margin-top: auto; padding: 16px 10px 0; border-top: 1px solid rgba(255, 255, 255, .15); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+/* Avatar lingkaran berisi inisial nama */
+.sidebar-avatar { width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%; background: var(--desa-blue-dark); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+/* Nama pengguna (terpotong ... jika terlalu panjang) */
+.sidebar-name { color: #fff; font-size: 13px; font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Form keluar selebar sidebar */
+.sidebar-logout { width: 100%; margin: 4px 0 0; }
+/* Tombol keluar pil merah transparan */
+.sidebar-logout button { width: 100%; background: rgba(220, 38, 38, .15); color: #fecaca; border: 1px solid rgba(220, 38, 38, .4); border-radius: 999px; padding: 10px; font-size: 14px; cursor: pointer; }
+.sidebar-logout button:hover { background: rgba(220, 38, 38, .3); color: #fff; }
+
+/* HP/tablet (≤860px): sidebar jadi laci geser dari kiri */
+@media (max-width: 860px) {
+  .admin-sidebar { position: fixed; left: 0; top: 0; z-index: 200; transform: translateX(-100%); transition: transform .3s ease; }
+  /* Muncul saat hamburger diklik (class sidebar-open oleh sidebar.js) */
+  .admin-shell.sidebar-open .admin-sidebar { transform: translateX(0); }
+}

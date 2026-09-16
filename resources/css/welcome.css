@@ -1,0 +1,129 @@
+/* CSS halaman WELCOME (dashboard publik) - hero, aduan, rumpun layanan, berita, agenda, peta, kontak */
+
+/* Satu palet terkunci: aksen biru dipakai identik di semua seksi */
+:root {
+  --desa-blue: #00b4d8;
+  --desa-blue-dark: #0077b6;
+  --desa-navy: #023e8a;
+  --desa-sky: #caf0f8;
+  --desa-ink: #1f2937;
+  --desa-muted: #6b7280;
+  --desa-paper: #fffffc;
+}
+/* Aturan radius: tombol pil, kartu 14px, permukaan kecil 8px */
+
+* { box-sizing: border-box; }
+
+/* Judul tiap seksi: rata tengah dengan aksen biru */
+.judul-seksi { font-size: 1.5rem; font-weight: 700; margin: 0 0 8px; text-align: center; color: var(--desa-blue-dark); }
+.sub-seksi { text-align: center; color: var(--desa-muted); margin: 0 0 28px; }
+
+/* HERO: gradasi biru, teks kiri + foto kanan */
+.hero { background: linear-gradient(135deg, var(--desa-navy), var(--desa-blue-dark)); color: #fff; }
+.hero-inner { display: flex; gap: 40px; align-items: center; justify-content: space-between; padding-top: 56px; padding-bottom: 56px; }
+/* Kolom teks sambutan */
+.hero-teks { max-width: 520px; }
+.hero-kicker { text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin: 0 0 12px; color: var(--desa-sky); }
+.hero h1 { font-size: 2.4rem; margin: 0 0 12px; line-height: 1.2; }
+.hero-deskripsi { color: var(--desa-paper); margin: 0 0 24px; font-size: 1.05rem; max-width: 46ch; }
+/* Baris tombol ajakan */
+.hero-aksi { display: flex; gap: 12px; flex-wrap: wrap; }
+/* Tombol dasar + varian utama (putih) dan kedua (outline putih) */
+.btn { display: inline-block; border-radius: 999px; padding: 12px 30px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-utama { background: #fff; color: var(--desa-blue-dark); }
+.btn-utama:hover { background: var(--desa-sky); }
+.btn-kedua { border: 1.5px solid #fff; color: #fff; }
+.btn-kedua:hover { background: rgba(255, 255, 255, .12); }
+.btn:active { transform: scale(.98); }
+/* Foto hero dengan caption fungsional di bawah (bukan overlay) */
+.hero-foto { margin: 0; max-width: 440px; }
+.hero-foto img { width: 100%; height: auto; display: block; border-radius: 14px; }
+.hero-foto figcaption { font-size: 12px; color: var(--desa-sky); margin-top: 8px; }
+
+/* ADUAN: kartu daftar 5 laporan terbaru */
+.aduan { padding: 32px 0 8px; }
+.aduan-list { list-style: none; margin: 0; padding: 0; border: 1px solid #e5e7eb; border-radius: 14px; background: #fff; overflow: hidden; }
+/* Tiap baris: judul + tanggal kiri, penanda status kanan */
+.aduan-list li { display: flex; align-items: center; gap: 16px; padding: 14px 20px; }
+.aduan-list li + li { border-top: 1px solid #e5e7eb; }
+.aduan-list strong { display: block; font-size: .95rem; }
+/* Tanggal aduan digelapkan (bukan abu-abu) agar mudah dibaca */
+.aduan-list span { font-size: 12px; color: #374151; }
+/* Penanda status: teks saja tanpa titik hiasan */
+.status { margin-left: auto; flex-shrink: 0; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; }
+.status-menunggu { background: #fef3c7; color: #92400e; }
+.status-diproses { background: var(--desa-sky); color: var(--desa-navy); }
+.status-selesai { background: #e5e7eb; color: #374151; }
+
+/* LAYANAN: 2 rumpun berdampingan (keluarga layout beda dari aduan dan berita) */
+.layanan { padding: 32px 0 8px; }
+.kelompok-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* Tiap rumpun: kartu biru muda untuk variasi (rumpun kedua putih bergaris) */
+.kelompok { border-radius: 14px; padding: 26px; background: var(--desa-sky); }
+.kelompok + .kelompok { background: #fff; border: 1px solid #e5e7eb; }
+.kelompok h3 { margin: 0 0 16px; font-size: 1.1rem; color: var(--desa-blue-dark); }
+.kelompok ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.kelompok li { padding: 12px 0; }
+.kelompok li + li { border-top: 1px solid rgba(0, 119, 182, .18); }
+.kelompok strong { display: block; font-size: 1rem; }
+.kelompok span { font-size: 14px; color: #4b5563; }
+
+/* BERITA: daftar baris foto + teks (keluarga layout beda dari aduan dan layanan) */
+.berita { padding: 32px 0 8px; }
+.berita-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.berita-list li { display: flex; gap: 20px; align-items: center; padding: 18px 0; }
+.berita-list li + li { border-top: 1px solid #e5e7eb; }
+.berita-list img { width: 160px; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.berita-tanggal { font-size: 12px; color: var(--desa-blue-dark); font-weight: 600; margin: 0 0 4px; }
+.berita-list h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.berita-list h3 a { color: var(--desa-ink); text-decoration: none; }
+.berita-list h3 a:hover { color: var(--desa-blue-dark); }
+.berita-list p { margin: 0; font-size: 14px; color: #4b5563; }
+
+/* AGENDA: daftar baris penanda tanggal + kegiatan */
+.agenda { padding: 32px 0 8px; }
+.agenda-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.agenda-list li { display: flex; gap: 18px; align-items: center; padding: 14px 0; }
+.agenda-list li + li { border-top: 1px solid #e5e7eb; }
+/* Kotak tanggal: angka hari besar + bulan kecil */
+.agenda-tanggal { margin: 0; flex-shrink: 0; width: 64px; text-align: center; background: var(--desa-navy); color: #fff; border-radius: 8px; padding: 10px 0; }
+.agenda-tanggal strong { display: block; font-size: 1.4rem; line-height: 1; color: #fff; }
+.agenda-tanggal span { font-size: 12px; color: var(--desa-sky); }
+.agenda-list h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.agenda-list p { margin: 0; font-size: 14px; color: #4b5563; }
+
+/* PETA: bingkai peta mengisi rasio 16/9 */
+.peta { padding: 32px 0; }
+.peta-wrap { position: relative; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; border: 1px solid #e5e7eb; }
+.peta-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* KONTAK: 2 kolom (alamat + jam pelayanan) dengan latar biru muda */
+.kontak { background: var(--desa-sky); padding: 32px 0; }
+.kontak-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.kontak-grid .judul-seksi { text-align: left; }
+.kontak address { font-style: normal; line-height: 1.9; }
+.kontak address a { color: var(--desa-blue-dark); }
+.kontak h3 { color: var(--desa-blue-dark); margin-top: 0; }
+
+/* Fokus keyboard yg jelas untuk semua link dan tombol */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--desa-blue-dark); outline-offset: 2px; }
+
+/* HP/tablet (≤768px): semua grid jadi 1 kolom, hero menumpuk */
+@media (max-width: 768px) {
+  .hero-inner { flex-direction: column; align-items: stretch; padding-top: 36px; padding-bottom: 36px; }
+  .hero h1 { font-size: 1.7rem; }
+  .hero-foto { max-width: none; }
+  .kelompok-grid, .kontak-grid { grid-template-columns: 1fr; }
+  .berita-list img { width: 120px; }
+}
+
+/* HP kecil (≤480px): judul mengecil, tombol selebar layar, baris berita menumpuk */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.5rem; }
+  .hero-deskripsi { font-size: .95rem; }
+  .hero-aksi .btn { flex: 1; text-align: center; }
+  .kelompok { padding: 20px 16px; }
+  .berita-list li { flex-direction: column; align-items: stretch; }
+  .berita-list img { width: 100%; }
+  .peta-wrap { aspect-ratio: 4 / 3; }
+}

@@ -1,0 +1,44 @@
+/* Satu palet terkunci untuk seluruh situs */
+:root {
+  --desa-blue: #00b4d8;
+  --desa-blue-dark: #0077b6;
+  --desa-blue-deep: #005b85;
+  --desa-navy: #023e8a;
+  --desa-sky: #caf0f8;
+  --desa-ink: #1f2937;
+  --desa-muted: #6b7280;
+  --desa-paper: #fffffc;
+}
+/* Aturan radius: tombol pil, kartu 14px, permukaan kecil 8px */
+
+/* Reset dasar + font */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Figtree', sans-serif;
+  color: var(--desa-ink);
+  background: var(--desa-paper);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Link lompat konten: sembunyi sampai difokuskan keyboard */
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--desa-blue-dark); color: #fff; padding: 8px 16px; z-index: 200; border-radius: 0 0 8px 0; }
+.skip-link:focus { left: 0; }
+
+/* Kepala halaman: cangkang navbar putih menempel di atas, tinggi max 80px (isi navbar di partials/navbar.css) */
+.site-header { position: sticky; top: 0; z-index: 100; background: #fff; box-shadow: 0 1px 4px rgba(0, 119, 182, .1); }
+
+/* Konten utama: tumbuh mengisi ruang antara header dan footer */
+.site-main { flex: 1; }
+/* Pembungkus konten tengah dengan batas lebar */
+.page-container { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+
+/* Fokus keyboard yg jelas untuk semua link dan tombol */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--desa-blue-dark); outline-offset: 2px; }
+
+/* HP/tablet (≤768px): padding konten lebih rapat */
+@media (max-width: 768px) {
+  .page-container { padding: 20px 14px; }
+}
