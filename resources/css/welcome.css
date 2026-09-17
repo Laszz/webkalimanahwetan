@@ -54,6 +54,8 @@
 .status-menunggu { background: #fef3c7; color: #92400e; }
 .status-diproses { background: var(--desa-sky); color: var(--desa-navy); }
 .status-selesai { background: #e5e7eb; color: #374151; }
+/* Status ditolak (khusus riwayat pengajuan warga) */
+.status-ditolak { background: #fee2e2; color: #991b1b; }
 
 /* LAYANAN: 2 rumpun berdampingan (keluarga layout beda dari aduan dan berita) */
 .layanan { padding: 32px 0 8px; }

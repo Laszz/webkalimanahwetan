@@ -1,4 +1,4 @@
-{{-- Dashboard WARGA - ringkasan + seksi publik (pakai layout warga, butuh login) --}}
+{{-- Dashboard WARGA - ringkasan milik sendiri + seksi publik (pakai layout warga, butuh login) --}}
 @extends('layouts.warga')
 
 {{-- Judul tab + judul bar --}}
@@ -15,27 +15,21 @@
         <h1 id="dash-judul">Halo, {{ Auth::user()->name }}</h1>
         <p class="dash-sub">Pantau status pengajuan surat dan kelola data diri dari sini.</p>
 
-        {{-- Kondisi kosong: belum ada pengajuan; tampilkan cara mengisi, bukan angka palsu --}}
-        <div class="empty-state" role="status">
-            <h2>Belum ada pengajuan surat</h2>
-            <p>Setelah mengajukan surat lewat halaman layanan, statusnya tampil di sini.</p>
-            <a class="btn-dash" href="{{ url('/') }}">Kembali ke Beranda</a>
-        </div>
-        {{-- TODO: ganti empty-state di atas dengan daftar riwayat pengajuan dari database --}}
+        {{-- 5 riwayat pengajuan terakhir milik sendiri --}}
+        <h2 class="judul-seksi">Pengajuan Terakhir Saya</h2>
+        <ul class="aduan-list">
+            @forelse ($riwayat as $pengajuan)
+                {{-- Tiap baris: nama layanan + tanggal + status asli --}}
+                <li>
+                    <div><strong>{{ $pengajuan->layanan->nama }}</strong><span>{{ $pengajuan->created_at->format('d M Y') }}</span></div>
+                    <span class="status status-{{ $pengajuan->status }}">{{ ucfirst($pengajuan->status) }}</span>
+                </li>
+            @empty
+                {{-- Belum pernah mengajukan; arahkan ke beranda --}}
+                <li><div><strong>Belum ada pengajuan</strong><span>Ajukan surat pertama dari beranda</span></div></li>
+            @endforelse
+        </ul>
     </section>
-
-    {{-- Kartu 5 aduan terbaru warga --}}
-    @include('partials.aduan-terbaru')
-
-    {{-- 5 berita terbaru --}}
-    @include('partials.berita-terbaru')
-
-    {{-- Agenda kegiatan desa --}}
-    @include('partials.agenda-desa')
-
-    {{-- Peta lokasi balai desa --}}
-    @include('partials.peta-desa')
-@endsection
 
 {{-- JS khusus dashboard warga dimuat sebelum </body> layout --}}
 @push('scripts')
