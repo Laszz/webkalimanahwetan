@@ -8,16 +8,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSurveyRequest;
 use App\Http\Requests\Admin\UpdateSurveyRequest;
 use App\Models\Survey;
-use App\Models\SurveyJawaban;
+use App\Models\SurveyPertanyaan;
+use App\Models\User;
+use App\Notifications\SurveyBaru;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SurveyController extends Controller
 {
-    // Semua survei + jumlah pertanyaan, terbaru dulu 15 per halaman
+    // Semua survei + pertanyaan pertama + total pengisi, terbaru dulu 15 per halaman
     public function index(): View
     {
-        $surveys = Survey::withCount('pertanyaans')->latest()->paginate(15);
+        $surveys = Survey::query()
+            // Teks pertanyaan pertama untuk kolom tabel
+            ->addSelect(['pertanyaan_pertama' => SurveyPertanyaan::select('pertanyaan')
+                ->whereColumn('survey_id', 'surveys.id')
+                ->orderBy('urutan')
+                ->orderBy('id')
+                ->limit(1),
+            ])
+            // Total warga unik yang sudah mengisi
+            ->withCount(['jawabans as pengisi' => fn ($query) => $query->select(DB::raw('COUNT(DISTINCT user_id)'))])
+            ->latest()
+            ->paginate(15);
 
         return view('admin.survey.index', compact('surveys'));
     }
@@ -28,42 +44,90 @@ class SurveyController extends Controller
         return view('admin.survey.create');
     }
 
-    // Simpan survei baru
+    // Simpan survei + pertanyaan pertamanya dalam satu transaksi
     public function store(StoreSurveyRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        // Checkbox tidak terkirim saat tidak dicentang = nonaktif
-        $data['aktif'] = $request->boolean('aktif');
 
-        $survey = Survey::create($data);
+        $survey = DB::transaction(function () use ($data, $request) {
+            // Judul dibuat otomatis dari awal pertanyaan
+            $survey = Survey::create([
+                'judul' => Str::limit($data['pertanyaan'], 60),
+                'mulai' => $data['mulai'] ?? null,
+                'selesai' => $data['selesai'] ?? null,
+                // Checkbox tidak terkirim saat tidak dicentang = nonaktif
+                'aktif' => $request->boolean('aktif'),
+            ]);
+
+            // Pertanyaan pertama selalu wajib diisi warga
+            $survey->pertanyaans()->create([
+                'pertanyaan' => $data['pertanyaan'],
+                'tipe' => $data['tipe'],
+                'wajib' => true,
+                'urutan' => 0,
+            ]);
+
+            return $survey;
+        });
+
+        // Beri tahu semua warga agar bisa membuka lagi bila sebelumnya lunas
+        $wargas = User::where('role', 'warga')->get();
+        Notification::send($wargas, new SurveyBaru($survey));
 
         return redirect()
             ->route('admin.survey.show', $survey)
-            ->with('success', 'Survei tersimpan, lanjut tambah pertanyaan.');
+            ->with('success', 'Survei tersimpan.');
     }
 
-    // Detail survei + pertanyaan + rekap hasil jawaban
+    // Detail survei + pertanyaan + siapa saja yang menjawab tiap pertanyaan
     public function show(Survey $survey): View
     {
-        $survey->load('pertanyaans');
-        $hasil = $this->rekapHasil($survey->id);
+        $survey->load(['pertanyaans.jawabans.user:id,name']);
 
-        return view('admin.survey.show', compact('survey', 'hasil'));
+        // Ringkasan: responden unik + rata-rata jawaban angka
+        $semua = $survey->pertanyaans->flatMap->jawabans;
+        $angka = $semua->filter(fn ($j) => is_numeric($j->jawaban))->map(fn ($j) => (float) $j->jawaban);
+        $ringkasan = [
+            'responden' => $semua->unique('user_id')->count(),
+            'rata_rata' => $angka->isNotEmpty() ? round($angka->avg(), 1) : null,
+        ];
+
+        return view('admin.survey.show', compact('survey', 'ringkasan'));
     }
 
-    // Form ubah survei
+    // Form ubah survei + pertanyaan pertamanya
     public function edit(Survey $survey): View
     {
-        return view('admin.survey.edit', compact('survey'));
+        $survey->load('pertanyaans');
+        // Pertanyaan pertama untuk diedit inline (tambah lagi lewat daftar bawah)
+        $pertama = $survey->pertanyaans->sortBy([['urutan', 'asc'], ['id', 'asc']])->first();
+
+        return view('admin.survey.edit', compact('survey', 'pertama'));
     }
 
-    // Simpan perubahan survei
+    // Simpan perubahan survei + pertanyaan pertamanya
     public function update(UpdateSurveyRequest $request, Survey $survey): RedirectResponse
     {
         $data = $request->validated();
-        $data['aktif'] = $request->boolean('aktif');
 
-        $survey->update($data);
+        DB::transaction(function () use ($data, $request, $survey) {
+            $survey->update([
+                'judul' => Str::limit($data['pertanyaan'], 60),
+                'mulai' => $data['mulai'] ?? null,
+                'selesai' => $data['selesai'] ?? null,
+                'aktif' => $request->boolean('aktif'),
+            ]);
+
+            // Timpa pertanyaan pertama; buat baru jika belum ada
+            $pertama = $survey->pertanyaans()->orderBy('urutan')->orderBy('id')->first();
+            $tanyaData = ['pertanyaan' => $data['pertanyaan'], 'tipe' => $data['tipe']];
+
+            if ($pertama) {
+                $pertama->update($tanyaData);
+            } else {
+                $survey->pertanyaans()->create($tanyaData + ['wajib' => true, 'urutan' => 0]);
+            }
+        });
 
         return redirect()
             ->route('admin.survey.show', $survey)
@@ -78,28 +142,5 @@ class SurveyController extends Controller
         return redirect()
             ->route('admin.survey.index')
             ->with('success', 'Survei dihapus.');
-    }
-
-    // Rekap per pertanyaan: rata-rata untuk skala, daftar untuk teks
-    private function rekapHasil(int $surveyId): array
-    {
-        $rekap = [];
-
-        // Ambil semua jawaban survei ini sekaligus lalu kelompokkan per pertanyaan
-        $semua = SurveyJawaban::where('survey_id', $surveyId)->get()->groupBy('pertanyaan_id');
-
-        foreach ($semua as $pertanyaanId => $jawabans) {
-            $nilai = $jawabans->pluck('jawaban');
-            $rekap[$pertanyaanId] = [
-                // Jumlah responden unik
-                'responden' => $jawabans->unique('user_id')->count(),
-                // Rata-rata jika semua jawaban berupa angka
-                'rata_rata' => $nilai->every(fn ($v) => is_numeric($v)) ? round($nilai->avg(), 1) : null,
-                // 5 jawaban teks terbaru sebagai contoh
-                'contoh' => $nilai->reject(fn ($v) => is_numeric($v))->take(5)->values(),
-            ];
-        }
-
-        return $rekap;
     }
 }

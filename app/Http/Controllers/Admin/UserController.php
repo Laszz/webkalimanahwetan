@@ -38,4 +38,21 @@ class UserController extends Controller
             ->route('admin.pengguna.index')
             ->with('success', 'Status akun diperbarui.');
     }
+
+    // Hapus akun warga beserta seluruh datanya (biodata, aduan, dsb ikut via cascade)
+    public function destroy(User $user): RedirectResponse
+    {
+        // Cegah admin menghapus akunnya sendiri agar tidak terkunci di luar
+        if ($user->id === auth()->id()) {
+            return redirect()
+                ->route('admin.pengguna.index')
+                ->with('gagal', 'Akun sendiri tidak boleh dihapus.');
+        }
+
+        $user->delete();
+
+        return redirect()
+            ->route('admin.pengguna.index')
+            ->with('success', 'Akun dihapus.');
+    }
 }

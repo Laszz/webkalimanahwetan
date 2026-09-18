@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePertanyaanRequest;
 use App\Http\Requests\Admin\UpdatePertanyaanRequest;
 use App\Models\Survey;
+use App\Models\SurveyJawaban;
 use App\Models\SurveyPertanyaan;
 use Illuminate\Http\RedirectResponse;
 
@@ -17,8 +18,8 @@ class PertanyaanController extends Controller
     public function store(StorePertanyaanRequest $request, Survey $survey): RedirectResponse
     {
         $data = $request->validated();
-        // Checkbox tidak terkirim saat tidak dicentang = boleh kosong
-        $data['wajib'] = $request->boolean('wajib');
+        // Semua pertanyaan wajib diisi warga
+        $data['wajib'] = true;
 
         $survey->pertanyaans()->create($data);
 
@@ -31,7 +32,8 @@ class PertanyaanController extends Controller
     public function update(UpdatePertanyaanRequest $request, SurveyPertanyaan $pertanyaan): RedirectResponse
     {
         $data = $request->validated();
-        $data['wajib'] = $request->boolean('wajib');
+        // Semua pertanyaan wajib diisi warga
+        $data['wajib'] = true;
 
         $pertanyaan->update($data);
 
@@ -49,5 +51,16 @@ class PertanyaanController extends Controller
         return redirect()
             ->route('admin.survey.show', $surveyId)
             ->with('success', 'Pertanyaan dihapus.');
+    }
+
+    // Hapus satu jawaban warga saja, pertanyaan tetap ada
+    public function destroyJawaban(SurveyJawaban $jawaban): RedirectResponse
+    {
+        $surveyId = $jawaban->survey_id;
+        $jawaban->delete();
+
+        return redirect()
+            ->route('admin.survey.show', $surveyId)
+            ->with('success', 'Jawaban dihapus.');
     }
 }

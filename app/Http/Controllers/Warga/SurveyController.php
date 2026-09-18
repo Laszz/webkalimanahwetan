@@ -15,12 +15,43 @@ use Illuminate\View\View;
 
 class SurveyController extends Controller
 {
-    // Survei yang dibuka, terbaru dulu 12 per halaman
-    public function index(): View
+    // Survei yang dibuka + penanda sudah diisi bulan ini, terbaru dulu 12 per halaman
+    // Lunas semua = alihkan ke dashboard (bisa View atau Redirect)
+    public function index(): View|RedirectResponse
     {
-        $surveys = Survey::aktif()->withCount('pertanyaans')->latest()->paginate(12);
+        $userId = auth()->id();
+        $tahun = now()->year;
+        $bulan = now()->month;
 
-        return view('warga.survey.index', compact('surveys'));
+        $surveys = Survey::aktif()
+            // Tandai survei yang sudah diisi user bulan berjalan
+            ->addSelect(['sudah_isi' => SurveyJawaban::selectRaw('1')
+                ->whereColumn('survey_id', 'surveys.id')
+                ->where('user_id', $userId)
+                ->where('tahun', $tahun)
+                ->where('bulan', $bulan)
+                ->limit(1),
+            ])
+            ->latest()
+            ->paginate(12);
+
+        // Lunas bila semua survei aktif sudah diisi bulan ini
+        $total = Survey::aktif()->count();
+        $terisi = SurveyJawaban::where('user_id', $userId)
+            ->where('tahun', $tahun)
+            ->where('bulan', $bulan)
+            ->distinct('survey_id')
+            ->count('survey_id');
+        $semuaTerisi = $total > 0 && $terisi >= $total;
+
+        // Sudah lunas: kunci halaman, lempar ke dashboard dengan popup
+        if ($semuaTerisi) {
+            return redirect()
+                ->route('warga.dashboard')
+                ->with('info', 'Terima kasih, jawaban Anda sudah berhasil dikirim. Anda dapat mengisi survey kembali pada bulan berikutnya.');
+        }
+
+        return view('warga.survey.index', compact('surveys', 'semuaTerisi'));
     }
 
     // Form isi survei; sudah isi bulan ini = kembali ke daftar
@@ -82,7 +113,7 @@ class SurveyController extends Controller
 
         return redirect()
             ->route('warga.survey.index')
-            ->with('success', 'Terima kasih, jawaban tersimpan.');
+            ->with('success', 'Terima kasih, jawaban Anda sudah berhasil dikirim. Anda dapat mengisi survey kembali pada bulan berikutnya.');
     }
 
     // Cek apakah user sudah mengisi survei ini di bulan berjalan

@@ -14,8 +14,10 @@ class Warga extends Model
     use HasFactory, SoftDeletes;
 
     // Kolom yang boleh diisi massal (user_id dikecualikan: relasi akun dikontrol via logic aplikasi)
+    // nik_hash ikut fillable karena selalu ditimpa hasil hash controller, bukan input user
     protected $fillable = [
         'nik',
+        'nik_hash',
         'no_kk',
         'nama',
         'tempat_lahir',
@@ -24,10 +26,11 @@ class Warga extends Model
         'alamat',
         'rt',
         'rw',
-        'dusun',
         'agama',
         'status_kawin',
         'pekerjaan',
+        'telepon',
+        'foto',
     ];
 
     // Konversi tipe otomatis; nik dan no_kk terenkripsi di database tapi terbaca asli di aplikasi

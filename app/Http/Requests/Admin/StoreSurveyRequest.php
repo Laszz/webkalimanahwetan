@@ -14,12 +14,13 @@ class StoreSurveyRequest extends FormRequest
         return auth()->check() && auth()->user()->isAdmin();
     }
 
-    // Aturan validasi kolom survei
+    // Aturan validasi: pertanyaan + tipe dulu, judul dibuat otomatis
     public function rules(): array
     {
         return [
-            'judul' => ['required', 'string', 'max:255'],
-            'deskripsi' => ['nullable', 'string'],
+            // Pertanyaan pertama langsung di form survei
+            'pertanyaan' => ['required', 'string'],
+            'tipe' => ['required', 'in:skala,text'],
             'mulai' => ['nullable', 'date'],
             // Selesai boleh kosong dan tidak boleh mendahului mulai
             'selesai' => ['nullable', 'date', 'after_or_equal:mulai'],

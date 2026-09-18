@@ -44,8 +44,11 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        // Tidak langsung masuk: akun baru berstatus menunggu, admin verifikasi dulu.
+        // Pesan tampil di halaman login via session status
+        return redirect(route('login', absolute: false))->with(
+            'status',
+            'Pendaftaran terkirim. Akun anda sedang menunggu persetujuan admin.'
+        );
     }
 }
