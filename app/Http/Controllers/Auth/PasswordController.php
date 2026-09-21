@@ -17,7 +17,13 @@ class PasswordController extends Controller
     {
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
+            // Berbeda dari password lama agar penggantian bermakna
+            'password' => ['required', Password::defaults(), 'confirmed', 'different:current_password'],
+        ], [
+            // Pesan Indonesia; teks 'different' + 'min' dibandingkan di blade untuk popup (jaga tetap sama)
+            'password.different' => 'Password baru harus berbeda dari password lama.',
+            'password.confirmed' => 'Konfirmasi password baru tidak cocok.',
+            'password.min' => 'Password baru minimal 8 karakter.',
         ]);
 
         $request->user()->update([

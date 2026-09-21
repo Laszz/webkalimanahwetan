@@ -7,10 +7,14 @@ namespace App\Http\Controllers\Warga;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Warga\StorePengajuanRequest;
 use App\Models\Layanan;
+use App\Models\PengajuanLayanan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PengajuanController extends Controller
 {
@@ -22,18 +26,19 @@ class PengajuanController extends Controller
         return view('warga.pengajuan.index', compact('pengajuans'));
     }
 
-    // Form ajukan: pilih layanan (?layanan=id) lalu isi tiap syaratnya
-    public function create(Request $request): View
+    // Form ajukan: wajib datang dari tombol Ajukan satu layanan (?layanan=id)
+    public function create(Request $request): View|RedirectResponse
     {
-        $layanans = Layanan::aktif()->orderBy('nama')->get(['id', 'nama']);
-        $layanan = null;
+        $layanan = $request->query('layanan')
+            ? Layanan::aktif()->with('syaratLayanan')->findOrFail($request->query('layanan'))
+            : null;
 
-        // Muat syarat layanan yang dipilih agar form bisa dirender
-        if ($request->query('layanan')) {
-            $layanan = Layanan::aktif()->with('syaratLayanan')->findOrFail($request->query('layanan'));
+        // Belum pilih layanan = kembali ke daftar
+        if (! $layanan) {
+            return redirect()->route('warga.layanan.index');
         }
 
-        return view('warga.pengajuan.create', compact('layanans', 'layanan'));
+        return view('warga.pengajuan.create', compact('layanan'));
     }
 
     // Simpan pengajuan + semua syarat dalam satu transaksi database
@@ -71,5 +76,26 @@ class PengajuanController extends Controller
         return redirect()
             ->route('warga.pengajuan.index')
             ->with('success', 'Pengajuan terkirim dan menunggu diproses.');
+    }
+
+    // Unduh dokumen hasil pengajuan yang sudah selesai (milik sendiri saja)
+    public function unduh(PengajuanLayanan $pengajuan): BinaryFileResponse|RedirectResponse
+    {
+        // Bukan milik sendiri, belum selesai, atau belum ada file = kembali
+        if ($pengajuan->user_id !== auth()->id() || $pengajuan->status !== 'selesai' || ! $pengajuan->file_hasil) {
+            return redirect()->route('warga.pengajuan.index');
+        }
+
+        $jalur = Storage::disk('local')->path($pengajuan->file_hasil);
+
+        // File hilang di storage = kembali tanpa error
+        if (! is_file($jalur)) {
+            return redirect()->route('warga.pengajuan.index');
+        }
+
+        // Nama file = nama layanan, mis. surat-pembuatan-skck.pdf
+        $namaFile = Str::slug($pengajuan->loadMissing('layanan:id,nama')->layanan->nama ?? 'hasil-layanan') . '.pdf';
+
+        return response()->download($jalur, $namaFile);
     }
 }

@@ -14,18 +14,13 @@ class StoreLayananRequest extends FormRequest
         return auth()->check() && auth()->user()->isAdmin();
     }
 
-    // Aturan validasi kolom layanan + daftar syarat bawaannya
+    // Aturan validasi kolom layanan (syarat diatur di halaman syarat)
     public function rules(): array
     {
         return [
             'nama' => ['required', 'string', 'max:255'],
             'deskripsi' => ['nullable', 'string'],
             'estimasi_hari' => ['nullable', 'integer', 'min:1'],
-            // Syarat awal boleh kosong; tiap item: nama, tipe file/text, wajib opsional
-            'syarat' => ['nullable', 'array'],
-            'syarat.*.nama' => ['required_with:syarat', 'string', 'max:255'],
-            'syarat.*.tipe' => ['required_with:syarat', 'in:file,text'],
-            'syarat.*.wajib' => ['nullable', 'boolean'],
         ];
     }
 }

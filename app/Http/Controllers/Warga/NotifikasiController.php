@@ -29,4 +29,36 @@ class NotifikasiController extends Controller
             ->route('warga.notifikasi.index')
             ->with('success', 'Notifikasi ditandai dibaca.');
     }
+
+    // Buka notifikasi: tandai dibaca lalu teruskan ke tautan tujuannya
+    public function show(string $id): RedirectResponse
+    {
+        // Hanya milik sendiri yang bisa dibuka
+        $notifikasi = auth()->user()->notifications()->findOrFail($id);
+        $notifikasi->markAsRead();
+
+        return redirect()->to($notifikasi->data['url'] ?? route('warga.notifikasi.index'));
+    }
+
+    // Hapus satu notifikasi milik sendiri
+    public function destroy(string $id): RedirectResponse
+    {
+        // Hanya milik sendiri yang bisa dihapus
+        $notifikasi = auth()->user()->notifications()->findOrFail($id);
+        $notifikasi->delete();
+
+        return redirect()
+            ->route('warga.notifikasi.index')
+            ->with('success', 'Notifikasi dihapus.');
+    }
+
+    // Hapus semua notifikasi milik sendiri, tetap di halaman ini
+    public function destroyAll(): RedirectResponse
+    {
+        auth()->user()->notifications()->delete();
+
+        return back()->with('success', 'Semua notifikasi dihapus.');
+    }
+
+
 }

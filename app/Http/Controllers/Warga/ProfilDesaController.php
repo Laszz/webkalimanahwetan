@@ -10,11 +10,11 @@ use Illuminate\View\View;
 
 class ProfilDesaController extends Controller
 {
-    // Satu profil resmi desa; belum diisi admin = halaman tidak ada
-    public function show(): View
+    // Satu profil resmi desa; kosong = tampil pesan, bukan 404
+    public function index(): View
     {
-        $profil = ProfilDesa::firstOrFail();
+        $profil = ProfilDesa::first();
 
-        return view('warga.profil-desa.show', compact('profil'));
+        return view('warga.profil-desa.index', compact('profil'));
     }
 }

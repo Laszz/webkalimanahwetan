@@ -19,7 +19,17 @@ class PenerimaBantuanController extends Controller
         return view('warga.penerimabantuan.index', compact('bantuans'));
     }
 
-    // Detail jenis + rekap penerima per RT/RW per periode
+    // Detail satu bantuan yang diterima sendiri + data penerima
+    public function detail(PenerimaBantuan $penerima): View
+    {
+        // Hanya milik sendiri yang boleh dibuka
+        abort_unless($penerima->warga_id === auth()->user()->warga?->id, 403);
+        $penerima->load(['jenisBantuan:id,nama,deskripsi', 'warga:id,nama,rt,rw']);
+
+        return view('warga.penerimabantuan.detail', compact('penerima'));
+    }
+
+    // Rekap penerima per RT/RW per periode untuk satu jenis bantuan
     public function show(JenisBantuan $bantuan): View
     {
         // Kelompokkan penerima per RT/RW + periode: hitung orang dan total nominal

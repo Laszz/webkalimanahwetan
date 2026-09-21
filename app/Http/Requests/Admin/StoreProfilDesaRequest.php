@@ -23,6 +23,7 @@ class StoreProfilDesaRequest extends FormRequest
             'misi' => ['required', 'string'],
             'sejarah' => ['nullable', 'string'],
             'alamat' => ['nullable', 'string'],
+            'kode_pos' => ['nullable', 'string', 'max:10'],
             'telepon' => ['nullable', 'string', 'max:20'],
             'email' => ['nullable', 'email', 'max:255'],
             // Logo opsional, maksimal 2MB

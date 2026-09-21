@@ -37,10 +37,10 @@ class PerangkatDesaController extends Controller
             $data['foto'] = $request->file('foto')->store('perangkat', 'public');
         }
 
-        $perangkat = PerangkatDesa::create($data);
+        PerangkatDesa::create($data);
 
         return redirect()
-            ->route('admin.perangkat-desa.show', $perangkat)
+            ->route('admin.perangkat-desa.index')
             ->with('success', 'Perangkat tersimpan.');
     }
 

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Aduan;
+use App\Notifications\AduanStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -40,6 +41,11 @@ class AduanController extends Controller
         ]);
 
         $aduan->update($data);
+
+        // Beri tahu pelapor jika status benar berubah
+        if ($aduan->wasChanged('status') && $aduan->user) {
+            $aduan->user->notify(new AduanStatus($aduan));
+        }
 
         return redirect()
             ->route('admin.aduan.index')

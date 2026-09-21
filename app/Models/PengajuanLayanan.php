@@ -19,10 +19,12 @@ class PengajuanLayanan extends Model
 
     // Kolom yang boleh diisi massal (user_id diisi otomatis via relasi auth)
     protected $fillable = [
-        'layanan_id', 
-        'keperluan', 
-        'status', 
-        'catatan'
+        'layanan_id',
+        'keperluan',
+        'status',
+        'catatan',
+        'nomor_surat',
+        'file_hasil'
     ];
 
     // Warga pemohon

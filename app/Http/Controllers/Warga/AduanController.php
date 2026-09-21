@@ -8,16 +8,43 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Warga\StoreAduanRequest;
 use App\Models\Aduan;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AduanController extends Controller
 {
-    // Riwayat aduan milik sendiri, terbaru dulu 10 per halaman
-    public function index(): View
+    // Daftar aduan + cari judul/isi; hero = terbaru, sisanya 8 per halaman
+    // Tamu lihat semua laporan (transparansi); warga login lihat milik sendiri
+    public function index(Request $request): View
     {
-        $aduans = auth()->user()->aduans()->latest()->paginate(10);
+        // Kata kunci pencarian dari query ?q=
+        $cari = trim((string) $request->query('q', ''));
 
-        return view('warga.aduan.index', compact('aduans'));
+        $query = (auth()->check() ? auth()->user()->aduans() : Aduan::query())
+            ->latest()
+            ->when($cari !== '', fn ($q) => $q->where(function ($w) use ($cari) {
+                $w->where('judul', 'like', "%{$cari}%")
+                    ->orWhere('isi', 'like', "%{$cari}%");
+            }));
+
+        // Tanpa pencarian di halaman 1: aduan paling baru tampil besar di atas
+        $aduanTerbaru = null;
+        if ($cari === '' && (int) $request->query('page', 1) === 1) {
+            $aduanTerbaru = (clone $query)->first();
+            if ($aduanTerbaru) {
+                $query->whereKeyNot($aduanTerbaru->getKey());
+            }
+        }
+
+        $aduans = $query->paginate(8)->withQueryString();
+
+        // Judul menyesuaikan: milik sendiri jika login, transparansi jika tamu
+        $judul = auth()->check() ? 'Aduan Saya' : 'Aduan Warga';
+        $sub = auth()->check()
+            ? 'Laporan yang pernah dikirim beserta statusnya.'
+            : 'Laporan warga yang masuk dan ditindaklanjuti perangkat desa.';
+
+        return view('warga.aduan.index', compact('aduans', 'aduanTerbaru', 'cari', 'judul', 'sub'));
     }
 
     // Form lapor aduan baru
@@ -26,11 +53,9 @@ class AduanController extends Controller
         return view('warga.aduan.create');
     }
 
-    // Detail aduan milik sendiri + tanggapan admin
+    // Detail aduan + tanggapan admin (publik untuk transparansi)
     public function show(Aduan $aduan): View
     {
-        // Hanya pemilik yang boleh membuka
-        abort_unless($aduan->user_id === auth()->id(), 403);
         $aduan->load('tanggapanAduan.user:id,name');
 
         return view('warga.aduan.show', compact('aduan'));

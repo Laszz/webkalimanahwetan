@@ -17,6 +17,6 @@ class ProfilDesa extends Model
     // Kolom yang boleh diisi massal
     protected $fillable = [
         'nama_desa', 'visi', 'misi', 'sejarah',
-        'alamat', 'telepon', 'email', 'logo',
+        'alamat', 'kode_pos', 'telepon', 'email', 'logo',
     ];
 }

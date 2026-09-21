@@ -8,7 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAgendaRequest;
 use App\Http\Requests\Admin\UpdateAgendaRequest;
 use App\Models\Agenda;
+use App\Models\User;
+use App\Notifications\AgendaBaru;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class AgendaController extends Controller
@@ -31,6 +34,10 @@ class AgendaController extends Controller
     public function store(StoreAgendaRequest $request): RedirectResponse
     {
         $agenda = Agenda::create($request->validated());
+
+        // Beri tahu semua warga seperti survei baru
+        $wargas = User::where('role', 'warga')->get();
+        Notification::send($wargas, new AgendaBaru($agenda));
 
         return redirect()
             ->route('admin.agenda.show', $agenda)
