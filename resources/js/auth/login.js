@@ -54,4 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     wrap.appendChild(btn);
   });
+
+  // Bubble validasi browser berbahasa Indonesia (ganti teks Inggris bawaan)
+  const PESAN_WAJIB = { email: 'Silahkan masukkan email', password: 'Silahkan masukkan password' };
+  document.querySelectorAll('.auth-wrap input[required]').forEach((input) => {
+    // Saat browser menolak isi: tampilkan pesan Indonesia sesuai kondisi
+    input.addEventListener('invalid', () => {
+      if (input.validity.valueMissing) {
+        input.setCustomValidity(PESAN_WAJIB[input.name] ?? 'Silahkan isi kolom ini.');
+      } else if (input.validity.typeMismatch) {
+        input.setCustomValidity('Format email tidak valid.');
+      }
+    });
+    // Bersihkan pesan saat user mengetik agar tidak menempel
+    input.addEventListener('input', () => input.setCustomValidity(''));
+  });
 });

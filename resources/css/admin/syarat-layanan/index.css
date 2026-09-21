@@ -1,0 +1,50 @@
+/* CSS halaman SYARAT LAYANAN admin - daftar + form tambah + popup */
+
+/* Judul + sub deskripsi */
+.detail h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.detail-sub { color: #6b7280; margin: 0 0 20px; }
+/* Daftar syarat */
+.syarat-list { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.syarat-list > li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.syarat-list li.kosong { display: block; text-align: center; color: #6b7280; font-size: 14px; }
+.syarat-head { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
+.syarat-meta { font-size: 12px; color: #6b7280; }
+/* Judul form tambah */
+.kartu-judul { font-size: 1rem; margin: 24px 0 12px; color: #0077b6; }
+/* Form tambah */
+.form-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 24px; max-width: 640px; }
+/* Label selalu tampak di atas input */
+.field label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin: 10px 0 4px; }
+/* Kotak input + pilih; biru saat fokus */
+.field input, .field select { width: 100%; background: #f3f4f6; border: 1px solid transparent; border-radius: 8px; padding: 12px 15px; font-size: 14px; font-family: inherit; }
+.field input:focus, .field select:focus { outline: none; border-color: #00b4d8; background: #fff; }
+/* Teks error di bawah input */
+.field-error { color: #dc2626; font-size: 12px; margin: 2px 0 0; }
+/* Form tambah rata tengah */
+.form-card.form-tengah { margin-left: auto; margin-right: auto; }
+/* Baris tombol tambah + kembali sejajar */
+.aksi-baris { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+.btn-simpan { border: 1.5px solid transparent; border-radius: 999px; background: #0077b6; color: #fff; padding: 0 36px; height: 44px; font-weight: 700; font-size: 14px; line-height: 1.4; font-family: inherit; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; }
+.btn-simpan:hover { background: #005b85; }
+.btn-simpan:active { transform: scale(.98); }
+/* Baris tombol kembali di bawah */
+.aksi-bawah { margin-top: 20px; }
+/* Tombol kedua outline (total tinggi disamakan dengan tombol simpan) */
+.btn-sekunder { display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid #0077b6; color: #0077b6; padding: 0 28px; height: 44px; border-radius: 999px; font-weight: 700; font-size: 14px; line-height: 1.4; text-decoration: none; white-space: nowrap; }
+.btn-sekunder:hover { background: #caf0f8; }
+/* Tombol aksi kecil */
+.btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; }
+.btn-hapus { background: #4b5563; }
+.btn-hapus:hover { background: #1f2937; }
+.btn-setuju { background: #0077b6; }
+/* Popup hasil aksi: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+.popup-ok { color: #0077b6; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
+
+/* HP (≤480px): judul mengecil */
+@media (max-width: 480px) {
+  .detail h1 { font-size: 1.3rem; }
+}

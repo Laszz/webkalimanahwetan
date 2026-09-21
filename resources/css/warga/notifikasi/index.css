@@ -1,0 +1,36 @@
+/* CSS halaman NOTIFIKASI warga - daftar pemberitahuan */
+
+/* Judul + sub deskripsi */
+.notif h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.notif-sub { color: #6b7280; margin: 0; }
+/* Kepala: judul kiri + hapus semua kanan */
+.notif-head { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+.notif-head form { margin: 0; flex-shrink: 0; }
+/* Daftar notifikasi */
+.notif-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.notif-list > li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px 20px; display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+/* Baris belum dibaca: aksen kiri biru */
+.notif-list > li.baru { border-left: 4px solid #00b4d8; }
+.notif-list strong { display: block; font-size: .95rem; }
+.notif-list span { font-size: 12px; color: #6b7280; }
+/* Baris aksi sejajar */
+.notif-aksi { display: flex; gap: 8px; align-items: center; }
+.notif-aksi form { margin: 0; }
+/* Tombol aksi kecil */
+.btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; white-space: nowrap; }
+.btn-lihat { background: #0077b6; }
+.btn-lihat:hover { background: #005b85; }
+.btn-baca { background: #4b5563; }
+.btn-baca:hover { background: #1f2937; }
+/* Tombol hapus: ikon tong sampah abu jadi merah saat hover */
+.btn-hapus { background: #4b5563; padding: 8px 12px; }
+.btn-hapus:hover { background: #dc2626; }
+.btn-hapus .ph { font-size: 15px; }
+/* Tombol hapus semua outline merah */
+.btn-hapus-semua { background: none; border: 1.5px solid #dc2626; color: #dc2626; }
+.btn-hapus-semua:hover { background: #fee2e2; }
+
+/* HP (≤480px): judul mengecil */
+@media (max-width: 480px) {
+  .notif h1 { font-size: 1.3rem; }
+}

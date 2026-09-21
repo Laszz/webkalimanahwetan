@@ -1,0 +1,40 @@
+/* CSS halaman PERANGKAT DESA warga - hero kepala desa + kartu staf */
+
+/* Judul + sub deskripsi */
+.perangkat h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.perangkat-sub { color: #6b7280; margin: 0 0 24px; }
+/* Kartu besar kepala desa: foto kiri + nama kanan */
+.kepala-card { display: flex; gap: 22px; align-items: center; background: linear-gradient(135deg, #023e8a, #0077b6); border-radius: 14px; padding: 24px; margin-bottom: 28px; color: #fff; transition: transform .2s ease, box-shadow .2s ease; }
+.kepala-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 119, 182, .25); }
+.kepala-card img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid #fff; }
+.kepala-label { margin: 0 0 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #caf0f8; }
+.kepala-card h2 { margin: 0 0 6px; font-size: 1.4rem; }
+.kepala-card p { margin: 0; font-size: 14px; }
+.kepala-card p a { color: #fff; }
+/* Inisial pengganti foto */
+.perangkat-inisial { width: 110px; height: 110px; border-radius: 50%; background: #0077b6; color: #fff; font-size: 2.4rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; flex-shrink: 0; }
+.kepala-card .perangkat-inisial { margin: 0; width: 130px; height: 130px; font-size: 2.8rem; background: rgba(255, 255, 255, .2); }
+/* Judul seksi staf */
+.perangkat-label { font-size: 1.05rem; margin: 0 0 12px; color: #023e8a; }
+/* Kisi kartu staf */
+.perangkat-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+/* Tiap kartu staf rata tengah */
+.perangkat-grid li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 24px 20px; text-align: center; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.perangkat-grid li:hover { transform: translateY(-3px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); }
+/* Foto lingkaran */
+.perangkat-grid img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 12px; }
+.perangkat-grid h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.perangkat-grid p { margin: 0; font-size: 14px; color: #4b5563; }
+.perangkat-grid p a { color: #0077b6; }
+
+/* Tablet (≤900px): staf 2 kolom */
+@media (max-width: 900px) {
+  .perangkat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* HP (≤480px): judul mengecil, hero + staf menumpuk */
+@media (max-width: 480px) {
+  .perangkat h1 { font-size: 1.3rem; }
+  .kepala-card { flex-direction: column; text-align: center; }
+  .perangkat-grid { grid-template-columns: 1fr; }
+}

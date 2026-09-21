@@ -31,22 +31,15 @@
         <aside class="admin-sidebar" aria-label="Navigasi admin">
             @include('partials.sidebar')
         </aside>
+        {{-- Latar gelap penutup laci khusus HP: klik area ini untuk menutup sidebar --}}
+        <div class="sidebar-backdrop" aria-hidden="true"></div>
 
-        {{-- Kolom kanan: bar atas + konten --}}
+        {{-- Kolom kanan: tombol HP + konten (tanpa bar atas) --}}
         <div class="admin-main">
-            {{-- Bar atas: tombol menu HP + judul halaman + nama pengguna --}}
-            <header class="admin-topbar">
-                {{-- Tombol buka/tutup sidebar khusus HP --}}
-                <button type="button" class="sidebar-toggle" aria-label="Buka tutup menu" aria-expanded="false">
-                    <i class="ph ph-list" aria-hidden="true"></i>
-                </button>
-                {{-- Judul halaman aktif (diisi tiap halaman via @section('title')) --}}
-                <span class="topbar-title">@yield('title', 'Dashboard')</span>
-                {{-- Nama admin yg sedang masuk --}}
-                @auth
-                    <span class="topbar-user">{{ Auth::user()->name }}</span>
-                @endauth
-            </header>
+            {{-- Tombol melayang buka/tutup sidebar khusus HP --}}
+            <button type="button" class="sidebar-toggle sidebar-fab" aria-label="Buka tutup menu" aria-expanded="false">
+                <i class="ph ph-list" aria-hidden="true"></i>
+            </button>
 
             {{-- Konten utama tiap halaman masuk lewat @section('content') --}}
             <main id="konten" class="admin-content">

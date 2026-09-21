@@ -1,0 +1,37 @@
+/* CSS halaman SURVEI warga - kartu daftar survei */
+
+/* Judul + sub deskripsi */
+.survei h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.survei-sub { color: #6b7280; margin: 0 0 24px; }
+/* Spanduk lunas semua survei */
+.info-banner { background: #caf0f8; color: #023e8a; border-radius: 14px; padding: 16px 20px; font-size: 14px; font-weight: 600; margin: 0 0 24px; }
+/* Kisi kartu survei */
+.survei-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+/* Tiap kartu survei */
+.survei-grid li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px; }
+.survei-grid h2 { margin: 0 0 12px; font-size: 1.05rem; color: #0077b6; }
+.survei-grid p { margin: 0 0 16px; font-size: 14px; color: #4b5563; }
+/* Tombol isi survei */
+.btn-isi { display: inline-block; border: none; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; cursor: pointer; font-family: inherit; }
+.btn-isi:hover { background: #005b85; }
+.btn-isi:active { transform: scale(.98); }
+/* Popup sudah mengisi: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+/* Sembunyi saat atribut hidden ada */
+.popup[hidden] { display: none; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+.popup-info { color: #0077b6; }
+.popup-ok { color: #0077b6; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
+
+/* Tablet (≤900px): 2 kolom */
+@media (max-width: 900px) {
+  .survei-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* HP (≤480px): judul mengecil, kartu 1 kolom */
+@media (max-width: 480px) {
+  .survei h1 { font-size: 1.3rem; }
+  .survei-grid { grid-template-columns: 1fr; }
+}

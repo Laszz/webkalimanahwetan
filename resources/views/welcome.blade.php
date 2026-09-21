@@ -19,17 +19,10 @@
                 <p class="hero-kicker">Website Resmi Pemerintah Desa</p>
                 <h1 id="hero-judul">Selamat Datang di Desa Kalimanah</h1>
                 <p class="hero-deskripsi">Urus surat keterangan, pantau pengumuman, dan kenal layanan desa. Semua dari satu tempat, tanpa antre.</p>
-                <div class="hero-aksi">
-                    {{-- Satu-satunya CTA daftar di halaman ini (label tunggal sesuai aturan satu label satu maksud) --}}
-                    <a class="btn btn-utama" href="{{ route('register') }}">Daftar</a>
-                    {{-- Aksi kedua: lompat ke berita di bawah --}}
-                    <a class="btn btn-kedua" href="#berita">Lihat Berita</a>
-                </div>
             </div>
-            {{-- Foto asli balai desa; caption fungsional satu baris --}}
+            {{-- Foto asli balai desa tanpa caption --}}
             <figure class="hero-foto">
                 <img src="https://picsum.photos/seed/kalimanah-balai-desa/880/660" width="880" height="660" alt="Suasana balai Desa Kalimanah" fetchpriority="high">
-                <figcaption>Balai Desa Kalimanah.</figcaption>
             </figure>
         </div>
     </section>
@@ -39,20 +32,20 @@
         <div class="page-container">
             <h2 id="aduan-judul" class="judul-seksi">Aduan Terbaru Warga</h2>
             <p class="sub-seksi">Laporan yang masuk dan sedang ditindaklanjuti perangkat desa.</p>
-            <ul class="kartu-grid">
+            <ul class="kartu-grid kartu-grid-5">
                 @forelse (($aduans ?? []) as $aduan)
                     {{-- Tiap kartu: foto + judul + ringkasan isi + tanggal dan status --}}
                     <li>
                         <img src="{{ $aduan->gambar ? asset('storage/' . $aduan->gambar) : 'https://picsum.photos/seed/kalimanah-aduan-' . $aduan->id . '/640/360' }}" width="640" height="360" loading="lazy" alt="{{ $aduan->judul }}">
                         <div class="kartu-badan">
-                            <h3>{{ $aduan->judul }}</h3>
+                            <h3><a href="{{ route('warga.aduan.show', $aduan) }}">{{ $aduan->judul }}</a></h3>
                             <p>{{ \Illuminate\Support\Str::limit($aduan->isi, 100) }}</p>
                             <p class="kartu-meta"><span>{{ $aduan->created_at->format('d M Y') }}</span><span class="status status-{{ $aduan->status }}">{{ ucfirst($aduan->status) }}</span></p>
                         </div>
                     </li>
                 @empty
                     {{-- Belum ada aduan masuk --}}
-                    <li><div><strong>Belum ada aduan</strong><span>Jadilah pelapor pertama</span></div></li>
+                    <li class="kosong"><div><strong>Belum ada aduan.</strong><span>Jadilah pelapor pertama.</span></div></li>
                 @endforelse
             </ul>
         </div>
@@ -62,7 +55,7 @@
     <section class="berita" id="berita" aria-labelledby="berita-judul">
         <div class="page-container">
             <h2 id="berita-judul" class="judul-seksi">Berita dan Pengumuman</h2>
-            <ul class="kartu-grid">
+            <ul class="kartu-grid kartu-grid-5">
                 @forelse (($beritas ?? []) as $berita)
                     {{-- Tiap kartu: foto + judul + ringkasan + tanggal --}}
                     <li>
@@ -75,7 +68,7 @@
                     </li>
                 @empty
                     {{-- Belum ada berita terbit --}}
-                    <li><div><p><strong>Belum ada berita.</strong></p></div></li>
+                    <li class="kosong"><div><p><strong>Belum ada berita.</strong></p></div></li>
                 @endforelse
             </ul>
         </div>
@@ -88,14 +81,22 @@
             <p class="sub-seksi">Jadwal terdekat yang bisa diikuti warga.</p>
             <ul class="agenda-list">
                 @forelse (($agendas ?? []) as $agenda)
-                    {{-- Tiap baris: kotak tanggal + nama kegiatan + tempat dan waktu --}}
+                    {{-- Tiap kartu: kotak tanggal + judul + hitung mundur + tempat dan waktu --}}
+                    @php
+                        $sisaHari = now()->startOfDay()->diffInDays($agenda->mulai->copy()->startOfDay(), false);
+                        $labelHari = $sisaHari <= 0 ? 'Hari ini' : ($sisaHari === 1 ? 'Besok' : $sisaHari . ' hari lagi');
+                    @endphp
                     <li>
-                        <p class="agenda-tanggal"><strong>{{ $agenda->mulai->format('d') }}</strong><span>{{ $agenda->mulai->format('M') }}</span></p>
-                        <div><h3>{{ $agenda->judul }}</h3><p>{{ $agenda->tempat }}, pukul {{ $agenda->mulai->format('H.i') }}</p></div>
+                        <p class="agenda-tanggal"><strong>{{ $agenda->mulai->format('d') }}</strong><span>{{ $agenda->mulai->format('M Y') }}</span></p>
+                        <div>
+                            <h3>{{ $agenda->judul }} <span class="agenda-sisa">{{ $labelHari }}</span></h3>
+                            <p class="agenda-meta"><i class="ph ph-map-pin" aria-hidden="true"></i>{{ $agenda->tempat }}</p>
+                            <p class="agenda-meta"><i class="ph ph-clock" aria-hidden="true"></i>{{ $agenda->mulai->format('d M Y, H.i') }}{{ $agenda->selesai ? ' - ' . $agenda->selesai->format('H.i') : '' }}</p>
+                        </div>
                     </li>
                 @empty
                     {{-- Belum ada agenda terjadwal --}}
-                    <li><div><p><strong>Belum ada agenda terdekat.</strong></p></div></li>
+                    <li class="kosong"><div><p><strong>Belum ada agenda terdekat.</strong></p></div></li>
                 @endforelse
             </ul>
         </div>

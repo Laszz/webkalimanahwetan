@@ -1,0 +1,39 @@
+/* CSS halaman PENGAJUAN warga - kartu riwayat + status */
+
+/* Judul + sub deskripsi */
+.pengajuan h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.pengajuan-sub { color: #6b7280; margin: 0 0 20px; }
+/* Tombol ajukan pil biru */
+.btn-tambah { display: inline-block; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; margin-bottom: 20px; }
+.btn-tambah:hover { background: #005b85; }
+/* Kisi kartu pengajuan */
+.pengajuan-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+/* Tiap kartu pengajuan */
+.pengajuan-grid li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px; }
+/* Nama layanan + status sejajar */
+.pengajuan-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
+.pengajuan-head h2 { margin: 0; font-size: 1.05rem; }
+/* Penanda status pengajuan */
+.status { flex-shrink: 0; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+.status-menunggu { background: #fef3c7; color: #92400e; }
+.status-diproses { background: #caf0f8; color: #023e8a; }
+.status-selesai { background: #e5e7eb; color: #374151; }
+.status-ditolak { background: #fee2e2; color: #991b1b; }
+/* Tanggal + catatan admin */
+.pengajuan-tanggal { font-size: 12px; color: #6b7280; margin: 8px 0 0; }
+.pengajuan-catatan { font-size: 13px; color: #4b5563; margin: 8px 0 0; padding-top: 8px; border-top: 1px solid #f3f4f6; }
+/* Tombol unduh hasil pil hijau */
+.btn-unduh { display: block; text-align: center; margin-top: 12px; background: #166534; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.btn-unduh:hover { background: #14532d; }
+.btn-unduh:active { transform: scale(.98); }
+
+/* Tablet (≤900px): 2 kolom */
+@media (max-width: 900px) {
+  .pengajuan-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* HP (≤480px): judul mengecil, kartu 1 kolom */
+@media (max-width: 480px) {
+  .pengajuan h1 { font-size: 1.3rem; }
+  .pengajuan-grid { grid-template-columns: 1fr; }
+}

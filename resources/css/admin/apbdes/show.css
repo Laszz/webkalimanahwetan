@@ -1,0 +1,35 @@
+/* CSS halaman DETAIL APBDES admin - angka + serapan + tombol */
+
+/* Judul + baris meta */
+.detail h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.detail-meta { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: 13px; color: #6b7280; flex-wrap: wrap; }
+/* Tiga kotak angka sejajar */
+.angka-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 16px; }
+.angka-grid > div { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px; }
+.angka-grid dt { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
+.angka-grid dd { margin: 0; font-size: 15px; font-weight: 700; color: #023e8a; font-variant-numeric: tabular-nums; }
+/* Batang serapan */
+.serapan { height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+.serapan-isi { height: 100%; background: #00b4d8; border-radius: 999px; }
+/* Baris tombol aksi */
+.aksi-baris { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+/* Tombol ubah kuning + kedua outline */
+.btn-ubah { display: inline-block; background: #f59e0b; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.btn-ubah:hover { background: #b45309; }
+.btn-sekunder { display: inline-block; border: 1.5px solid #0077b6; color: #0077b6; padding: 9px 26px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.btn-sekunder:hover { background: #caf0f8; }
+/* Tombol kecil untuk popup */
+.btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; }
+.btn-setuju { background: #0077b6; }
+/* Popup hasil aksi: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+.popup-ok { color: #0077b6; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
+
+/* HP (≤480px): judul mengecil, angka menumpuk */
+@media (max-width: 480px) {
+  .detail h1 { font-size: 1.3rem; }
+  .angka-grid { grid-template-columns: 1fr; }
+}

@@ -1,15 +1,33 @@
-/* CSS dashboard ADMIN - sapaan + kondisi kosong */
+/* CSS dashboard ADMIN - sapaan + kartu angka ringkas */
 
 /* Judul sapaan + sub deskripsi */
 .dash h1 { font-size: 1.6rem; margin: 0 0 6px; color: #0077b6; }
 .dash-sub { color: #6b7280; margin: 0 0 24px; }
-/* Kartu kondisi kosong: tengah, garis putus-putus, tanpa angka palsu */
-.empty-state { border: 1.5px dashed #00b4d8; border-radius: 14px; padding: 36px 24px; text-align: center; background: #fff; }
-.empty-state h2 { margin: 0 0 8px; font-size: 1.1rem; }
-.empty-state p { margin: 0; color: #6b7280; font-size: 14px; }
+/* Kisi kartu angka: 4 kolom di desktop */
+.stat-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+/* Tiap kartu: ikon + angka besar + label + tautan aksi */
+.stat-card { position: relative; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 4px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.stat-card:hover { transform: translateY(-3px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); }
+/* Ikon lingkaran tiap kartu */
+.stat-ikon { margin: 0 0 8px; }
+.stat-ikon .ph { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: #caf0f8; color: #0077b6; font-size: 20px; }
+.stat-card strong { font-size: 2rem; color: #0077b6; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat-card span { font-size: 13px; color: #6b7280; }
+/* Kartu peringatan (butuh tindakan): angka + ikon oranye */
+.stat-warn strong { color: #b45309; }
+.stat-warn .stat-ikon .ph { background: #fef3c7; color: #b45309; }
+/* Tautan aksi direntangkan seukuran kartu */
+.stat-card a { margin-top: 8px; font-size: 13px; font-weight: 600; color: #0077b6; text-decoration: none; }
+.stat-card a::after { content: ""; position: absolute; inset: 0; }
+.stat-card:hover a { color: #005b85; }
 
-/* HP (≤480px): judul mengecil, kartu lebih rapat */
+/* Tablet (≤1024px): 2 kolom */
+@media (max-width: 1024px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* HP (≤480px): judul mengecil, kartu 1 kolom */
 @media (max-width: 480px) {
   .dash h1 { font-size: 1.3rem; }
-  .empty-state { padding: 24px 16px; }
+  .stat-grid { grid-template-columns: 1fr; }
 }

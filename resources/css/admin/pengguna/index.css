@@ -1,0 +1,51 @@
+/* CSS halaman VERIFIKASI AKUN admin - saringan + tabel + tombol aksi */
+
+/* Judul halaman + sub deskripsi */
+.page-head h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.page-sub { color: #6b7280; margin: 0 0 20px; }
+/* Baris saringan status */
+.filter-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.filter-nav a { padding: 8px 18px; border-radius: 999px; border: 1px solid #d1d5db; color: #374151; font-size: 13px; font-weight: 600; text-decoration: none; background: #fff; }
+/* Saringan aktif: pil biru */
+.filter-nav a.aktif { background: #0077b6; border-color: #0077b6; color: #fff; }
+/* Pembungkus tabel: geser horizontal di HP */
+.table-wrap { overflow-x: auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
+/* Tabel data */
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+.data-table th, .data-table td { padding: 12px 16px; text-align: center; vertical-align: middle; border-bottom: 1px solid #f3f4f6; }
+.data-table thead th { background: #f8fafc; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: #f0f9ff; }
+/* Baris kosong */
+.kosong { text-align: center; color: #6b7280; padding: 28px !important; }
+/* Penanda status akun */
+.status { display: inline-block; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+.status-menunggu { background: #fef3c7; color: #92400e; }
+.status-disetujui { background: #caf0f8; color: #023e8a; }
+.status-ditolak { background: #fee2e2; color: #991b1b; }
+/* Form aksi sejajar dalam sel */
+.data-table td form { display: inline; margin-right: 6px; }
+/* Tombol aksi kecil */
+.btn-kecil { border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; }
+.btn-setuju { background: #0077b6; }
+.btn-setuju:hover { background: #005b85; }
+.btn-tolak { background: #dc2626; }
+.btn-tolak:hover { background: #991b1b; }
+/* Tombol hapus abu-abu gelap */
+.btn-hapus { background: #4b5563; }
+.btn-hapus:hover { background: #1f2937; }
+/* Navigasi halaman Laravel */
+nav[role="navigation"] { margin-top: 16px; }
+/* Popup hasil aksi: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+/* Ikon hijau untuk sukses, merah untuk gagal */
+.popup-ok { color: #0077b6; }
+.popup-gagal-ikon { color: #dc2626; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
+
+/* HP (≤480px): judul mengecil */
+@media (max-width: 480px) {
+  .page-head h1 { font-size: 1.3rem; }
+}

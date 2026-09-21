@@ -1,0 +1,43 @@
+/* CSS halaman ISI SURVEI warga - daftar nomor + bintang */
+
+/* Judul + sub deskripsi */
+.survei-isi h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.survei-sub { color: #6b7280; margin: 0 0 24px; }
+/* Daftar soal bernomor */
+.soal-list { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 24px; }
+/* Teks pertanyaan + nomor */
+.soal-teks { font-size: 15px; font-weight: 600; color: #374151; margin: 0 0 10px; }
+.soal-nomor { color: #0077b6; margin-right: 4px; }
+/* Bintang 1-5 dibalik agar terisi dari kiri */
+.bintang { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 4px; }
+/* Radio disembunyikan tapi tetap bisa keyboard */
+.bintang input { position: absolute; opacity: 0; }
+/* Bintang abu-abu default */
+.bintang label { cursor: pointer; color: #d1d5db; }
+.bintang-ikon { font-size: 32px; line-height: 1; display: block; }
+/* Bintang terisi (kuning) sampai nilai terpilih + saat hover */
+.bintang input:checked ~ label .bintang-ikon,
+.bintang label:hover .bintang-ikon,
+.bintang label:hover ~ label .bintang-ikon { color: #f59e0b; }
+/* Fokus keyboard terlihat pada label */
+.bintang input:focus-visible + label { outline: 2px solid #0077b6; outline-offset: 2px; border-radius: 4px; }
+/* Kolom tulisan bebas */
+.soal textarea { width: 100%; max-width: 640px; background: #f3f4f6; border: 1px solid transparent; border-radius: 8px; padding: 12px 15px; font-size: 14px; font-family: inherit; }
+.soal textarea:focus { outline: none; border-color: #00b4d8; background: #fff; }
+/* Baris tombol sejajar */
+.aksi-baris { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+/* Tombol kirim pil biru */
+.btn-simpan { border: none; border-radius: 999px; background: #0077b6; color: #fff; padding: 12px 36px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.btn-simpan:hover { background: #005b85; }
+.btn-simpan:active { transform: scale(.98); }
+/* Tombol kedua outline */
+.btn-sekunder { display: inline-block; border: 1.5px solid #0077b6; color: #0077b6; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-sekunder:hover { background: #caf0f8; }
+
+/* HP (≤480px): judul mengecil, bintang lebih kecil, tombol selebar layar */
+@media (max-width: 480px) {
+  .survei-isi h1 { font-size: 1.3rem; }
+  .bintang-ikon { font-size: 28px; }
+  .aksi-baris { flex-direction: column; align-items: stretch; }
+  .btn-simpan, .aksi-baris .btn-sekunder { text-align: center; }
+}

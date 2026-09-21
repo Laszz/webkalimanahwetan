@@ -21,9 +21,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Klik latar gelap = tutup laci sidebar
+  const backdrop = shell.querySelector('.sidebar-backdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', () => {
+      shell.classList.remove('sidebar-open');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   // Tandai link sidebar yg sesuai halaman aktif (agar terlihat sedang dibuka)
   const currentPath = window.location.pathname;
   shell.querySelectorAll('.sidebar-menu a').forEach((link) => {
-    if (link.getAttribute('href') === currentPath) link.classList.add('active');
+    if (link.getAttribute('href') !== currentPath) return;
+    link.classList.add('active');
+    // Buka otomatis dropdown yg memuat halaman aktif
+    const grup = link.closest('details');
+    if (grup) grup.open = true;
   });
 });

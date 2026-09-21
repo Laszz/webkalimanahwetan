@@ -1,0 +1,36 @@
+/* CSS halaman PENERIMA BANTUAN admin - tabel + tombol aksi + popup */
+
+/* Judul + sub deskripsi */
+.page-head h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.page-sub { color: #6b7280; margin: 0 0 20px; }
+/* Tombol tambah pil biru */
+.btn-tambah { display: inline-block; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; margin-bottom: 20px; }
+.btn-tambah:hover { background: #005b85; }
+/* Pembungkus tabel: geser horizontal di HP */
+.table-wrap { overflow-x: auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
+/* Tabel data */
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px; }
+.data-table th, .data-table td { padding: 12px 16px; text-align: center; vertical-align: middle; border-bottom: 1px solid #f3f4f6; }
+.data-table thead th { background: #f8fafc; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: #f0f9ff; }
+/* Baris kosong */
+.kosong { text-align: center; color: #6b7280; padding: 28px !important; }
+/* Tombol aksi kecil */
+.btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; }
+.btn-hapus { background: #4b5563; }
+.btn-hapus:hover { background: #1f2937; }
+.btn-setuju { background: #0077b6; }
+/* Popup hasil aksi: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+.popup-ok { color: #0077b6; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
+/* Navigasi halaman Laravel */
+nav[role="navigation"] { margin-top: 16px; }
+
+/* HP (≤480px): judul mengecil */
+@media (max-width: 480px) {
+  .page-head h1 { font-size: 1.3rem; }
+}

@@ -1,0 +1,29 @@
+/* CSS halaman AGENDA warga - kartu jadwal + hitung mundur */
+
+/* Judul + sub deskripsi */
+.agenda h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.agenda-sub { color: #6b7280; margin: 0 0 20px; }
+/* Daftar kartu agenda */
+.agenda-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.agenda-list li { display: flex; gap: 18px; align-items: flex-start; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.agenda-list li:hover { transform: translateY(-2px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .12); }
+/* Kotak tanggal: angka hari besar + bulan kecil */
+.agenda-tanggal { margin: 0; flex-shrink: 0; width: 72px; text-align: center; background: #023e8a; color: #fff; border-radius: 10px; padding: 12px 0; }
+.agenda-tanggal strong { display: block; font-size: 1.5rem; line-height: 1; color: #fff; }
+.agenda-tanggal span { font-size: 11px; color: #caf0f8; }
+/* Judul + lencana sisa hari */
+.agenda-list h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.agenda-sisa { display: inline-block; vertical-align: middle; background: #dcfce7; color: #166534; border-radius: 999px; padding: 3px 12px; font-size: 11px; font-weight: 700; margin-left: 8px; }
+/* Baris tempat/waktu dengan ikon */
+.agenda-meta { display: flex; align-items: center; gap: 8px; margin: 0 0 4px; font-size: 13px; color: #374151; }
+.agenda-meta .ph { color: #0077b6; font-size: 15px; flex-shrink: 0; }
+/* Deskripsi kegiatan */
+.agenda-deskripsi { margin: 8px 0 0; font-size: 14px; color: #4b5563; line-height: 1.6; }
+
+/* HP (≤480px): judul mengecil, kartu menumpuk */
+@media (max-width: 480px) {
+  .agenda h1 { font-size: 1.3rem; }
+  .agenda-list li { flex-direction: column; }
+  .agenda-tanggal { width: 100%; display: flex; align-items: baseline; justify-content: center; gap: 8px; padding: 8px 0; }
+  .agenda-tanggal strong { font-size: 1.1rem; }
+}

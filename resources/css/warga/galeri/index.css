@@ -1,0 +1,29 @@
+/* CSS halaman GALERI warga - kisi foto */
+
+/* Judul + sub deskripsi */
+.galeri h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.galeri-sub { color: #6b7280; margin: 0 0 24px; }
+/* Kisi foto 3 kolom */
+.galeri-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+/* Tiap kartu foto */
+.galeri-grid > li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.galeri-grid > li:hover { transform: translateY(-3px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); }
+.galeri-grid a { display: block; text-decoration: none; }
+.galeri-grid img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; transition: transform .3s ease; }
+.galeri-grid > li:hover img { transform: scale(1.03); }
+/* Tanggal kecil di atas judul */
+.galeri-tanggal { display: block; padding: 12px 16px 0; font-size: 12px; font-weight: 600; color: #0077b6; }
+.galeri-grid span:last-child { display: block; padding: 2px 16px 14px; font-size: 14px; font-weight: 600; color: #1f2937; }
+/* Baris kosong selebar grid */
+.galeri-grid li.kosong { grid-column: 1 / -1; text-align: center; color: #6b7280; font-size: 14px; padding: 36px 20px; background: none; border: none; }
+
+/* Tablet (≤900px): 2 kolom */
+@media (max-width: 900px) {
+  .galeri-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* HP (≤480px): judul mengecil, foto 1 kolom */
+@media (max-width: 480px) {
+  .galeri h1 { font-size: 1.3rem; }
+  .galeri-grid { grid-template-columns: 1fr; }
+}

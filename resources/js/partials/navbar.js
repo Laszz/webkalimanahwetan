@@ -21,6 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Tombol teks tiap dropdown layanan: buka/tutup submenu
+  navbar.querySelectorAll('.nav-drop-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      // Jangan ikut menutup menu HP saat toggle diklik
+      e.stopPropagation();
+      const item = btn.closest('.nav-drop');
+      // Tutup dropdown lain yang terbuka
+      navbar.querySelectorAll('.nav-drop.open').forEach((lain) => {
+        if (lain !== item) {
+          lain.classList.remove('open');
+          lain.querySelector('.nav-drop-btn').setAttribute('aria-expanded', 'false');
+        }
+      });
+      // Buka/tutup dropdown ini + update status untuk screen reader
+      const open = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // Klik di luar dropdown = tutup semua
+  document.addEventListener('click', (e) => {
+    navbar.querySelectorAll('.nav-drop.open').forEach((item) => {
+      item.classList.remove('open');
+      item.querySelector('.nav-drop-btn').setAttribute('aria-expanded', 'false');
+    });
+    // Kotak notifikasi (details bawaan browser) ikut tertutup
+    const belWrap = navbar.querySelector('.nav-bel-wrap');
+    if (belWrap && belWrap.hasAttribute('open') && !belWrap.contains(e.target)) {
+      belWrap.removeAttribute('open');
+    }
+  });
+
   // Tandai link menu yg sesuai halaman aktif (agar terlihat sedang dibuka)
   const currentPath = window.location.pathname;
   navbar.querySelectorAll('.nav-links a').forEach((link) => {

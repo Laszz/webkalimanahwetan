@@ -1,0 +1,49 @@
+/* CSS halaman UBAH SURVEI admin - form kartu */
+
+/* Judul + sub deskripsi */
+.page-container-kecil h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.page-sub { color: #6b7280; margin: 0 0 20px; }
+/* Kartu form putih rata tengah */
+.form-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; max-width: 640px; margin: 0 auto; }
+/* Label selalu tampak di atas input */
+.field label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin: 10px 0 4px; }
+/* Kotak input + pilih + area teks; biru saat fokus */
+.field input, .field select, .field textarea { width: 100%; background: #f3f4f6; border: 1px solid transparent; border-radius: 8px; padding: 12px 15px; font-size: 14px; font-family: inherit; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #00b4d8; background: #fff; }
+/* Baris centang sejajar */
+.field-check { margin-top: 14px; }
+.field-check label { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+/* Teks error di bawah input */
+.field-error { color: #dc2626; font-size: 12px; margin: 2px 0 0; }
+/* Baris tombol sejajar */
+.aksi-baris { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 20px; }
+/* Tombol simpan pil biru */
+.btn-simpan { border: none; border-radius: 999px; background: #0077b6; color: #fff; padding: 12px 36px; font-weight: 700; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.btn-simpan:hover { background: #005b85; }
+.btn-simpan:active { transform: scale(.98); }
+/* Tombol kedua outline */
+.btn-sekunder { display: inline-block; border: 1.5px solid #0077b6; color: #0077b6; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-sekunder:hover { background: #caf0f8; }
+
+/* HP (≤480px): judul mengecil, tombol selebar kartu */
+@media (max-width: 480px) {
+  .page-container-kecil h1 { font-size: 1.3rem; }
+  .form-card { padding: 20px 16px; }
+  .aksi-baris { flex-direction: column; align-items: stretch; }
+  .btn-simpan, .aksi-baris .btn-sekunder { text-align: center; }
+  .field-row { grid-template-columns: 1fr; }
+}
+/* Sub judul seksi pertanyaan */
+.judul-seksi-kecil { font-size: 1.1rem; margin: 0 0 12px; color: #0077b6; }
+/* Daftar pertanyaan tambahan */
+.tanya-list { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.tanya-list > li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; }
+.tanya-list li.kosong { text-align: center; color: #6b7280; font-size: 14px; }
+.tanya-head { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
+.tanya-meta { font-size: 12px; color: #6b7280; }
+/* Dua kolom sejajar untuk tipe + urutan */
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+/* Tombol hapus kecil */
+.btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; margin-top: 10px; }
+.btn-hapus { background: #4b5563; }
+.btn-hapus:hover { background: #1f2937; }

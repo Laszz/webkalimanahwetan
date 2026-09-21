@@ -1,0 +1,25 @@
+/* CSS halaman DETAIL TERIMA bantuan warga - kartu isi + penerima */
+
+/* Judul + sub deskripsi */
+.terima h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.terima-sub { color: #6b7280; margin: 0 0 20px; }
+/* Judul tiap kartu */
+.kartu-judul { font-size: 1rem; margin: 24px 0 12px; color: #0077b6; }
+/* Kartu isi */
+.terima-card { margin: 0; padding: 8px 24px; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
+/* Tiap baris: label kiri, isi kanan */
+.terima-card div { display: flex; gap: 16px; padding: 12px 0; }
+.terima-card div + div { border-top: 1px solid #f3f4f6; }
+.terima-card dt { width: 200px; flex-shrink: 0; font-size: 13px; font-weight: 600; color: #6b7280; }
+.terima-card dd { margin: 0; font-size: 14px; }
+/* Tombol kembali outline */
+.btn-kembali { display: inline-block; margin-top: 20px; border: 1.5px solid #0077b6; color: #0077b6; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-kembali:hover { background: #caf0f8; }
+
+/* HP (≤480px): baris menumpuk, tombol selebar kartu */
+@media (max-width: 480px) {
+  .terima h1 { font-size: 1.3rem; }
+  .terima-card div { flex-direction: column; gap: 2px; }
+  .terima-card dt { width: auto; }
+  .btn-kembali { display: block; text-align: center; }
+}

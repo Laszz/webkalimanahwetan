@@ -1,0 +1,54 @@
+/* CSS halaman BERITA warga - cari + hero hemat + grid kartu menyamping */
+
+/* Judul + sub deskripsi */
+.berita h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.berita-sub { color: #6b7280; margin: 0 0 20px; }
+/* Baris pencarian */
+.cari-bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
+.cari-field { flex: 1; min-width: 200px; }
+.cari-field input { width: 100%; background: #f3f4f6; border: 1px solid transparent; border-radius: 8px; padding: 10px 14px; font-size: 14px; font-family: inherit; }
+.cari-field input:focus { outline: none; border-color: #00b4d8; background: #fff; }
+.btn-cari { border: none; border-radius: 999px; background: #0077b6; color: #fff; padding: 10px 28px; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.btn-cari:hover { background: #005b85; }
+.btn-reset { display: inline-block; border: 1.5px solid #0077b6; color: #0077b6; padding: 8px 22px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.btn-reset:hover { background: #caf0f8; }
+/* Teks bantu untuk screen reader */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+/* Hero hemat: foto kiri + teks kanan */
+.berita-hero { display: flex; gap: 22px; align-items: center; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px; margin-bottom: 28px; }
+.berita-hero img { width: 300px; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; flex-shrink: 0; }
+.berita-hero h2 { margin: 0 0 8px; font-size: 1.25rem; line-height: 1.3; }
+.berita-hero p { margin: 0 0 12px; font-size: 14px; color: #4b5563; }
+/* Judul seksi daftar */
+.berita-label { font-size: 1.05rem; margin: 0 0 12px; color: #023e8a; }
+/* Daftar kartu menyamping 3 kolom */
+.berita-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.berita-list li { display: flex; flex-direction: column; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
+/* Baris kosong tanpa bingkai kartu */
+.berita-list li:only-child { border: none; background: none; }
+/* Foto kartu */
+.berita-list img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+.berita-list li > div { padding: 14px 16px 18px; }
+/* Tanggal terbit */
+.berita-tanggal { font-size: 12px; color: #0077b6; font-weight: 600; margin: 0 0 4px; }
+.berita-list h3 { margin: 0 0 4px; font-size: 1rem; }
+.berita-list p { margin: 0 0 12px; font-size: 14px; color: #4b5563; }
+/* Tombol baca */
+.btn-baca { display: inline-block; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.btn-baca:hover { background: #005b85; }
+.btn-baca:active { transform: scale(.98); }
+
+/* Tablet (≤1024px): grid 2 kolom, hero menumpuk */
+@media (max-width: 1024px) {
+  .berita-list { grid-template-columns: repeat(2, 1fr); }
+  .berita-hero { flex-direction: column; align-items: stretch; }
+  .berita-hero img { width: 100%; }
+}
+
+/* HP (≤480px): judul mengecil, grid 1 kolom */
+@media (max-width: 480px) {
+  .berita h1 { font-size: 1.3rem; }
+  .berita-hero h2 { font-size: 1.15rem; }
+  .berita-list { grid-template-columns: 1fr; }
+  .cari-bar { align-items: stretch; }
+}

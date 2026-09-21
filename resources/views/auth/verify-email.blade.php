@@ -1,31 +1,44 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
-
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+<!DOCTYPE html>
+{{-- Halaman verifikasi email - minta tautan verifikasi setelah daftar --}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    {{-- Agar layout menyesuaikan lebar HP/tablet/desktop --}}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- Token keamanan Laravel, wajib untuk form POST --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Verifikasi Email - {{ config('app.name', 'Laravel') }}</title>
+    {{-- Percepat koneksi ke server font sebelum CSS butuh fontnya --}}
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    {{-- Muat CSS + JS khusus halaman verifikasi email via Vite --}}
+    @vite(['resources/css/auth/verify-email.css', 'resources/js/auth/verify-email.js'])
+</head>
+<body>
+{{-- <main> = landmark konten utama halaman (semantik, untuk screen reader) --}}
+<main class="auth-wrap">
+    {{-- Kartu info verifikasi email --}}
+    <section class="auth-card" aria-labelledby="verifikasi-judul">
+        <h1 id="verifikasi-judul">Verifikasi Email</h1>
+        {{-- Penjelasan alur verifikasi --}}
+        <p class="auth-desc">Terima kasih sudah daftar. Klik tautan di email untuk verifikasi, atau kirim ulang di bawah.</p>
+        {{-- Pesan sesi jika link baru saja dikirim --}}
+        @if (session('status') == 'verification-link-sent')
+            <p class="status-msg" role="status">Tautan verifikasi baru terkirim ke emailmu.</p>
+        @endif
+        {{-- Baris dua aksi: kirim ulang + keluar --}}
+        <div class="auth-row">
+            {{-- Kirim ulang email verifikasi --}}
+            <form method="POST" action="{{ route('verification.send') }}">
+                @csrf
+                <button type="submit" class="solid">Kirim Ulang</button>
+            </form>
+            {{-- Keluar dari akun --}}
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="link-btn">Keluar</button>
+            </form>
         </div>
-    @endif
-
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
-            </div>
-        </form>
-
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                {{ __('Log Out') }}
-            </button>
-        </form>
-    </div>
-</x-guest-layout>
+    </section>
+</main>
+</body>
+</html>
