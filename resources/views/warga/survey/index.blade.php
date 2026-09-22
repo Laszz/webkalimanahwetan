@@ -24,8 +24,8 @@
         <ul class="survei-grid">
             @forelse ($surveys as $survey)
                 <li>
-                    {{-- Judul survei --}}
-                    <h2>{{ $survey->judul }}</h2>
+                    {{-- Judul survei bernomor urut kartu --}}
+                    <h2><span class="survei-nomor">{{ $loop->iteration }}.</span> {{ $survey->judul }}</h2>
                     @if ($survey->sudah_isi)
                         {{-- Sudah isi bulan ini: tombol memicu popup, bukan kirim --}}
                         <p class="survei-deskripsi">{{ $survey->deskripsi ?? '' }}</p>
@@ -40,8 +40,10 @@
                             <ol class="soal-list">
                                 @foreach ($survey->pertanyaans as $tanya)
                                     <li class="soal">
-                                        {{-- Nomor + teks pertanyaan --}}
-                                        <p class="soal-teks"><span class="soal-nomor">{{ $loop->iteration }}.</span> {{ $tanya->pertanyaan }}</p>
+                                        {{-- Teks pertanyaan hanya tampil bila lebih dari satu (satu soal = judul kartu sudah cukup) --}}
+                                        @if ($survey->pertanyaans->count() > 1)
+                                            <p class="soal-teks"><span class="soal-nomor">{{ $loop->iteration }}.</span> {{ $tanya->pertanyaan }}</p>
+                                        @endif
                                         @if ($tanya->tipe === 'skala')
                                             {{-- Bintang 1-5 (radio dibalik agar isi dari kiri; karakter bintang asli agar selalu tampil) --}}
                                             <div class="bintang" role="radiogroup" aria-label="Nilai 1 sampai 5 untuk pertanyaan {{ $loop->iteration }}">
