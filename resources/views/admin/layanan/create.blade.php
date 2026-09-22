@@ -26,6 +26,19 @@
                     <p class="field-error" role="alert">{{ $msg }}</p>
                 @endforeach
             </div>
+            {{-- Kategori administrasi layanan --}}
+            <div class="field">
+                <label for="kategori">Kategori</label>
+                <select id="kategori" name="kategori" required>
+                    <option value="" disabled {{ old('kategori') ? '' : 'selected' }}>Pilih kategori</option>
+                    @foreach (\App\Http\Requests\Admin\StoreLayananRequest::kategoris() as $opsi)
+                        <option value="{{ $opsi }}" {{ old('kategori') === $opsi ? 'selected' : '' }}>{{ $opsi }}</option>
+                    @endforeach
+                </select>
+                @foreach ((array) $errors->get('kategori') as $msg)
+                    <p class="field-error" role="alert">{{ $msg }}</p>
+                @endforeach
+            </div>
             {{-- Penjelasan layanan --}}
             <div class="field">
                 <label for="deskripsi">Deskripsi</label>

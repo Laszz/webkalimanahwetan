@@ -64,55 +64,6 @@
             </div>
         </form>
     </section>
-
-    {{-- Daftar pertanyaan tambahan + tambah baru --}}
-    <section class="page-container-kecil" aria-labelledby="tanya-judul" style="margin-top: 32px;">
-        <h2 id="tanya-judul" class="judul-seksi-kecil">Pertanyaan Tambahan</h2>
-        <ul class="tanya-list">
-            @forelse ($survey->pertanyaans->skip(1) as $tanya)
-                <li>
-                    {{-- Teks + tipe --}}
-                    <div class="tanya-head">
-                        <strong>{{ $tanya->pertanyaan }}</strong>
-                        <span class="tanya-meta">{{ $tanya->tipe === 'skala' ? 'Skala 1-5' : 'Teks' }}</span>
-                    </div>
-                    {{-- Hapus pertanyaan tambahan ini (jawaban ikut terhapus) --}}
-                    <form method="POST" action="{{ route('admin.pertanyaan.destroy', $tanya) }}" data-konfirmasi="Hapus pertanyaan ini beserta jawabannya?">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-kecil btn-hapus">Hapus</button>
-                    </form>
-                </li>
-            @empty
-                {{-- Belum ada pertanyaan tambahan --}}
-                <li class="kosong">Belum ada pertanyaan tambahan.</li>
-            @endforelse
-        </ul>
-
-        {{-- Form tambah pertanyaan (otomatis wajib diisi warga) --}}
-        <h3 class="judul-seksi-kecil">Tambah Pertanyaan</h3>
-        <form class="form-card" method="POST" action="{{ route('admin.pertanyaan.store', $survey) }}">
-            @csrf
-            <div class="field">
-                <label for="pertanyaan-tambah">Pertanyaan</label>
-                <textarea id="pertanyaan-tambah" name="pertanyaan" rows="2" required>{{ old('pertanyaan') }}</textarea>
-            </div>
-            <div class="field-row">
-                <div class="field">
-                    <label for="tipe-tambah">Tipe Jawaban</label>
-                    <select id="tipe-tambah" name="tipe" required>
-                        <option value="skala" @selected(old('tipe') === 'skala')>Skala 1-5</option>
-                        <option value="text" @selected(old('tipe') === 'text')>Teks bebas</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label for="urutan-tambah">Urutan</label>
-                    <input id="urutan-tambah" type="number" name="urutan" value="{{ old('urutan', 1) }}" min="0">
-                </div>
-            </div>
-            <button type="submit" class="btn-simpan">Tambah</button>
-        </form>
-    </section>
 @endsection
 
 {{-- JS khusus halaman ini dimuat via stack layout --}}

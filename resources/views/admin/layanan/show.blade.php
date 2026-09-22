@@ -16,6 +16,7 @@
         {{-- Baris status + estimasi --}}
         <p class="detail-meta">
             <span class="status {{ $layanan->aktif ? 'status-buka' : 'status-tutup' }}">{{ $layanan->aktif ? 'Buka' : 'Tutup' }}</span>
+            <span>{{ $layanan->kategori ?? '-' }}</span>
             @if ($layanan->estimasi_hari)
                 <span>Estimasi {{ $layanan->estimasi_hari }} hari</span>
             @endif

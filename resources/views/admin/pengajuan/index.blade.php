@@ -52,6 +52,12 @@
                             <td>
                                 {{-- Tombol periksa berkas --}}
                                 <a class="btn-kecil btn-lihat" href="{{ route('admin.pengajuan.show', $pengajuan) }}">Periksa</a>
+                                {{-- Tombol hapus (minta konfirmasi via JS) --}}
+                                <form method="POST" action="{{ route('admin.pengajuan.destroy', $pengajuan) }}" data-konfirmasi="Hapus pengajuan {{ $pengajuan->layanan->nama ?? '' }} milik {{ $pengajuan->user->name ?? '' }}?">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-kecil btn-hapus">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -64,6 +70,17 @@
         {{-- Navigasi halaman --}}
         {{ $pengajuans->links() }}
     </section>
+
+    {{-- Popup hasil aksi (tampil jika ada pesan sesi) --}}
+    @if (session('success'))
+        <div class="popup" id="popup" role="alertdialog" aria-modal="true" aria-label="Hasil aksi">
+            <div class="popup-kartu">
+                <i class="ph ph-check-circle popup-ok" aria-hidden="true"></i>
+                <p>{{ session('success') }}</p>
+                <button type="button" class="btn-kecil btn-setuju" data-tutup>Tutup</button>
+            </div>
+        </div>
+    @endif
 @endsection
 
 {{-- JS khusus halaman ini dimuat via stack layout --}}
