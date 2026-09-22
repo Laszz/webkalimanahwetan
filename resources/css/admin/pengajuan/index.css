@@ -28,6 +28,17 @@
 .btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; }
 .btn-lihat { background: #0077b6; }
 .btn-lihat:hover { background: #005b85; }
+.btn-hapus { background: #4b5563; }
+.btn-hapus:hover { background: #1f2937; }
+.btn-setuju { background: #0077b6; }
+/* Form hapus sejajar dalam sel */
+.data-table td form { display: inline; margin-left: 6px; }
+/* Popup hasil aksi: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+.popup-ok { color: #0077b6; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
 /* Navigasi halaman Laravel */
 nav[role="navigation"] { margin-top: 16px; }
 
