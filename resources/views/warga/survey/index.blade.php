@@ -27,9 +27,8 @@
                     {{-- Judul survei bernomor urut kartu --}}
                     <h2><span class="survei-nomor">{{ $loop->iteration }}.</span> {{ $survey->judul }}</h2>
                     @if ($survey->sudah_isi)
-                        {{-- Sudah isi bulan ini: tombol memicu popup, bukan kirim --}}
-                        <p class="survei-deskripsi">{{ $survey->deskripsi ?? '' }}</p>
-                        <button type="button" class="btn-isi" data-popup>Isi Survei</button>
+                        {{-- Sudah isi bulan ini: teks terima kasih, tanpa tombol --}}
+                        <p class="survei-sudah"><i class="ph ph-check-circle" aria-hidden="true"></i>Terima kasih sudah mengisi.</p>
                     @else
                         {{-- Belum isi: pertanyaan + bintang langsung di sini --}}
                         @if ($survey->deskripsi)
