@@ -27,6 +27,17 @@
         </div>
     @endif
 
+    {{-- Popup biodata belum lengkap: tombol OK mengarah ke isi biodata --}}
+    @if (session('lengkapi'))
+        <div class="popup" id="popup" role="alertdialog" aria-modal="true" aria-label="Lengkapi data diri">
+            <div class="popup-kartu">
+                <i class="ph ph-info popup-info" aria-hidden="true"></i>
+                <p>{{ session('lengkapi') }}</p>
+                <a class="btn-dash" href="{{ route('warga.profil.create') }}">OK</a>
+            </div>
+        </div>
+    @endif
+
     {{-- HERO: teks kiri + foto asli kanan; maksimal 4 elemen teks (kicker, judul, deskripsi, tombol) --}}
     <section class="hero" aria-labelledby="hero-judul">
         <div class="page-container hero-inner">
