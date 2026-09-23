@@ -102,7 +102,8 @@ Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () 
 
     // Aduan warga (buat + simpan milik sendiri, wajib login)
     Route::get('/aduan/buat', [WargaAduanController::class, 'create'])->name('aduan.create');
-    Route::post('/aduan', [WargaAduanController::class, 'store'])->name('aduan.store');
+    // Tahan spam klik ganda: maks 5 kiriman per menit
+    Route::post('/aduan', [WargaAduanController::class, 'store'])->middleware('throttle:5,1')->name('aduan.store');
 
     // Katalog layanan
     Route::get('/layanan', [WargaLayananController::class, 'index'])->name('layanan.index');
@@ -111,7 +112,8 @@ Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () 
     // Pengajuan surat
     Route::get('/pengajuan', [WargaPengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/pengajuan/buat', [WargaPengajuanController::class, 'create'])->name('pengajuan.create');
-    Route::post('/pengajuan', [WargaPengajuanController::class, 'store'])->name('pengajuan.store');
+    // Tahan spam klik ganda: maks 5 kiriman per menit
+    Route::post('/pengajuan', [WargaPengajuanController::class, 'store'])->middleware('throttle:5,1')->name('pengajuan.store');
     Route::get('/pengajuan/{pengajuan}/unduh', [WargaPengajuanController::class, 'unduh'])->name('pengajuan.unduh');
 
     // Notifikasi
@@ -122,9 +124,10 @@ Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () 
     Route::delete('/notifikasi/{id}', [WargaNotifikasiController::class, 'destroy'])->name('notifikasi.destroy');
 
     // Survei
-    Route::get('/survei', [WargaSurveyController::class, 'index'])->name('survey.index');
-    Route::get('/survei/{survey}', [WargaSurveyController::class, 'show'])->name('survey.show');
-    Route::post('/survei/{survey}', [WargaSurveyController::class, 'store'])->name('survey.store');
+    Route::get('/survey', [WargaSurveyController::class, 'index'])->name('survey.index');
+    Route::get('/survey/{survey}', [WargaSurveyController::class, 'show'])->name('survey.show');
+    // Tahan spam klik ganda: maks 5 kiriman per menit
+    Route::post('/survey/{survey}', [WargaSurveyController::class, 'store'])->middleware('throttle:5,1')->name('survey.store');
 });
 
 // ============================================================
@@ -172,6 +175,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/pengajuan', [AdminPengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'show'])->name('pengajuan.show');
     Route::put('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'update'])->name('pengajuan.update');
+    Route::delete('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'destroy'])->name('pengajuan.destroy');
 
     // Agenda
     Route::resource('/agenda', AdminAgendaController::class)->names('agenda');
@@ -189,8 +193,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/penerima-bantuan/{penerimaBantuan}', [AdminPenerimaController::class, 'destroy'])->name('penerima-bantuan.destroy');
 
     // Survei dan pertanyaan (nama parameter disamakan dengan variabel controller)
-    Route::resource('/survei', AdminSurveyController::class)->names('survey')->parameters(['survei' => 'survey']);
-    Route::post('/survei/{survey}/pertanyaan', [PertanyaanController::class, 'store'])->name('pertanyaan.store');
+    Route::resource('/survey', AdminSurveyController::class)->names('survey')->parameters(['survey' => 'survey']);
+    Route::post('/survey/{survey}/pertanyaan', [PertanyaanController::class, 'store'])->name('pertanyaan.store');
     Route::put('/pertanyaan/{pertanyaan}', [PertanyaanController::class, 'update'])->name('pertanyaan.update');
     Route::delete('/pertanyaan/{pertanyaan}', [PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy');
     Route::delete('/jawaban/{jawaban}', [PertanyaanController::class, 'destroyJawaban'])->name('jawaban.destroy');
