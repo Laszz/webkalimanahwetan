@@ -7,8 +7,11 @@ namespace App\Http\Controllers\Warga;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Warga\StoreAduanRequest;
 use App\Models\Aduan;
+use App\Models\User;
+use App\Notifications\AduanMasuk;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class AduanController extends Controller
@@ -84,7 +87,11 @@ class AduanController extends Controller
             $data['gambar'] = $request->file('gambar')->store('aduan', 'public');
         }
 
-        auth()->user()->aduans()->create($data);
+        $aduan = auth()->user()->aduans()->create($data);
+
+        // Beri tahu semua admin agar segera ditindaklanjuti
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new AduanMasuk($aduan->loadMissing('user:id,name')));
 
         return redirect()
             ->route('warga.aduan.index')

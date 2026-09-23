@@ -8,9 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Warga\StorePengajuanRequest;
 use App\Models\Layanan;
 use App\Models\PengajuanLayanan;
+use App\Models\User;
+use App\Notifications\PengajuanMasuk;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -61,7 +64,8 @@ class PengajuanController extends Controller
         $data = $request->validated();
         $layanan = Layanan::aktif()->findOrFail($data['layanan_id']);
 
-        DB::transaction(function () use ($request, $data, $layanan) {
+        $pengajuan = null;
+        DB::transaction(function () use ($request, $data, $layanan, &$pengajuan) {
             // Pengajuan induk milik user login
             $pengajuan = $request->user()->pengajuanLayanan()->create([
                 'layanan_id' => $layanan->id,
@@ -86,6 +90,10 @@ class PengajuanController extends Controller
                 }
             }
         });
+
+        // Beri tahu semua admin agar segera diverifikasi
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new PengajuanMasuk($pengajuan->loadMissing(['user:id,name', 'layanan:id,nama'])));
 
         return redirect()
             ->route('warga.pengajuan.index')

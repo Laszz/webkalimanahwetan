@@ -1,27 +1,40 @@
 <?php
 
-// Controller APBDes sisi WARGA - transparansi anggaran per tahun
+// Controller APBDes sisi WARGA - transparansi dana dan belanja per tahun
 
 namespace App\Http\Controllers\Warga;
 
 use App\Http\Controllers\Controller;
-use App\Models\Apbdes;
+use App\Models\Belanja;
+use App\Models\Dana;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ApbdesController extends Controller
 {
-    // Pos anggaran per tahun + total pagu dan realisasi
+    // Dana per tahun + belanja per bidang
     public function index(Request $request): View
     {
         // Tahun aktif = pilihan user atau tahun terbaru yang ada
-        $tahun = $request->query('tahun', Apbdes::max('tahun'));
-        $daftarTahun = Apbdes::distinct()->orderByDesc('tahun')->pluck('tahun');
+        $tahun = $request->query('tahun', Dana::max('tahun'));
+        $daftarTahun = Dana::distinct()->orderByDesc('tahun')->pluck('tahun');
 
-        $pos = Apbdes::where('tahun', $tahun)->orderBy('bidang')->get();
-        $totalAnggaran = $pos->sum('anggaran');
-        $totalRealisasi = $pos->sum('realisasi');
+        // Pagu tiap sumber dana tahun aktif + total terpakai
+        $danas = Dana::withSum('belanjas as terpakai', 'nominal')
+            ->where('tahun', $tahun)
+            ->orderBy('sumber_dana')
+            ->get();
 
-        return view('warga.apbdes.index', compact('pos', 'daftarTahun', 'tahun', 'totalAnggaran', 'totalRealisasi'));
+        // Belanja tahun aktif berurutan bidang
+        $belanjas = Belanja::with('dana:id,tahun,sumber_dana')
+            ->whereHas('dana', fn ($query) => $query->where('tahun', $tahun))
+            ->orderBy('bidang')
+            ->latest()
+            ->get();
+
+        $totalAnggaran = $danas->sum('anggaran');
+        $totalRealisasi = $danas->sum('terpakai');
+
+        return view('warga.apbdes.index', compact('danas', 'belanjas', 'daftarTahun', 'tahun', 'totalAnggaran', 'totalRealisasi'));
     }
 }

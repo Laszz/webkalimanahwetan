@@ -28,6 +28,9 @@ class DashboardController extends Controller
             'berita' => Berita::count(),
         ];
 
-        return view('admin.dashboard', compact('statistik'));
+        // 5 notifikasi belum dibaca untuk seksi dashboard
+        $notifs = auth()->user()->unreadNotifications()->take(5)->get();
+
+        return view('admin.dashboard', compact('statistik', 'notifs'));
     }
 }

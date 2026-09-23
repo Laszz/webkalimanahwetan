@@ -8,9 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Warga\IsiSurveyRequest;
 use App\Models\Survey;
 use App\Models\SurveyJawaban;
+use App\Models\User;
+use App\Notifications\SurveyDiisi;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 
 class SurveyController extends Controller
@@ -108,6 +111,10 @@ class SurveyController extends Controller
                 ->route('warga.survey.index')
                 ->with('info', 'Survei ini sudah diisi bulan ini.');
         }
+
+        // Beri tahu semua admin bahwa survei ini diisi
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new SurveyDiisi($survey, $request->user()->name));
 
         return redirect()
             ->route('warga.survey.index')
