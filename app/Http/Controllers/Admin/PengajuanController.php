@@ -72,6 +72,27 @@ class PengajuanController extends Controller
             ->with('success', 'Status pengajuan diperbarui.');
     }
 
+    // Hapus pengajuan + berkas syarat + file hasil di storage (baris syarat ikut via cascade DB)
+    public function destroy(PengajuanLayanan $pengajuan): RedirectResponse
+    {
+        $pengajuan->loadMissing('uploadSyaratLayanan:id,pengajuan_layanan_id,file_path');
+
+        foreach ($pengajuan->uploadSyaratLayanan as $upload) {
+            if ($upload->file_path) {
+                Storage::disk('public')->delete($upload->file_path);
+            }
+        }
+        if ($pengajuan->file_hasil) {
+            Storage::disk('local')->delete($pengajuan->file_hasil);
+        }
+
+        $pengajuan->delete();
+
+        return redirect()
+            ->route('admin.pengajuan.index')
+            ->with('success', 'Pengajuan dihapus.');
+    }
+
     // Nomor surat otomatis: 470/{id 3 digit}/{bulan romawi}/{tahun}, mis. 470/004/IX/2026
     private function nomorOtomatis(PengajuanLayanan $pengajuan): string
     {

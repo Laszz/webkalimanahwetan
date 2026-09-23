@@ -30,10 +30,10 @@ class LayananController extends Controller
     // Simpan layanan baru (syarat diatur terpisah di halaman syarat)
     public function store(StoreLayananRequest $request): RedirectResponse
     {
-        $layanan = Layanan::create($request->validated());
+        Layanan::create($request->validated());
 
         return redirect()
-            ->route('admin.layanan.show', $layanan)
+            ->route('admin.layanan.index')
             ->with('success', 'Layanan tersimpan.');
     }
 
@@ -64,7 +64,7 @@ class LayananController extends Controller
         $layanan->update($data);
 
         return redirect()
-            ->route('admin.layanan.show', $layanan)
+            ->route('admin.layanan.index')
             ->with('success', 'Layanan diperbarui.');
     }
 
