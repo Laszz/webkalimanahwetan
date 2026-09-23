@@ -4,9 +4,11 @@
 
 use App\Http\Controllers\Admin\AduanController as AdminAduanController;
 use App\Http\Controllers\Admin\AgendaController as AdminAgendaController;
-use App\Http\Controllers\Admin\ApbdesController as AdminApbdesController;
+use App\Http\Controllers\Admin\BelanjaController as AdminBelanjaController;
+use App\Http\Controllers\Admin\DanaController as AdminDanaController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\NotifikasiController as AdminNotifikasiController;
 use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
 use App\Http\Controllers\Admin\JenisBantuanController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
@@ -137,6 +139,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Dashboard statistik
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+    // Buka notifikasi (tandai dibaca + teruskan)
+    Route::get('/notifikasi/{id}', [AdminNotifikasiController::class, 'show'])->name('notifikasi.show');
+
     // Verifikasi akun warga
     Route::get('/pengguna', [AdminUserController::class, 'index'])->name('pengguna.index');
     Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');
@@ -180,8 +185,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Agenda
     Route::resource('/agenda', AdminAgendaController::class)->names('agenda');
 
-    // APBDes
-    Route::resource('/apbdes', AdminApbdesController::class)->names('apbdes');
+    // Dana APBDes (tanpa show, langsung ubah dari daftar)
+    Route::resource('/dana', AdminDanaController::class)->names('dana')->except('show');
+
+    // Belanja APBDes (tanpa show, langsung ubah dari daftar)
+    Route::resource('/belanja', AdminBelanjaController::class)->names('belanja')->except('show');
 
     // Jenis bantuan
     Route::resource('/jenis-bantuan', JenisBantuanController::class)->names('jenis-bantuan');
