@@ -1,33 +1,33 @@
 <?php
 
+// Migrasi tabel danas - pagu per sumber dana per tahun
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    // Buat tabel danas + unik per tahun dan sumber
     public function up(): void
     {
-        Schema::create('apbdes', function (Blueprint $table) {
+        Schema::create('danas', function (Blueprint $table) {
             $table->id();
             // Tahun anggaran, diindeks karena sering difilter
             $table->year('tahun')->index();
-            // Bidang kegiatan, mis. penyelenggaraan pemerintahan, pembangunan
-            $table->string('bidang');
-            $table->string('uraian');
-            // Asal dana alokasi bidang ini, mis. Dana Desa, ADD, PADes
+            // Asal dana, mis. Dana Desa (DD), ADD
             $table->string('sumber_dana');
-            // Pagu anggaran dalam rupiah
+            // Pagu total dalam rupiah
             $table->unsignedBigInteger('anggaran')->default(0);
-            // Serapan terealisasi dalam rupiah
-            $table->unsignedBigInteger('realisasi')->default(0);
             $table->timestamps();
+
+            $table->unique(['tahun', 'sumber_dana']);
         });
     }
 
+    // Kembalikan: hapus tabel danas
     public function down(): void
     {
-        Schema::dropIfExists('apbdes');
+        Schema::dropIfExists('danas');
     }
 };
