@@ -24,6 +24,8 @@ class SurveyController extends Controller
         $bulan = now()->month;
 
         $surveys = Survey::aktif()
+            // Pertanyaan langsung diisi di kartu daftar
+            ->with('pertanyaans')
             // Tandai survei yang sudah diisi user bulan berjalan
             ->addSelect(['sudah_isi' => SurveyJawaban::selectRaw('1')
                 ->whereColumn('survey_id', 'surveys.id')
@@ -54,26 +56,22 @@ class SurveyController extends Controller
         return view('warga.survey.index', compact('surveys', 'semuaTerisi'));
     }
 
-    // Form isi survei; sudah isi bulan ini = kembali ke daftar
-    public function show(Survey $survey): View|RedirectResponse
+    // Tautan lama: isi survei kini langsung di daftar
+    public function show(): RedirectResponse
     {
-        // Hanya survei aktif yang boleh dibuka
-        abort_unless($survey->aktif, 404);
-        $survey->load('pertanyaans');
-
-        // Satu warga satu survei per bulan
-        if ($this->sudahIsi($survey->id)) {
-            return redirect()
-                ->route('warga.survey.index')
-                ->with('info', 'Survei ini sudah diisi bulan ini.');
-        }
-
-        return view('warga.survey.show', compact('survey'));
+        return redirect()->route('warga.survey.index');
     }
 
     // Simpan jawaban sekaligus dalam satu transaksi
     public function store(IsiSurveyRequest $request, Survey $survey): RedirectResponse
     {
+        // Biodata wajib lengkap dulu
+        if (! auth()->user()->warga) {
+            return redirect()
+                ->route('warga.dashboard')
+                ->with('lengkapi', 'Silahkan lengkapi data diri untuk memakai fitur website.');
+        }
+
         // Cegah isi ulang sebelum validasi berjalan
         if ($this->sudahIsi($survey->id)) {
             return redirect()

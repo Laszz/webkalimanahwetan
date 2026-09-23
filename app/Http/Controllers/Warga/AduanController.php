@@ -47,9 +47,15 @@ class AduanController extends Controller
         return view('warga.aduan.index', compact('aduans', 'aduanTerbaru', 'cari', 'judul', 'sub'));
     }
 
-    // Form lapor aduan baru
-    public function create(): View
+    // Form lapor aduan baru; biodata wajib lengkap dulu
+    public function create(): View|RedirectResponse
     {
+        if (! auth()->user()->warga) {
+            return redirect()
+                ->route('warga.dashboard')
+                ->with('lengkapi', 'Silahkan lengkapi data diri untuk memakai fitur website.');
+        }
+
         return view('warga.aduan.create');
     }
 
@@ -64,6 +70,13 @@ class AduanController extends Controller
     // Simpan aduan; pelapor otomatis user login, foto disimpan ke storage publik
     public function store(StoreAduanRequest $request): RedirectResponse
     {
+        // Biodata wajib lengkap dulu
+        if (! auth()->user()->warga) {
+            return redirect()
+                ->route('warga.dashboard')
+                ->with('lengkapi', 'Silahkan lengkapi data diri untuk memakai fitur website.');
+        }
+
         $data = $request->validated();
 
         // Pindahkan foto bukti ke storage jika ada

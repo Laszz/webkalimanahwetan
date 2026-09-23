@@ -29,6 +29,13 @@ class PengajuanController extends Controller
     // Form ajukan: wajib datang dari tombol Ajukan satu layanan (?layanan=id)
     public function create(Request $request): View|RedirectResponse
     {
+        // Biodata wajib lengkap dulu
+        if (! auth()->user()->warga) {
+            return redirect()
+                ->route('warga.dashboard')
+                ->with('lengkapi', 'Silahkan lengkapi data diri untuk memakai fitur website.');
+        }
+
         $layanan = $request->query('layanan')
             ? Layanan::aktif()->with('syaratLayanan')->findOrFail($request->query('layanan'))
             : null;
@@ -44,6 +51,13 @@ class PengajuanController extends Controller
     // Simpan pengajuan + semua syarat dalam satu transaksi database
     public function store(StorePengajuanRequest $request): RedirectResponse
     {
+        // Biodata wajib lengkap dulu
+        if (! auth()->user()->warga) {
+            return redirect()
+                ->route('warga.dashboard')
+                ->with('lengkapi', 'Silahkan lengkapi data diri untuk memakai fitur website.');
+        }
+
         $data = $request->validated();
         $layanan = Layanan::aktif()->findOrFail($data['layanan_id']);
 
