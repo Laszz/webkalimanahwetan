@@ -16,9 +16,10 @@ class Layanan extends Model
 
     // Kolom yang boleh diisi massal
     protected $fillable = [
-        'nama', 
-        'deskripsi', 
-        'estimasi_hari', 
+        'nama',
+        'kategori',
+        'deskripsi',
+        'estimasi_hari',
         'aktif'
     ];
 
