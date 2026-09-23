@@ -25,7 +25,7 @@ class SurveyBaru extends Notification
     {
         return [
             'judul' => 'Survei baru: ' . $this->survey->judul . '. Silakan isi.',
-            'url' => route('warga.survey.show', $this->survey->id),
+            'url' => route('warga.survey.index'),
         ];
     }
 }
