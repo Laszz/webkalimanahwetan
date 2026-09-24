@@ -46,7 +46,7 @@
                     </li>
                 @empty
                     {{-- Tidak cocok dengan kata kunci --}}
-                    <li><p><strong>Tidak ada aduan yang cocok.</strong></p></li>
+                    <li class="kosong"><p><strong>Tidak ada aduan yang cocok.</strong></p></li>
                 @endforelse
             </ul>
         @else
@@ -64,26 +64,28 @@
                 </article>
             @endif
 
-            {{-- Aduan sebelum-sebelumnya --}}
-            <h2 class="aduan-label">Aduan Sebelumnya</h2>
-            <ul class="aduan-list">
-                @forelse ($aduans as $aduan)
-                    <li>
-                        <img src="{{ $aduan->gambar ? asset('storage/' . $aduan->gambar) : 'https://picsum.photos/seed/kalimanah-aduan-' . $aduan->id . '/640/360' }}" width="480" height="320" loading="lazy" alt="{{ $aduan->judul }}">
-                        <div>
-                            {{-- Tanggal + status --}}
-                            <p class="aduan-tanggal">{{ $aduan->created_at->format('d M Y') }} · <span class="status status-{{ $aduan->status }}">{{ ucfirst($aduan->status) }}</span></p>
-                            {{-- Judul + ringkasan + tombol lihat --}}
-                            <h3>{{ $aduan->judul }}</h3>
-                            <p>{{ \Illuminate\Support\Str::limit($aduan->isi, 100) }}</p>
-                            <a class="btn-lihat" href="{{ route('warga.aduan.show', $aduan) }}">Lihat</a>
-                        </div>
-                    </li>
-                @empty
-                    {{-- Belum pernah melapor --}}
-                    <li><p><strong>Belum ada aduan.</strong></p></li>
-                @endforelse
-            </ul>
+            {{-- Aduan sebelum-sebelumnya; label hanya tampil jika ada isi --}}
+            @if ($aduans->isNotEmpty())
+                <h2 class="aduan-label">Aduan Sebelumnya</h2>
+                <ul class="aduan-list">
+                    @foreach ($aduans as $aduan)
+                        <li>
+                            <img src="{{ $aduan->gambar ? asset('storage/' . $aduan->gambar) : 'https://picsum.photos/seed/kalimanah-aduan-' . $aduan->id . '/640/360' }}" width="480" height="320" loading="lazy" alt="{{ $aduan->judul }}">
+                            <div>
+                                {{-- Tanggal + status --}}
+                                <p class="aduan-tanggal">{{ $aduan->created_at->format('d M Y') }} · <span class="status status-{{ $aduan->status }}">{{ ucfirst($aduan->status) }}</span></p>
+                                {{-- Judul + ringkasan + tombol lihat --}}
+                                <h3>{{ $aduan->judul }}</h3>
+                                <p>{{ \Illuminate\Support\Str::limit($aduan->isi, 100) }}</p>
+                                <a class="btn-lihat" href="{{ route('warga.aduan.show', $aduan) }}">Lihat</a>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            @elseif (!$aduanTerbaru)
+                {{-- Kosong total: teks polos tanpa kartu --}}
+                <p class="kosong-teks"><strong>Belum ada aduan.</strong></p>
+            @endif
         @endif
 
         {{-- Navigasi halaman (bawa kata kunci) --}}

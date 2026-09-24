@@ -6,7 +6,11 @@
 /* Daftar kartu agenda */
 .agenda-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .agenda-list li { display: flex; gap: 18px; align-items: flex-start; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-.agenda-list li:hover { transform: translateY(-2px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .12); }
+.agenda-list li:not(.kosong):hover { transform: translateY(-2px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .12); }
+/* Baris kosong: teks polos rata tengah, tanpa kartu (seragam dengan welcome) */
+.agenda-list li.kosong { background: none; border: none; box-shadow: none; text-align: center; padding: 12px 0; }
+.agenda-list li.kosong strong { font-size: 14px; font-weight: 600; color: #4b5563; }
+.agenda-list li.kosong p { color: #4b5563; }
 /* Kotak tanggal: angka hari besar + bulan kecil */
 .agenda-tanggal { margin: 0; flex-shrink: 0; width: 72px; text-align: center; background: #023e8a; color: #fff; border-radius: 10px; padding: 12px 0; }
 .agenda-tanggal strong { display: block; font-size: 1.5rem; line-height: 1; color: #fff; }

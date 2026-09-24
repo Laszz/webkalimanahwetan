@@ -46,9 +46,18 @@
             <ul>
                 <li><a href="{{ route('admin.layanan.index') }}">Layanan</a></li>
                 <li><a href="{{ route('admin.template.index') }}">Template Hasil</a></li>
-                <li><a href="{{ route('admin.apbdes.index') }}">APBDes</a></li>
                 <li><a href="{{ route('admin.perangkat-desa.index') }}">Perangkat Desa</a></li>
                 <li><a href="{{ route('admin.profil-desa.edit') }}">Profil Desa</a></li>
+            </ul>
+        </details>
+    </li>
+    {{-- Kelompok kelola APBDes --}}
+    <li>
+        <details class="sidebar-dropdown">
+            <summary>Kelola APBDes<i class="ph ph-caret-down" aria-hidden="true"></i></summary>
+            <ul>
+                <li><a href="{{ route('admin.dana.index') }}">Dana</a></li>
+                <li><a href="{{ route('admin.belanja.index') }}">Belanja</a></li>
             </ul>
         </details>
     </li>

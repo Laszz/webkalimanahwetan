@@ -53,6 +53,28 @@
                 <a href="{{ route('admin.berita.index') }}">Kelola</a>
             </li>
         </ul>
+
+        {{-- Lonceng notifikasi kegiatan warga terbaru --}}
+        <details class="notif-bel">
+            <summary aria-label="Notifikasi">
+                <i class="ph ph-bell" aria-hidden="true"></i>
+                @if ($notifs->isNotEmpty())
+                    <span class="notif-badge">{{ $notifs->count() > 9 ? '9+' : $notifs->count() }}</span>
+                @endif
+            </summary>
+            <ul class="notif-list">
+                @forelse ($notifs as $notif)
+                    <li>
+                        {{-- Lewat show agar sekalian ditandai dibaca --}}
+                        <a href="{{ route('admin.notifikasi.show', $notif->id) }}">{{ $notif->data['judul'] ?? 'Pemberitahuan' }}</a>
+                        <span>{{ $notif->created_at->format('d M Y H.i') }}</span>
+                    </li>
+                @empty
+                    {{-- Belum ada kegiatan baru --}}
+                    <li class="kosong"><p><strong>Belum ada notifikasi.</strong></p></li>
+                @endforelse
+            </ul>
+        </details>
     </section>
 @endsection
 

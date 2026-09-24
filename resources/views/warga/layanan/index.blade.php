@@ -52,7 +52,7 @@
                 </li>
             @empty
                 {{-- Tidak cocok saringan / belum ada layanan dibuka --}}
-                <li><p><strong>Tidak ada layanan yang cocok.</strong></p></li>
+                <li class="kosong"><p><strong>Tidak ada layanan yang cocok.</strong></p></li>
             @endforelse
         </ul>
 

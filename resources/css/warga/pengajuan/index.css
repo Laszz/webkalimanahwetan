@@ -6,10 +6,14 @@
 /* Tombol ajukan pil biru */
 .btn-tambah { display: inline-block; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; margin-bottom: 20px; }
 .btn-tambah:hover { background: #005b85; }
-/* Kisi kartu pengajuan */
-.pengajuan-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-/* Tiap kartu pengajuan */
-.pengajuan-grid li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px; }
+/* Daftar baris pengajuan tanpa kartu */
+.pengajuan-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.pengajuan-list li { padding: 16px 0; }
+.pengajuan-list li + li { border-top: 1px solid #e5e7eb; }
+/* Baris kosong: teks polos rata tengah */
+.pengajuan-list li.kosong { text-align: center; padding: 12px 0; }
+.pengajuan-list li.kosong strong { font-size: 14px; font-weight: 600; color: #4b5563; }
+.pengajuan-list li.kosong p { color: #4b5563; }
 /* Nama layanan + status sejajar */
 .pengajuan-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
 .pengajuan-head h2 { margin: 0; font-size: 1.05rem; }
@@ -22,18 +26,11 @@
 /* Tanggal + catatan admin */
 .pengajuan-tanggal { font-size: 12px; color: #6b7280; margin: 8px 0 0; }
 .pengajuan-catatan { font-size: 13px; color: #4b5563; margin: 8px 0 0; padding-top: 8px; border-top: 1px solid #f3f4f6; }
-/* Tombol unduh hasil pil hijau */
-.btn-unduh { display: block; text-align: center; margin-top: 12px; background: #166534; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
-.btn-unduh:hover { background: #14532d; }
-.btn-unduh:active { transform: scale(.98); }
+/* Tautan unduh hasil teks hijau */
+.btn-unduh { display: inline-block; margin-top: 8px; color: #166534; font-weight: 700; font-size: 13px; }
+.btn-unduh:hover { text-decoration: underline; }
 
-/* Tablet (≤900px): 2 kolom */
-@media (max-width: 900px) {
-  .pengajuan-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* HP (≤480px): judul mengecil, kartu 1 kolom */
+/* HP (≤480px): judul mengecil */
 @media (max-width: 480px) {
   .pengajuan h1 { font-size: 1.3rem; }
-  .pengajuan-grid { grid-template-columns: 1fr; }
 }

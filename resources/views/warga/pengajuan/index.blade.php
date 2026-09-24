@@ -14,10 +14,9 @@
     <section class="page-container pengajuan" aria-labelledby="pengajuan-judul">
         <h1 id="pengajuan-judul">Pengajuan Saya</h1>
         <p class="pengajuan-sub">Status permohonan surat yang pernah diajukan.</p>
-        <a class="btn-tambah" href="{{ route('warga.pengajuan.create') }}">Ajukan Layanan</a>
 
-        {{-- Kartu tiap pengajuan --}}
-        <ul class="pengajuan-grid">
+        {{-- Baris tiap pengajuan --}}
+        <ul class="pengajuan-list">
             @forelse ($pengajuans as $pengajuan)
                 <li>
                     {{-- Nama layanan + status --}}
@@ -29,14 +28,14 @@
                     @if ($pengajuan->catatan)
                         <p class="pengajuan-catatan">{{ $pengajuan->catatan }}</p>
                     @endif
-                    {{-- Tombol unduh muncul setelah selesai dan file hasil tersedia --}}
+                    {{-- Tautan unduh muncul setelah selesai dan file hasil tersedia --}}
                     @if ($pengajuan->status === 'selesai' && $pengajuan->file_hasil)
                         <a class="btn-unduh" href="{{ route('warga.pengajuan.unduh', $pengajuan) }}">Unduh Hasil</a>
                     @endif
                 </li>
             @empty
                 {{-- Belum pernah mengajukan --}}
-                <li><p><strong>Belum ada pengajuan.</strong></p></li>
+                <li class="kosong"><p><strong>Belum ada pengajuan.</strong></p></li>
             @endforelse
         </ul>
 

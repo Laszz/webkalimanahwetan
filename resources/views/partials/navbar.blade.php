@@ -61,8 +61,12 @@
             </li>
         @endguest
     </ul>
-    {{-- Grup kanan selalu terlihat: lonceng + hamburger --}}
+    {{-- Grup kanan selalu terlihat: tema + lonceng + hamburger --}}
     <div class="nav-kanan">
+        {{-- Tombol ganti mode gelap/terang --}}
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Ganti ke mode gelap">
+            <i class="ph ph-moon" aria-hidden="true"></i>
+        </button>
         @auth
             {{-- Lonceng notifikasi: hanya tampil setelah login dan tidak di halaman depan publik --}}
             @unless (request()->is('/'))

@@ -24,8 +24,12 @@
 /* Daftar kartu menyamping 3 kolom */
 .berita-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .berita-list li { display: flex; flex-direction: column; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
-/* Baris kosong tanpa bingkai kartu */
-.berita-list li:only-child { border: none; background: none; }
+/* Baris kosong: teks polos rata tengah, tanpa kartu */
+.berita-list li.kosong { background: none; border: none; text-align: center; padding: 12px 0; }
+.berita-list li.kosong strong { font-size: 14px; font-weight: 600; color: #4b5563; }
+.berita-list li.kosong p { color: #4b5563; }
+/* Teks kosong total di luar daftar */
+.kosong-teks { text-align: center; font-size: 14px; font-weight: 600; color: #4b5563; }
 /* Foto kartu */
 .berita-list img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
 .berita-list li > div { padding: 14px 16px 18px; }

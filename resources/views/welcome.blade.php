@@ -104,7 +104,6 @@
 
     {{-- PETA: lokasi balai desa --}}
     @include('partials.peta-desa')
-
 @endsection
 
 {{-- JS khusus welcome dimuat sebelum </body> layout via @stack('scripts') --}}

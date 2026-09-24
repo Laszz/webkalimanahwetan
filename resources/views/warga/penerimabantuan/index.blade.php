@@ -19,8 +19,7 @@
         <ul class="bantuan-grid">
             @forelse ($bantuans as $bantuan)
                 <li>
-                    {{-- Ikon + nama program + total penerima --}}
-                    <p class="bantuan-ikon" aria-hidden="true"><i class="ph ph-gift"></i></p>
+                    {{-- Nama program + total penerima --}}
                     <h2>{{ $bantuan->nama }}</h2>
                     <p class="bantuan-total"><i class="ph ph-users" aria-hidden="true"></i>{{ $bantuan->penerima_bantuan_count }} penerima</p>
                     <p>{{ $bantuan->deskripsi ?? 'Tanpa deskripsi.' }}</p>

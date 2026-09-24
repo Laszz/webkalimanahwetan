@@ -1,12 +1,11 @@
-// JS halaman UBAH APBDES - validasi Indonesia + format rupiah bertitik. Jalan setelah HTML selesai dibaca.
+// JS halaman UBAH BELANJA - validasi Indonesia + format rupiah bertitik. Jalan setelah HTML selesai dibaca.
 document.addEventListener('DOMContentLoaded', () => {
   // Pesan wajib isi (ganti teks Inggris bawaan browser)
   const PESAN_WAJIB = {
-    tahun: 'Silahkan isi tahun anggaran',
-    bidang: 'Silahkan masukkan bidang kegiatan',
-    uraian: 'Silahkan masukkan uraian pos',
-    sumber_dana: 'Silahkan masukkan sumber dana',
-    anggaran: 'Silahkan isi pagu anggaran',
+    dana_id: 'Silahkan pilih dana yang dipakai',
+    bidang: 'Silahkan pilih bidang kegiatan',
+    uraian: 'Silahkan masukkan uraian belanja',
+    nominal: 'Silahkan isi nominal belanja',
   };
   document.querySelectorAll('.form-card input[required], .form-card select[required]').forEach((input) => {
     // Saat browser menolak isi: tampilkan pesan Indonesia

@@ -17,7 +17,7 @@
 .footer-sosmed a:hover { background: var(--desa-blue-dark); border-color: var(--desa-blue-dark); color: #fff; }
 .footer-sosmed .ph { font-size: 20px; }
 /* Hak cipta: baris bawah selebar footer, rata tengah */
-.footer-copy { width: 100%; margin: 10px 0 0; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .15); text-align: center; }
+.footer-copy { width: 100%; margin: 10px 0 0; padding-top: 12px; text-align: center; }
 
 /* HP (≤600px): identitas dan sosmed menumpuk tengah */
 @media (max-width: 600px) {

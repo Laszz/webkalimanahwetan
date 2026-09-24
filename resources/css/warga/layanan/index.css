@@ -21,8 +21,12 @@
 .filter-nav a.aktif { background: #0077b6; border-color: #0077b6; color: #fff; }
 /* Kisi kartu layanan */
 .layanan-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-/* Tiap kartu layanan */
-.layanan-grid li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px; }
+/* Tiap kartu layanan rata tengah */
+.layanan-grid li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px; text-align: center; }
+/* Baris kosong: teks polos rata tengah, tanpa kartu */
+.layanan-grid li.kosong { grid-column: 1 / -1; background: none; border: none; padding: 12px 0; }
+.layanan-grid li.kosong strong { font-size: 14px; font-weight: 600; color: #4b5563; }
+.layanan-grid li.kosong p { margin: 0; color: #4b5563; }
 .layanan-grid h2 { margin: 0 0 4px; font-size: 1.05rem; color: #0077b6; }
 /* Kategori kecil di atas nama */
 .layanan-kategori { margin: 0 0 4px; font-size: 12px; font-weight: 600; color: #6b7280; }

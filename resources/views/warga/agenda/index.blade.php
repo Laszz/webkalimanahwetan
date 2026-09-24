@@ -38,7 +38,7 @@
                 </li>
             @empty
                 {{-- Belum ada agenda --}}
-                <li><p><strong>Belum ada agenda terdekat.</strong></p></li>
+                <li class="kosong"><p><strong>Belum ada agenda terdekat.</strong></p></li>
             @endforelse
         </ul>
 

@@ -47,7 +47,7 @@
                     </li>
                 @empty
                     {{-- Tidak cocok dengan kata kunci --}}
-                    <li><p><strong>Tidak ada berita yang cocok.</strong></p></li>
+                    <li class="kosong"><p><strong>Tidak ada berita yang cocok.</strong></p></li>
                 @endforelse
             </ul>
         @else
@@ -67,28 +67,30 @@
                 </article>
             @endif
 
-            {{-- Berita sebelum-sebelumnya --}}
-            <h2 class="berita-label">Berita Sebelumnya</h2>
-            <ul class="berita-list">
-                @forelse ($beritas as $berita)
-                    <li>
-                        @if ($berita->gambar)
-                            <img src="{{ asset('storage/' . $berita->gambar) }}" width="480" height="320" loading="lazy" alt="{{ $berita->judul }}">
-                        @endif
-                        <div>
-                            {{-- Tanggal terbit --}}
-                            <p class="berita-tanggal">{{ $berita->published_at?->format('d M Y') }}</p>
-                            {{-- Judul + ringkasan + tombol baca --}}
-                            <h3>{{ $berita->judul }}</h3>
-                            <p>{{ $berita->ringkasan ?? '' }}</p>
-                            <a class="btn-baca" href="{{ route('warga.berita.show', $berita->slug) }}">Baca</a>
-                        </div>
-                    </li>
-                @empty
-                    {{-- Belum ada berita terbit --}}
-                    <li><p><strong>Belum ada berita.</strong></p></li>
-                @endforelse
-            </ul>
+            {{-- Berita sebelum-sebelumnya; label hanya tampil jika ada isi --}}
+            @if ($beritas->isNotEmpty())
+                <h2 class="berita-label">Berita Sebelumnya</h2>
+                <ul class="berita-list">
+                    @foreach ($beritas as $berita)
+                        <li>
+                            @if ($berita->gambar)
+                                <img src="{{ asset('storage/' . $berita->gambar) }}" width="480" height="320" loading="lazy" alt="{{ $berita->judul }}">
+                            @endif
+                            <div>
+                                {{-- Tanggal terbit --}}
+                                <p class="berita-tanggal">{{ $berita->published_at?->format('d M Y') }}</p>
+                                {{-- Judul + ringkasan + tombol baca --}}
+                                <h3>{{ $berita->judul }}</h3>
+                                <p>{{ $berita->ringkasan ?? '' }}</p>
+                                <a class="btn-baca" href="{{ route('warga.berita.show', $berita->slug) }}">Baca</a>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            @elseif (!$beritaTerbaru)
+                {{-- Kosong total: teks polos tanpa kartu --}}
+                <p class="kosong-teks"><strong>Belum ada berita.</strong></p>
+            @endif
         @endif
 
         {{-- Navigasi halaman (bawa kata kunci) --}}

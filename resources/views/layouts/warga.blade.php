@@ -20,8 +20,10 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
     {{-- Ikon Phosphor (satu keluarga ikon untuk seluruh situs) --}}
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    {{-- Terapkan tema tersimpan sebelum render agar tidak kedip --}}
+    <script>try{if(localStorage.getItem('desa-theme')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}</script>
     {{-- CSS kerangka + CSS tiap partial, lalu JS-nya (urutan: layout dulu agar variabel tersedia) --}}
-    @vite(['resources/css/layouts/warga.css', 'resources/css/partials/navbar.css', 'resources/css/partials/footer.css', 'resources/js/layouts/warga.js', 'resources/js/partials/navbar.js'])
+    @vite(['resources/css/layouts/warga.css', 'resources/css/partials/navbar.css', 'resources/css/partials/footer.css', 'resources/css/warga/tema.css', 'resources/js/layouts/warga.js', 'resources/js/partials/navbar.js'])
     {{-- Slot CSS khusus halaman (mis. welcome.css, dashboard.css) via @push('styles') --}}
     @stack('styles')
 </head>

@@ -1,4 +1,4 @@
-/* CSS halaman APBDES admin - filter + tabel + tombol aksi + popup */
+/* CSS halaman DANA admin - filter + tabel + tombol aksi + popup */
 
 /* Judul + sub deskripsi */
 .page-head h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
@@ -9,18 +9,19 @@
 /* Baris saring tahun */
 .filter-bar { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 16px; }
 .field-inline label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; }
-.field-inline input { width: 160px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 9px 12px; font-size: 14px; font-family: inherit; }
-.field-inline input:focus { outline: none; border-color: #00b4d8; }
+.field-inline input, .field-inline select { width: 160px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 9px 12px; font-size: 14px; font-family: inherit; color: inherit; }
+.field-inline input:focus, .field-inline select:focus { outline: none; border-color: #00b4d8; }
+.field-inline select { width: auto; min-width: 200px; }
 .btn-sekunder-inline { display: inline-block; border: 1.5px solid #0077b6; color: #0077b6; border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 700; text-decoration: none; }
 /* Pembungkus tabel: geser horizontal di HP */
 .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
 /* Tabel data */
-.data-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 960px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 860px; }
 .data-table th, .data-table td { padding: 12px 16px; text-align: center; vertical-align: middle; border-bottom: 1px solid #f3f4f6; }
 .data-table thead th { background: #f8fafc; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; }
 .data-table tbody tr:last-child td { border-bottom: none; }
 .data-table tbody tr:hover { background: #f0f9ff; }
-/* Uraian rata kiri, angka rata kanan tabular */
+/* Sumber rata kiri, angka rata kanan tabular */
 .rata-kiri { text-align: left; }
 .angka { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* Baris kosong */
@@ -41,6 +42,7 @@
 .popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
 .popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
 .popup-ok { color: #0077b6; }
+.popup-gagal { color: #dc2626; }
 .popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
 /* Navigasi halaman Laravel */
 nav[role="navigation"] { margin-top: 16px; }
