@@ -32,7 +32,7 @@ html[data-theme="dark"] .notif-drop li a:hover, html[data-theme="dark"] .notif-s
 html[data-theme="dark"] .notif-semua { color: #38bdf8; border-color: #334155; }
 html[data-theme="dark"] .theme-toggle:hover { color: #38bdf8; }
 /* Kartu putih + garis tepi */
-html[data-theme="dark"] .form-card, html[data-theme="dark"] .table-wrap, html[data-theme="dark"] .syarat-list > li, html[data-theme="dark"] .isi-card, html[data-theme="dark"] .profil-card, html[data-theme="dark"] .biodata-card, html[data-theme="dark"] .ringkas-grid > div, html[data-theme="dark"] .notif-list > li, html[data-theme="dark"] .tanggapan-list > li, html[data-theme="dark"] .bantuan-grid li, html[data-theme="dark"] .aduan-list li, html[data-theme="dark"] .berita-list li, html[data-theme="dark"] .berita-hero, html[data-theme="dark"] .layanan-grid li, html[data-theme="dark"] .perangkat-grid li, html[data-theme="dark"] .galeri-grid > li, html[data-theme="dark"] .survei-grid > li, html[data-theme="dark"] .popup-kartu, html[data-theme="dark"] .detail-isi, html[data-theme="dark"] .kartu-grid li, html[data-theme="dark"] .agenda-list li, html[data-theme="dark"] .info-card { background: #1e293b; border-color: #334155; }
+html[data-theme="dark"] .form-card, html[data-theme="dark"] .table-wrap, html[data-theme="dark"] .syarat-list > li, html[data-theme="dark"] .isi-card, html[data-theme="dark"] .profil-card, html[data-theme="dark"] .biodata-card, html[data-theme="dark"] .ringkas-grid > div, html[data-theme="dark"] .notif-list > li, html[data-theme="dark"] .bantuan-grid li, html[data-theme="dark"] .aduan-list li, html[data-theme="dark"] .aduan-hero, html[data-theme="dark"] .berita-list li, html[data-theme="dark"] .berita-hero, html[data-theme="dark"] .layanan-grid li, html[data-theme="dark"] .perangkat-grid li, html[data-theme="dark"] .galeri-grid > li, html[data-theme="dark"] .survei-grid > li, html[data-theme="dark"] .popup-kartu, html[data-theme="dark"] .kartu-grid li, html[data-theme="dark"] .agenda-list li, html[data-theme="dark"] .info-card { background: #1e293b; border-color: #334155; }
 html[data-theme="dark"] .visi-card { background: #1e293b; border-color: #334155; border-left-color: #00b4d8; }
 html[data-theme="dark"] .visi-card p { color: #7dd3fc; }
 /* Baris tabel */
@@ -44,18 +44,33 @@ html[data-theme="dark"] .field input, html[data-theme="dark"] .field select, htm
 html[data-theme="dark"] .field label { color: #cbd5e1; }
 html[data-theme="dark"] .field-error { color: #f87171; }
 /* Teks isi kartu */
-html[data-theme="dark"] .kartu-badan p, html[data-theme="dark"] .kartu-meta span, html[data-theme="dark"] .agenda-meta, html[data-theme="dark"] .detail-meta, html[data-theme="dark"] .baca-isi, html[data-theme="dark"] .biodata-card dd, html[data-theme="dark"] .isi-card p, html[data-theme="dark"] .isi-card .pra, html[data-theme="dark"] .tanggapan-list p, html[data-theme="dark"] .notif-list strong, html[data-theme="dark"] .survei-grid h2, html[data-theme="dark"] .popup-kartu p { color: #cbd5e1; }
+html[data-theme="dark"] .kartu-badan p, html[data-theme="dark"] .kartu-meta > span:not(.status), html[data-theme="dark"] .agenda-meta, html[data-theme="dark"] .detail-meta, html[data-theme="dark"] .baca-isi, html[data-theme="dark"] .biodata-card dd, html[data-theme="dark"] .isi-card p, html[data-theme="dark"] .isi-card .pra, html[data-theme="dark"] .tanggapan-list p, html[data-theme="dark"] .notif-list strong, html[data-theme="dark"] .survei-grid h2, html[data-theme="dark"] .popup-kartu p, html[data-theme="dark"] .aduan-hero h2, html[data-theme="dark"] .aduan-hero div p:not(.aduan-tanggal), html[data-theme="dark"] .detail-teks { color: #cbd5e1; }
+html[data-theme="dark"] .tanggapan-list > li + li { border-color: #334155; }
 html[data-theme="dark"] dt { color: var(--desa-muted); }
 html[data-theme="dark"] .biodata-card dd a { color: #38bdf8; }
 /* Aksen biru yang terlalu gelap di latar gelap */
 html[data-theme="dark"] .agenda-meta .ph, html[data-theme="dark"] .berita-tanggal, html[data-theme="dark"] .aduan-tanggal, html[data-theme="dark"] .galeri-tanggal, html[data-theme="dark"] .layanan-nama, html[data-theme="dark"] .form-grup legend, html[data-theme="dark"] .bantuan-grid h2, html[data-theme="dark"] .info-card h2, html[data-theme="dark"] .info-card a, html[data-theme="dark"] .info-link, html[data-theme="dark"] .lihat-password:hover, html[data-theme="dark"] .soal-nomor, html[data-theme="dark"] .survei-nomor { color: #38bdf8; }
 html[data-theme="dark"] .layanan-kategori, html[data-theme="dark"] .detail-meta, html[data-theme="dark"] .tanggapan-list span, html[data-theme="dark"] .notif-list span, html[data-theme="dark"] .lihat-password { color: var(--desa-muted); }
 html[data-theme="dark"] .bantuan-nominal { color: #7dd3fc; }
+html[data-theme="dark"] .info-bantuan li { background: transparent; border-color: #334155; }
+html[data-theme="dark"] .terima-card { background: #1e293b; border-color: #334155; }
+html[data-theme="dark"] .terima-card div + div { border-color: #334155; }
+html[data-theme="dark"] .terima-card dd, html[data-theme="dark"] .kartu-judul { color: #e2e8f0; }
+html[data-theme="dark"] .terima-sub { color: var(--desa-muted); }
+html[data-theme="dark"] .btn-kembali { border-color: #38bdf8; color: #38bdf8; }
+html[data-theme="dark"] .btn-kembali:hover { background: #334155; }
 /* Tombol outline */
 html[data-theme="dark"] .btn-sekunder, html[data-theme="dark"] .btn-reset, html[data-theme="dark"] .btn-kembali, html[data-theme="dark"] .info-link.btn-detail { border-color: #38bdf8; color: #38bdf8; }
 html[data-theme="dark"] .btn-sekunder:hover, html[data-theme="dark"] .btn-reset:hover, html[data-theme="dark"] .btn-kembali:hover, html[data-theme="dark"] .info-link.btn-detail:hover { background: #334155; }
 /* Saringan pil */
 html[data-theme="dark"] .filter-nav a { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+/* Pil status: kunci kombinasi terang-gelap agar selalu terbaca */
+html[data-theme="dark"] .status-menunggu { background: #fef3c7; color: #92400e; }
+html[data-theme="dark"] .status-diproses { background: #caf0f8; color: #023e8a; }
+html[data-theme="dark"] .status-selesai { background: #e5e7eb; color: #374151; }
+html[data-theme="dark"] .status-ditolak { background: #fee2e2; color: #991b1b; }
+html[data-theme="dark"] .status-buka { background: #caf0f8; color: #023e8a; }
+html[data-theme="dark"] .status-tutup { background: #e5e7eb; color: #374151; }
 /* Status sudah mengisi */
 html[data-theme="dark"] .survei-sudah { color: #86efac; }
 /* Deskripsi hero tetap putih di gradasi biru */
