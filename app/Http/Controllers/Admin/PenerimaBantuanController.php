@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\StorePenerimaBantuanRequest;
 use App\Models\JenisBantuan;
 use App\Models\PenerimaBantuan;
 use App\Models\Warga;
+use App\Notifications\BantuanDiterima;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -38,7 +39,13 @@ class PenerimaBantuanController extends Controller
     // Simpan penerima baru
     public function store(StorePenerimaBantuanRequest $request): RedirectResponse
     {
-        PenerimaBantuan::create($request->validated());
+        $penerima = PenerimaBantuan::create($request->validated());
+
+        // Beri tahu warga penerima jika akunnya ada
+        $penerima->loadMissing(['warga.user:id,name', 'jenisBantuan:id,nama']);
+        if ($penerima->warga?->user) {
+            $penerima->warga->user->notify(new BantuanDiterima($penerima));
+        }
 
         return redirect()
             ->route('admin.penerima-bantuan.index')

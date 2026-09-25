@@ -39,6 +39,14 @@ class PengajuanController extends Controller
         return view('admin.pengajuan.show', compact('pengajuan'));
     }
 
+    // Form keputusan: ubah status + catatan + nomor surat
+    public function edit(PengajuanLayanan $pengajuan): View
+    {
+        $pengajuan->load(['user:id,name', 'layanan:id,nama']);
+
+        return view('admin.pengajuan.edit', compact('pengajuan'));
+    }
+
     // Ubah status + catatan + nomor surat (mis. alasan penolakan)
     public function update(Request $request, PengajuanLayanan $pengajuan): RedirectResponse
     {
@@ -115,6 +123,13 @@ class PengajuanController extends Controller
         // Tanpa template aktif = tidak ada yang digenerate
         $template = $pengajuan->layanan->templateHasilLayanan ?? null;
         if (! $template || ! $template->aktif) {
+            return;
+        }
+
+        // File template hilang di storage = lewati agar tidak 500
+        if (! Storage::disk('local')->exists($template->file_path)) {
+            session()->flash('gagal', 'File template layanan tidak ditemukan di storage, dokumen hasil tidak tergenerate.');
+
             return;
         }
 

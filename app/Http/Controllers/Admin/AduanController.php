@@ -32,15 +32,32 @@ class AduanController extends Controller
         return view('admin.aduan.show', compact('aduan'));
     }
 
-    // Ubah status tindak lanjut (menunggu/diproses/selesai)
+    // Form tindak lanjut: ubah status + tulis tanggapan
+    public function edit(Aduan $aduan): View
+    {
+        $aduan->load('user:id,name');
+
+        return view('admin.aduan.edit', compact('aduan'));
+    }
+
+    // Ubah status tindak lanjut + tanggapan opsional sekaligus
     public function update(Request $request, Aduan $aduan): RedirectResponse
     {
-        // Satu-satunya input: status baru sesuai alur
+        // Input: status baru sesuai alur + isi tanggapan bila ditulis
         $data = $request->validate([
             'status' => ['required', 'in:menunggu,diproses,selesai'],
+            'isi' => ['nullable', 'string'],
         ]);
 
-        $aduan->update($data);
+        $aduan->update(['status' => $data['status']]);
+
+        // Ada tulisan tanggapan = simpan sebagai balasan admin login
+        if (! empty($data['isi'])) {
+            $aduan->tanggapanAduan()->create([
+                'user_id' => $request->user()->id,
+                'isi' => $data['isi'],
+            ]);
+        }
 
         // Beri tahu pelapor jika status benar berubah
         if ($aduan->wasChanged('status') && $aduan->user) {
