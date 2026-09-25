@@ -1,7 +1,5 @@
 <?php
 
-// Daftar route aplikasi - dipisah blok ADMIN dan WARGA, tiap fitur dikelompokkan + komentar
-
 use App\Http\Controllers\Admin\AduanController as AdminAduanController;
 use App\Http\Controllers\Admin\AgendaController as AdminAgendaController;
 use App\Http\Controllers\Admin\BelanjaController as AdminBelanjaController;
@@ -68,7 +66,8 @@ Route::name('warga.')->group(function () {
     // Bantuan sosial
     Route::get('/bantuan', [WargaBantuanController::class, 'index'])->name('penerimabantuan.index');
     Route::get('/bantuan/{bantuan}', [WargaBantuanController::class, 'show'])->name('penerimabantuan.show');
-    Route::get('/bantuan/terima/{penerima}', [WargaBantuanController::class, 'detail'])->name('penerimabantuan.detail');
+    // Detail milik sendiri: wajib login (tamu dilempar ke login, bukan pemilik dapat 403)
+    Route::get('/bantuan/terima/{penerima}', [WargaBantuanController::class, 'detail'])->middleware('auth')->name('penerimabantuan.detail');
 
     // Aduan warga (daftar + detail publik; buat milik sendiri tetap wajib login di bawah)
     Route::get('/aduan', [WargaAduanController::class, 'index'])->name('aduan.index');
@@ -155,6 +154,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Aduan masuk
     Route::get('/aduan', [AdminAduanController::class, 'index'])->name('aduan.index');
     Route::get('/aduan/{aduan}', [AdminAduanController::class, 'show'])->name('aduan.show');
+    Route::get('/aduan/{aduan}/edit', [AdminAduanController::class, 'edit'])->name('aduan.edit');
     Route::put('/aduan/{aduan}', [AdminAduanController::class, 'update'])->name('aduan.update');
 
     // Tanggapan aduan
@@ -179,6 +179,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Verifikasi pengajuan
     Route::get('/pengajuan', [AdminPengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'show'])->name('pengajuan.show');
+    Route::get('/pengajuan/{pengajuan}/edit', [AdminPengajuanController::class, 'edit'])->name('pengajuan.edit');
     Route::put('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'update'])->name('pengajuan.update');
     Route::delete('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'destroy'])->name('pengajuan.destroy');
 
