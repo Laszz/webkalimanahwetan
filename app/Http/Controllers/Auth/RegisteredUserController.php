@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\AkunBaru;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -43,6 +45,10 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        // Beri tahu semua admin agar segera diverifikasi
+        $admins = User::where('role', 'admin')->get();
+        Notification::send($admins, new AkunBaru($user));
 
         // Tidak langsung masuk: akun baru berstatus menunggu, admin verifikasi dulu.
         // Pesan tampil di halaman login via session status
