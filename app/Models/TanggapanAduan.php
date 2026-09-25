@@ -16,7 +16,7 @@ class TanggapanAduan extends Model
     protected $table = 'tanggapan_aduans';
 
     // Kolom yang boleh diisi massal (user_id diisi otomatis dari admin login)
-    protected $fillable = ['aduan_id', 'isi'];
+    protected $fillable = ['aduan_id', 'user_id', 'isi'];
 
     // Aduan yang ditanggapi
     public function aduan(): BelongsTo
