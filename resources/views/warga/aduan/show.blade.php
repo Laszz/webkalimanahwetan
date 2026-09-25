@@ -26,10 +26,10 @@
             </figure>
         @endif
 
-        {{-- Isi laporan lengkap --}}
-        <div class="detail-isi">{{ $aduan->isi }}</div>
+        {{-- Isi laporan lengkap tanpa kartu --}}
+        <div class="detail-teks">{{ $aduan->isi }}</div>
 
-        {{-- Tanggapan admin --}}
+        {{-- Tanggapan admin tanpa kartu --}}
         <h2 class="kartu-judul">Tanggapan Perangkat Desa</h2>
         <ul class="tanggapan-list">
             @forelse ($aduan->tanggapanAduan as $tanggapan)
