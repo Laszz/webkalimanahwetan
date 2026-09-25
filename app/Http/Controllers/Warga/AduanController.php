@@ -16,14 +16,13 @@ use Illuminate\View\View;
 
 class AduanController extends Controller
 {
-    // Daftar aduan + cari judul/isi; hero = terbaru, sisanya 8 per halaman
-    // Tamu lihat semua laporan (transparansi); warga login lihat milik sendiri
+    // Daftar semua aduan warga (transparansi) + cari judul/isi; hero = terbaru, sisanya 8 per halaman
     public function index(Request $request): View
     {
         // Kata kunci pencarian dari query ?q=
         $cari = trim((string) $request->query('q', ''));
 
-        $query = (auth()->check() ? auth()->user()->aduans() : Aduan::query())
+        $query = Aduan::query()
             ->latest()
             ->when($cari !== '', fn ($q) => $q->where(function ($w) use ($cari) {
                 $w->where('judul', 'like', "%{$cari}%")
@@ -41,11 +40,9 @@ class AduanController extends Controller
 
         $aduans = $query->paginate(8)->withQueryString();
 
-        // Judul menyesuaikan: milik sendiri jika login, transparansi jika tamu
-        $judul = auth()->check() ? 'Aduan Saya' : 'Aduan Warga';
-        $sub = auth()->check()
-            ? 'Laporan yang pernah dikirim beserta statusnya.'
-            : 'Laporan warga yang masuk dan ditindaklanjuti perangkat desa.';
+        // Judul + sub transparansi untuk semua pengunjung
+        $judul = 'Aduan Warga';
+        $sub = 'Laporan warga yang masuk dan ditindaklanjuti perangkat desa.';
 
         return view('warga.aduan.index', compact('aduans', 'aduanTerbaru', 'cari', 'judul', 'sub'));
     }
