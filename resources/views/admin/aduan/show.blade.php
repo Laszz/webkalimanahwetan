@@ -27,23 +27,7 @@
             </figure>
         @endif
 
-        {{-- Form ubah status tindak lanjut --}}
-        <h2 class="kartu-judul">Ubah Status</h2>
-        <form class="form-baru" method="POST" action="{{ route('admin.aduan.update', $aduan) }}">
-            @csrf
-            @method('PUT')
-            <div class="field">
-                <label for="status">Status</label>
-                <select id="status" name="status" required>
-                    <option value="menunggu" @selected($aduan->status === 'menunggu')>Menunggu</option>
-                    <option value="diproses" @selected($aduan->status === 'diproses')>Diproses</option>
-                    <option value="selesai" @selected($aduan->status === 'selesai')>Selesai</option>
-                </select>
-            </div>
-            <button type="submit" class="btn-simpan">Simpan Status</button>
-        </form>
-
-        {{-- Daftar tanggapan admin --}}
+        {{-- Daftar tanggapan admin (baca saja) --}}
         <h2 class="kartu-judul">Tanggapan</h2>
         <ul class="tanggapan-list">
             @forelse ($aduan->tanggapanAduan as $tanggapan)
@@ -51,12 +35,6 @@
                     {{-- Isi + penanggap + waktu --}}
                     <p>{{ $tanggapan->isi }}</p>
                     <span>{{ $tanggapan->user->name ?? '-' }} · {{ $tanggapan->created_at->format('d M Y H.i') }}</span>
-                    {{-- Hapus tanggapan ini --}}
-                    <form method="POST" action="{{ route('admin.tanggapan.destroy', $tanggapan) }}" data-konfirmasi="Hapus tanggapan ini?">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-kecil btn-hapus">Hapus</button>
-                    </form>
                 </li>
             @empty
                 {{-- Belum ada tanggapan --}}
@@ -64,19 +42,9 @@
             @endforelse
         </ul>
 
-        {{-- Form tambah tanggapan baru --}}
-        <h3 class="kartu-judul">Tambah Tanggapan</h3>
-        <form class="form-baru" method="POST" action="{{ route('admin.tanggapan.store', $aduan) }}">
-            @csrf
-            <div class="field">
-                <label for="isi">Isi Tanggapan</label>
-                <textarea id="isi" name="isi" rows="3" required>{{ old('isi') }}</textarea>
-            </div>
-            <button type="submit" class="btn-simpan">Kirim</button>
-        </form>
-
-        {{-- Tombol kembali ke daftar --}}
-        <div class="aksi-bawah">
+        {{-- Baris tombol ubah + kembali --}}
+        <div class="aksi-baris">
+            <a class="btn-ubah" href="{{ route('admin.aduan.edit', $aduan) }}">Ubah</a>
             <a class="btn-sekunder" href="{{ route('admin.aduan.index') }}">Kembali</a>
         </div>
     </section>

@@ -52,6 +52,8 @@
                             <td>
                                 {{-- Tombol periksa berkas --}}
                                 <a class="btn-kecil btn-lihat" href="{{ route('admin.pengajuan.show', $pengajuan) }}">Periksa</a>
+                                {{-- Tombol ubah keputusan --}}
+                                <a class="btn-kecil btn-ubah" href="{{ route('admin.pengajuan.edit', $pengajuan) }}">Ubah</a>
                                 {{-- Tombol hapus (minta konfirmasi via JS) --}}
                                 <form method="POST" action="{{ route('admin.pengajuan.destroy', $pengajuan) }}" data-konfirmasi="Hapus pengajuan {{ $pengajuan->layanan->nama ?? '' }} milik {{ $pengajuan->user->name ?? '' }}?">
                                     @csrf

@@ -49,8 +49,10 @@
                             {{-- Penanda status aduan --}}
                             <td><span class="status status-{{ $aduan->status }}">{{ ucfirst($aduan->status) }}</span></td>
                             <td>
-                                {{-- Tombol lihat detail + tanggapan --}}
+                                {{-- Tombol lihat detail --}}
                                 <a class="btn-kecil btn-lihat" href="{{ route('admin.aduan.show', $aduan) }}">Lihat</a>
+                                {{-- Tombol ubah ke halaman tindak lanjut --}}
+                                <a class="btn-kecil btn-ubah" href="{{ route('admin.aduan.edit', $aduan) }}">Ubah</a>
                             </td>
                         </tr>
                     @empty
