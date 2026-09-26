@@ -35,6 +35,7 @@
 .popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
 .popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
 .popup-ok { color: #0077b6; }
+.popup-gagal { color: #dc2626; }
 .popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
 
 /* HP (≤480px): judul mengecil */
