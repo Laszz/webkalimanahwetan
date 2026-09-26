@@ -59,6 +59,17 @@
             </div>
         </div>
     @endif
+
+    {{-- Popup peringatan (mis. file template hilang saat generate) --}}
+    @if (session('gagal'))
+        <div class="popup" id="popup" role="alertdialog" aria-modal="true" aria-label="Peringatan">
+            <div class="popup-kartu">
+                <i class="ph ph-warning-circle popup-gagal" aria-hidden="true"></i>
+                <p>{{ session('gagal') }}</p>
+                <button type="button" class="btn-kecil btn-setuju" data-tutup>Tutup</button>
+            </div>
+        </div>
+    @endif
 @endsection
 
 {{-- JS khusus halaman ini dimuat via stack layout --}}
