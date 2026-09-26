@@ -106,6 +106,7 @@
     <section class="berita" id="berita" aria-labelledby="berita-judul">
         <div class="page-container">
             <h2 id="berita-judul" class="judul-seksi">Berita dan Pengumuman</h2>
+            <p class="sub-seksi">Kabar dan pengumuman terbaru desa.</p>
             <ul class="kartu-grid kartu-grid-5">
                 @forelse (($beritas ?? []) as $berita)
                     {{-- Tiap kartu: foto + judul + ringkasan + tanggal --}}
