@@ -12,8 +12,20 @@
 /* Kotak input + pilih + area teks; biru saat fokus */
 .field input, .field select, .field textarea { width: 100%; background: #f3f4f6; border: 1px solid transparent; border-radius: 8px; padding: 12px 15px; font-size: 14px; font-family: inherit; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #00b4d8; background: #fff; }
-/* Teks error di bawah input */
+/* Info batas berkas + teks error di bawah input */
+.field-info { color: #6b7280; font-size: 12px; margin: 4px 0 0; }
 .field-error { color: #dc2626; font-size: 12px; margin: 2px 0 0; }
+/* Popup format salah: latar gelap penuh + kartu tengah */
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+/* Sembunyi saat atribut hidden ada */
+.popup[hidden] { display: none; }
+.popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
+.popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
+.popup-gagal { color: #dc2626; }
+.popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
+/* Tombol kecil untuk popup */
+.btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; }
+.btn-setuju { background: #0077b6; }
 /* Sub judul daftar syarat */
 .kartu-judul { font-size: 1rem; margin: 24px 0 12px; color: #0077b6; }
 /* Baris tombol sejajar */

@@ -6,14 +6,18 @@
 /* Tombol ajukan pil biru */
 .btn-tambah { display: inline-block; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; margin-bottom: 20px; }
 .btn-tambah:hover { background: #005b85; }
-/* Daftar baris pengajuan tanpa kartu */
+/* Daftar baris pengajuan bernomor tanpa kartu */
 .pengajuan-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.pengajuan-list li { padding: 16px 0; }
+.pengajuan-list li { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; }
 .pengajuan-list li + li { border-top: 1px solid #e5e7eb; }
 /* Baris kosong: teks polos rata tengah */
-.pengajuan-list li.kosong { text-align: center; padding: 12px 0; }
+.pengajuan-list li.kosong { display: block; text-align: center; padding: 12px 0; }
 .pengajuan-list li.kosong strong { font-size: 14px; font-weight: 600; color: #4b5563; }
 .pengajuan-list li.kosong p { color: #4b5563; }
+/* Nomor urut */
+.pengajuan-nomor { font-size: 14px; font-weight: 700; color: #9ca3af; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+/* Isi baris */
+.pengajuan-isi { flex: 1; min-width: 0; }
 /* Nama layanan + status sejajar */
 .pengajuan-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
 .pengajuan-head h2 { margin: 0; font-size: 1.05rem; }
@@ -23,12 +27,14 @@
 .status-diproses { background: #caf0f8; color: #023e8a; }
 .status-selesai { background: #e5e7eb; color: #374151; }
 .status-ditolak { background: #fee2e2; color: #991b1b; }
-/* Tanggal + catatan admin */
-.pengajuan-tanggal { font-size: 12px; color: #6b7280; margin: 8px 0 0; }
+/* Tanggal + unduh sejajar */
+.pengajuan-bawah { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 8px; }
+.pengajuan-tanggal { font-size: 12px; color: #6b7280; margin: 0; }
 .pengajuan-catatan { font-size: 13px; color: #4b5563; margin: 8px 0 0; padding-top: 8px; border-top: 1px solid #f3f4f6; }
-/* Tautan unduh hasil teks hijau */
-.btn-unduh { display: inline-block; margin-top: 8px; color: #166534; font-weight: 700; font-size: 13px; }
+/* Tautan unduh hijau + ikon */
+.btn-unduh { display: inline-flex; align-items: center; gap: 6px; color: #166534; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
 .btn-unduh:hover { text-decoration: underline; }
+.btn-unduh .ph { font-size: 16px; }
 
 /* HP (≤480px): judul mengecil */
 @media (max-width: 480px) {
