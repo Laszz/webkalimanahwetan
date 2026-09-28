@@ -21,6 +21,8 @@ class StoreSyaratRequest extends FormRequest
             'layanan_id' => ['required', 'exists:layanans,id'],
             'nama' => ['required', 'string', 'max:255'],
             'tipe' => ['required', 'in:file,text'],
+            // Centang = wajib diisi warga
+            'wajib' => ['nullable', 'boolean'],
         ];
     }
 }
