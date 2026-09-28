@@ -76,7 +76,7 @@ class PengajuanController extends Controller
         }
 
         return redirect()
-            ->route('admin.pengajuan.show', $pengajuan)
+            ->route('admin.pengajuan.index')
             ->with('success', 'Status pengajuan diperbarui.');
     }
 
