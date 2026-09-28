@@ -66,7 +66,7 @@
                             <td>{{ $belanja->bidang }}</td>
                             <td class="rata-kiri">{{ $belanja->uraian }}</td>
                             <td class="angka">Rp{{ number_format($belanja->nominal, 0, ',', '.') }}</td>
-                            <td>
+                            <td class="aksi">
                                 {{-- Tombol ubah --}}
                                 <a class="btn-kecil btn-ubah" href="{{ route('admin.belanja.edit', $belanja) }}">Ubah</a>
                                 {{-- Tombol hapus (minta konfirmasi via JS) --}}
