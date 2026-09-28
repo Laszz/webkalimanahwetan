@@ -9,6 +9,7 @@ use App\Models\Aduan;
 use App\Notifications\AduanStatus;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class AduanController extends Controller
@@ -30,6 +31,20 @@ class AduanController extends Controller
         $aduan->load(['user:id,name', 'tanggapanAduan.user:id,name']);
 
         return view('admin.aduan.show', compact('aduan'));
+    }
+
+    // Hapus aduan + foto bukti di storage (tanggapan ikut via cascade DB)
+    public function destroy(Aduan $aduan): RedirectResponse
+    {
+        if ($aduan->gambar) {
+            Storage::disk('public')->delete($aduan->gambar);
+        }
+
+        $aduan->delete();
+
+        return redirect()
+            ->route('admin.aduan.index')
+            ->with('success', 'Aduan dihapus.');
     }
 
     // Form tindak lanjut: ubah status + tulis tanggapan

@@ -28,18 +28,53 @@ class SyaratController extends Controller
         return view('admin.syarat-layanan.index', compact('layanan'));
     }
 
+    // Form tambah syarat untuk layanan terpilih (?layanan=id)
+    public function create(Request $request): View|RedirectResponse
+    {
+        $layananId = $request->query('layanan');
+
+        if (! $layananId) {
+            return redirect()->route('admin.layanan.index');
+        }
+
+        $layanan = Layanan::findOrFail($layananId);
+
+        return view('admin.syarat-layanan.create', compact('layanan'));
+    }
+
     // Tambah syarat ke layanan
     public function store(StoreSyaratRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        // Semua syarat wajib diisi warga
-        $data['wajib'] = true;
+        // Checkbox tidak terkirim saat tidak dicentang = opsional
+        $data['wajib'] = $request->boolean('wajib');
 
         SyaratLayanan::create($data);
 
         return redirect()
             ->route('admin.syarat-layanan.index', ['layanan' => $data['layanan_id']])
             ->with('success', 'Syarat ditambahkan.');
+    }
+
+    // Form ubah syarat
+    public function edit(SyaratLayanan $syarat): View
+    {
+        return view('admin.syarat-layanan.edit', compact('syarat'));
+    }
+
+    // Simpan perubahan syarat
+    public function update(StoreSyaratRequest $request, SyaratLayanan $syarat): RedirectResponse
+    {
+        $data = $request->validated();
+        // Checkbox tidak terkirim saat tidak dicentang = opsional
+        $data['wajib'] = $request->boolean('wajib');
+        unset($data['layanan_id']);
+
+        $syarat->update($data);
+
+        return redirect()
+            ->route('admin.syarat-layanan.index', ['layanan' => $syarat->layanan_id])
+            ->with('success', 'Syarat diperbarui.');
     }
 
     // Hapus syarat (pengajuan lama yang memakainya ikut terhapus via cascade)
