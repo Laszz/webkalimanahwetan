@@ -1,4 +1,4 @@
-/* CSS halaman APBDES warga - ringkasan + tabel transparansi */
+/* CSS halaman APBDES warga - ringkasan + navigasi + update terbaru */
 
 /* Judul + sub deskripsi */
 .apbdes h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
@@ -10,64 +10,45 @@
 .field-inline select:focus { outline: none; border-color: #00b4d8; background: #fff; }
 .btn-tampil { border: none; border-radius: 999px; background: #0077b6; color: #fff; padding: 10px 24px; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
 .btn-tampil:hover { background: #005b85; }
-/* Tiga kartu ringkasan ramping */
-.ringkas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
-.ringkas-grid > div { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 14px 16px; }
-.ringkas-grid p { margin: 0 0 4px; font-size: 12px; color: #6b7280; }
-.ringkas-grid strong { font-size: 15px; color: #023e8a; font-variant-numeric: tabular-nums; }
+/* Satu kartu ringkasan */
+.ringkas-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
+/* Tiga kolom angka sejajar */
+.ringkas-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.ringkas-row p { margin: 0 0 4px; font-size: 12px; color: #6b7280; }
+.ringkas-row strong { font-size: 15px; color: #023e8a; font-variant-numeric: tabular-nums; }
+/* Label + persen progres sejajar */
+.progress-head { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+.progress-label { margin: 0; font-size: 13px; font-weight: 700; color: #374151; }
+.progress-persen { font-size: 13px; font-weight: 700; color: #374151; font-variant-numeric: tabular-nums; }
 /* Batang serapan */
 .serapan { height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
 .serapan-isi { height: 100%; background: #00b4d8; border-radius: 999px; }
-/* Label + keterangan progres */
-.progress-label { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: #374151; }
-.progress-teks { margin: 0 0 24px; font-size: 13px; color: #4b5563; font-variant-numeric: tabular-nums; }
+/* Keterangan progres */
+.progress-teks { margin: 0; font-size: 13px; color: #4b5563; font-variant-numeric: tabular-nums; }
+/* Dua kartu navigasi */
+.nav-grid { margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.nav-card { display: block; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.nav-card:hover { transform: translateY(-3px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); }
+.nav-card strong { display: block; font-size: 15px; color: #0077b6; margin-bottom: 4px; }
+.nav-card span { font-size: 13px; color: #6b7280; }
+.nav-panah { display: block; text-align: right; font-size: 18px; color: #0077b6; margin-top: 8px; }
 /* Label seksi */
 .apbdes-label { font-size: 1.05rem; margin: 24px 0 4px; color: #023e8a; }
-/* Baris dana: tanpa kartu, pisah garis tipis */
-.dana-row { padding: 16px 0; }
-.dana-row + .dana-row, .apbdes-label + .dana-row { border-top: 1px solid #e5e7eb; }
-.apbdes-label + .dana-row { margin-top: 8px; }
-/* Kepala: sumber utama kiri + total menonjol kanan */
-.dana-head { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; margin-bottom: 8px; }
-.dana-head h3 { margin: 0; font-size: 1rem; }
-.dana-head strong { font-size: 15px; font-variant-numeric: tabular-nums; }
-/* Baris realisasi/sisa */
-.dana-rows { margin: 0 0 12px; }
-.dana-rows div { display: flex; gap: 16px; padding: 4px 0; }
-.dana-rows dt { width: 90px; flex-shrink: 0; font-size: 13px; color: #6b7280; }
-.dana-rows dd { margin: 0; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
-/* Batang tipis khusus baris dana */
-.serapan-tipis { height: 6px; }
-/* Kartu tiap bidang */
-.bidang-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
-/* Kepala: badge + total sejajar */
-.bidang-head { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px; }
-.bidang-head h3 { margin: 0; font-size: 1rem; }
-.bidang-total { margin: 0; font-size: 13px; font-weight: 700; color: #023e8a; font-variant-numeric: tabular-nums; }
-/* Chip warna tiap bidang */
-.bidang { display: inline-block; border-radius: 999px; padding: 4px 14px; font-size: 12px; font-weight: 700; white-space: nowrap; }
-.bidang-navy { background: #023e8a; color: #fff; }
-.bidang-biru { background: #caf0f8; color: #023e8a; }
-.bidang-kuning { background: #fef3c7; color: #92400e; }
-.bidang-hijau { background: #dcfce7; color: #166534; }
-.bidang-merah { background: #fee2e2; color: #991b1b; }
-.bidang-abu { background: #f3f4f6; color: #374151; }
-/* Daftar pos dalam bidang */
-.pos-list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; }
-.pos-list li { padding: 12px 0; }
-.pos-list li + li { border-top: 1px solid #f3f4f6; }
-/* Uraian + nominal sejajar */
-.pos-head { display: flex; gap: 12px; align-items: baseline; justify-content: space-between; }
-.pos-head strong { font-size: 14px; font-weight: 600; }
-.pos-nominal { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-/* Sumber dana kecil */
-.pos-meta { margin: 2px 0 0; font-size: 12px; color: #6b7280; }
+/* Update terbaru: daftar garis penuh */
+.terbaru-list { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
+.terbaru-list li { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 14px 0; }
+.terbaru-list li + li { border-top: 1px solid #e5e7eb; }
+.terbaru-list strong { display: block; font-size: 14px; margin-bottom: 2px; }
+.terbaru-list span { font-size: 13px; color: #6b7280; font-variant-numeric: tabular-nums; }
+.terbaru-list a { font-size: 13px; font-weight: 700; color: #0077b6; text-decoration: none; white-space: nowrap; }
+.terbaru-list a:hover { text-decoration: underline; }
 /* Teks kosong */
 .kosong-teks { color: #6b7280; font-size: 14px; }
 
 /* HP (≤480px): judul mengecil, kartu menumpuk */
 @media (max-width: 480px) {
   .apbdes h1 { font-size: 1.3rem; }
-  .ringkas-grid { grid-template-columns: 1fr; }
+  .ringkas-row { grid-template-columns: 1fr; }
+  .nav-grid { grid-template-columns: 1fr; }
   .filter-bar { flex-direction: column; align-items: stretch; }
 }
