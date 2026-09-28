@@ -59,6 +59,8 @@ Route::name('warga.')->group(function () {
 
     // Transparansi APBDes
     Route::get('/apbdes', [WargaApbdesController::class, 'index'])->name('apbdes.index');
+    Route::get('/apbdes/{tahun}/sumber', [WargaApbdesController::class, 'sumber'])->whereNumber('tahun')->name('apbdes.sumber');
+    Route::get('/apbdes/{tahun}/belanja', [WargaApbdesController::class, 'belanja'])->whereNumber('tahun')->name('apbdes.belanja');
 
     // Agenda kegiatan
     Route::get('/agenda', [WargaAgendaController::class, 'index'])->name('agenda.index');
