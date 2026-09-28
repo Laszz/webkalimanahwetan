@@ -1,4 +1,4 @@
-{{-- Halaman APBDes - dana dan belanja per tahun (pakai layout warga) --}}
+{{-- Halaman APBDes - ringkasan + navigasi rincian per tahun (pakai layout warga) --}}
 @extends('layouts.warga')
 
 {{-- Judul tab browser --}}
@@ -12,7 +12,7 @@
 @section('content')
     {{-- Transparansi anggaran desa --}}
     <section class="page-container apbdes" aria-labelledby="apbdes-judul">
-        <h1 id="apbdes-judul">APBDes</h1>
+        <h1 id="apbdes-judul">APBDes {{ $tahun }}</h1>
         <p class="apbdes-sub">Transparansi anggaran dan realisasi Desa Kalimanah Wetan.</p>
 
         {{-- Pilih tahun anggaran --}}
@@ -31,100 +31,77 @@
         </form>
 
         @if ($tahun)
-            {{-- Tiga kartu ringkasan tahun aktif --}}
+            {{-- Satu kartu ringkasan tahun aktif --}}
             @php
                 $persen = $totalAnggaran > 0 ? min(100, round(($totalRealisasi / $totalAnggaran) * 100)) : 0;
                 $sisa = max(0, $totalAnggaran - $totalRealisasi);
             @endphp
-            <div class="ringkas-grid">
-                <div>
-                    <p>Anggaran {{ $tahun }}</p>
-                    <strong>Rp{{ number_format($totalAnggaran, 0, ',', '.') }}</strong>
+            <div class="ringkas-card">
+                <div class="ringkas-row">
+                    <div>
+                        <p>Anggaran {{ $tahun }}</p>
+                        <strong>Rp{{ number_format($totalAnggaran, 0, ',', '.') }}</strong>
+                    </div>
+                    <div>
+                        <p>Realisasi</p>
+                        <strong>Rp{{ number_format($totalRealisasi, 0, ',', '.') }}</strong>
+                    </div>
+                    <div>
+                        <p>Sisa</p>
+                        <strong>Rp{{ number_format($sisa, 0, ',', '.') }}</strong>
+                    </div>
                 </div>
-                <div>
-                    <p>Realisasi ({{ $persen }}%)</p>
-                    <strong>Rp{{ number_format($totalRealisasi, 0, ',', '.') }}</strong>
+                {{-- Batang realisasi anggaran + persen --}}
+                <div class="progress-head">
+                    <p class="progress-label">Realisasi Anggaran</p>
+                    <span class="progress-persen">{{ $persen }}%</span>
                 </div>
-                <div>
-                    <p>Sisa</p>
-                    <strong>Rp{{ number_format($sisa, 0, ',', '.') }}</strong>
+                <div class="serapan" role="img" aria-label="Realisasi anggaran {{ $persen }} persen">
+                    <div class="serapan-isi" style="width: {{ $persen }}%"></div>
                 </div>
+                <p class="progress-teks">Rp{{ number_format($totalRealisasi, 0, ',', '.') }} dari Rp{{ number_format($totalAnggaran, 0, ',', '.') }}</p>
             </div>
 
-            {{-- Batang realisasi anggaran + keterangan --}}
-            <p class="progress-label">Realisasi Anggaran</p>
-            <div class="serapan" role="img" aria-label="Realisasi anggaran {{ $persen }} persen">
-                <div class="serapan-isi" style="width: {{ $persen }}%"></div>
+            {{-- Dua kartu navigasi ke rincian tahun terpilih --}}
+            <div class="nav-grid">
+                <a class="nav-card" href="{{ route('warga.apbdes.sumber', $tahun) }}">
+                    <strong>Sumber Dana</strong>
+                    <span>Lihat rincian sumber dana</span>
+                    <span class="nav-panah" aria-hidden="true">→</span>
+                </a>
+                <a class="nav-card" href="{{ route('warga.apbdes.belanja', $tahun) }}">
+                    <strong>Belanja per Bidang</strong>
+                    <span>Lihat penggunaan anggaran berdasarkan bidang</span>
+                    <span class="nav-panah" aria-hidden="true">→</span>
+                </a>
             </div>
-            <p class="progress-teks">Rp{{ number_format($totalRealisasi, 0, ',', '.') }} dari Rp{{ number_format($totalAnggaran, 0, ',', '.') }} · {{ $persen }}%</p>
 
-            {{-- Pagu tiap sumber dana: daftar garis tanpa kartu --}}
-            <h2 class="apbdes-label">Sumber Dana</h2>
-            @forelse ($danas as $dana)
-                @php
-                    $terpakaiDana = (int) $dana->terpakai;
-                    $sisaDana = max(0, $dana->anggaran - $terpakaiDana);
-                    $persenDana = $dana->anggaran > 0 ? min(100, round(($terpakaiDana / $dana->anggaran) * 100)) : 0;
-                @endphp
-                <div class="dana-row">
-                    <div class="dana-head">
-                        <h3>{{ $dana->sumber_dana }}</h3>
-                        <strong>Rp{{ number_format($dana->anggaran, 0, ',', '.') }}</strong>
-                    </div>
-                    <dl class="dana-rows">
-                        <div><dt>Realisasi</dt><dd>Rp{{ number_format($terpakaiDana, 0, ',', '.') }}</dd></div>
-                        <div><dt>Sisa</dt><dd>Rp{{ number_format($sisaDana, 0, ',', '.') }}</dd></div>
-                    </dl>
-                    <div class="serapan serapan-tipis" role="img" aria-label="Serapan {{ $dana->sumber_dana }} {{ $persenDana }} persen">
-                        <div class="serapan-isi" style="width: {{ $persenDana }}%"></div>
-                    </div>
-                    <p class="progress-teks">{{ $persenDana }}% terealisasi</p>
-                </div>
-            @empty
-                {{-- Tahun ada tapi belum ada dana --}}
-                <p class="kosong-teks"><strong>Belum ada dana tahun {{ $tahun }}.</strong></p>
-            @endforelse
-
-            {{-- Belanja per bidang --}}
-            @php
-                // Warna chip tiap bidang baku desa
-                $warnaBidang = [
-                    'Penyelenggaraan Pemerintahan' => 'bidang-navy',
-                    'Pelaksanaan Pembangunan' => 'bidang-biru',
-                    'Pembinaan Kemasyarakatan' => 'bidang-kuning',
-                    'Pemberdayaan Masyarakat' => 'bidang-hijau',
-                    'Penanggulangan Bencana' => 'bidang-merah',
-                ];
-            @endphp
-            @if ($belanjas->isNotEmpty())
-                <h2 class="apbdes-label">Belanja per Bidang</h2>
-                @foreach ($belanjas->groupBy('bidang') as $bidang => $kelompok)
-                    @php
-                        $totalBidang = $kelompok->sum('nominal');
-                    @endphp
-                    <article class="bidang-card">
-                        {{-- Kepala bidang: badge + total --}}
-                        <div class="bidang-head">
-                            <h3><span class="bidang {{ $warnaBidang[$bidang] ?? 'bidang-abu' }}">{{ $bidang }}</span></h3>
-                            <p class="bidang-total">Total: Rp{{ number_format($totalBidang, 0, ',', '.') }}</p>
-                        </div>
-                        {{-- Belanja bidang ini --}}
-                        <ul class="pos-list">
-                            @foreach ($kelompok as $belanja)
-                                <li>
-                                    <div class="pos-head">
-                                        <strong>{{ $belanja->uraian }}</strong>
-                                        <span class="pos-nominal">Rp{{ number_format($belanja->nominal, 0, ',', '.') }}</span>
-                                    </div>
-                                    <p class="pos-meta">{{ $belanja->dana->sumber_dana ?? '-' }}</p>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </article>
-                @endforeach
+            {{-- Cuplikan entri paling baru --}}
+            @if ($danaTerbaru || $belanjaTerbaru)
+                <h2 class="apbdes-label">Update Terbaru</h2>
+                <ul class="terbaru-list">
+                    @if ($danaTerbaru)
+                        <li>
+                            <div>
+                                <strong>{{ $danaTerbaru->sumber_dana }}</strong>
+                                <span>Sumber Dana · Rp{{ number_format($danaTerbaru->anggaran, 0, ',', '.') }}</span>
+                            </div>
+                            <a href="{{ route('warga.apbdes.sumber', $tahun) }}">Lihat</a>
+                        </li>
+                    @endif
+                    @if ($belanjaTerbaru)
+                        <li>
+                            <div>
+                                <strong>{{ $belanjaTerbaru->uraian }}</strong>
+                                <span>Belanja per Bidang · Rp{{ number_format($belanjaTerbaru->nominal, 0, ',', '.') }}</span>
+                            </div>
+                            <a href="{{ route('warga.apbdes.belanja', $tahun) }}">Lihat</a>
+                        </li>
+                    @endif
+                </ul>
             @endif
         @else
-            {{-- Tabel masih kosong seluruhnya --}}
+            {{-- Belum ada tahun anggaran sama sekali --}}
             <p class="kosong-teks"><strong>Data APBDes belum tersedia.</strong></p>
         @endif
     </section>
