@@ -23,18 +23,24 @@
             <p class="detail-sub">Keperluan: {{ $pengajuan->keperluan }}</p>
         @endif
 
-        {{-- Berkas syarat terunggah --}}
+        {{-- Berkas syarat terunggah bernomor --}}
         <h2 class="kartu-judul">Berkas Syarat</h2>
         <ul class="berkas-list">
             @forelse ($pengajuan->uploadSyaratLayanan as $upload)
                 <li>
-                    {{-- Nama syarat + isi/file --}}
-                    <strong>{{ $upload->syaratLayanan->nama ?? '-' }}</strong>
-                    @if ($upload->file_path)
-                        <a href="{{ asset('storage/' . $upload->file_path) }}" target="_blank" rel="noopener">Lihat file</a>
-                    @else
-                        <span>{{ $upload->isi }}</span>
-                    @endif
+                    {{-- Nomor urut --}}
+                    <span class="berkas-nomor" aria-hidden="true">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                    <div class="berkas-isi">
+                        {{-- Nama syarat + isi/file --}}
+                        <div class="berkas-head">
+                            <strong>{{ $upload->syaratLayanan->nama ?? '-' }}</strong>
+                            @if ($upload->file_path)
+                                <a href="{{ asset('storage/' . $upload->file_path) }}" target="_blank" rel="noopener">Lihat file</a>
+                            @else
+                                <span>{{ $upload->isi }}</span>
+                            @endif
+                        </div>
+                    </div>
                 </li>
             @empty
                 {{-- Tanpa berkas --}}
