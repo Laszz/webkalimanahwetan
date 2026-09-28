@@ -39,7 +39,7 @@
 .nav-bel-btn .ph { font-size: 22px; }
 .nav-badge { position: absolute; top: -6px; right: -8px; background: #dc2626; color: #fff; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 999px; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
 /* Kotak 5 notifikasi mengambang di bawah lonceng, tampil saat details dibuka */
-.notif-drop { display: none; position: absolute; top: 100%; right: 0; width: 300px; margin-top: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); z-index: 120; overflow: hidden; }
+.notif-drop { display: none; position: absolute; top: 100%; right: 0; width: 300px; max-width: calc(100vw - 32px); margin-top: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); z-index: 120; overflow: hidden; }
 .nav-bel-wrap[open] .notif-drop { display: block; }
 /* Kepala kotak: judul kiri + tong sampah kanan */
 .notif-judul { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 16px; border-bottom: 1px solid #f3f4f6; }
