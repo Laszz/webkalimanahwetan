@@ -40,10 +40,15 @@
                 <div class="field">
                     <label for="syarat-{{ $syarat->id }}">{{ $syarat->nama }}{{ $syarat->wajib ? ' (wajib)' : '' }}</label>
                     @if ($syarat->tipe === 'file')
-                        <input id="syarat-{{ $syarat->id }}" type="file" name="syarat[{{ $syarat->id }}]" accept="image/jpeg,image/png,application/pdf" @required($syarat->wajib)>
+                        <input id="syarat-{{ $syarat->id }}" type="file" name="syarat[{{ $syarat->id }}]" accept="image/jpeg,image/png,application/pdf" data-cek-file @required($syarat->wajib)>
+                        {{-- Batas berkas sesuai validasi backend --}}
+                        <p class="field-info">Format: JPG, JPEG, PNG, PDF · Maks 2MB.</p>
                     @else
                         <input id="syarat-{{ $syarat->id }}" type="text" name="syarat[{{ $syarat->id }}]" value="{{ old('syarat.' . $syarat->id) }}" @required($syarat->wajib) autocomplete="off">
                     @endif
+                    @foreach ((array) $errors->get('syarat.' . $syarat->id) as $msg)
+                        <p class="field-error" role="alert">{{ $msg }}</p>
+                    @endforeach
                 </div>
             @endforeach
 
@@ -53,6 +58,15 @@
                 <a class="btn-sekunder" href="{{ route('warga.layanan.index') }}">Batal</a>
             </div>
         </form>
+
+        {{-- Popup galat berkas (teks diisi JS sesuai jenis kesalahan) --}}
+        <div class="popup" id="popup-file" hidden role="alertdialog" aria-modal="true" aria-label="Berkas tidak sesuai">
+            <div class="popup-kartu">
+                <i class="ph ph-warning-circle popup-gagal" aria-hidden="true"></i>
+                <p id="popup-file-pesan">Format file tidak sesuai!</p>
+                <button type="button" class="btn-kecil btn-setuju" data-tutup>Tutup</button>
+            </div>
+        </div>
     </section>
 @endsection
 
