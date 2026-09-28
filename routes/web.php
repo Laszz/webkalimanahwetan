@@ -158,6 +158,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/aduan/{aduan}', [AdminAduanController::class, 'show'])->name('aduan.show');
     Route::get('/aduan/{aduan}/edit', [AdminAduanController::class, 'edit'])->name('aduan.edit');
     Route::put('/aduan/{aduan}', [AdminAduanController::class, 'update'])->name('aduan.update');
+    Route::delete('/aduan/{aduan}', [AdminAduanController::class, 'destroy'])->name('aduan.destroy');
 
     // Tanggapan aduan
     Route::post('/aduan/{aduan}/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store');
@@ -175,7 +176,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Syarat per layanan (?layanan=id)
     Route::get('/syarat-layanan', [SyaratController::class, 'index'])->name('syarat-layanan.index');
+    Route::get('/syarat-layanan/buat', [SyaratController::class, 'create'])->name('syarat-layanan.create');
     Route::post('/syarat-layanan', [SyaratController::class, 'store'])->name('syarat-layanan.store');
+    Route::get('/syarat-layanan/{syarat}/edit', [SyaratController::class, 'edit'])->name('syarat-layanan.edit');
+    Route::put('/syarat-layanan/{syarat}', [SyaratController::class, 'update'])->name('syarat-layanan.update');
     Route::delete('/syarat-layanan/{syarat}', [SyaratController::class, 'destroy'])->name('syarat-layanan.destroy');
 
     // Verifikasi pengajuan
