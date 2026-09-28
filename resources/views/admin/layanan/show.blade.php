@@ -30,6 +30,8 @@
         <ul class="syarat-list">
             @forelse ($layanan->syaratLayanan as $syarat)
                 <li>
+                    {{-- Nomor urut --}}
+                    <span class="syarat-nomor" aria-hidden="true">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                     {{-- Nama + tipe + wajib --}}
                     <strong>{{ $syarat->nama }}</strong>
                     <span>{{ $syarat->tipe === 'file' ? 'File' : 'Teks' }}{{ $syarat->wajib ? ' · Wajib' : '' }}</span>
