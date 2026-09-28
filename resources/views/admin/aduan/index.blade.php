@@ -53,6 +53,12 @@
                                 <a class="btn-kecil btn-lihat" href="{{ route('admin.aduan.show', $aduan) }}">Lihat</a>
                                 {{-- Tombol ubah ke halaman tindak lanjut --}}
                                 <a class="btn-kecil btn-ubah" href="{{ route('admin.aduan.edit', $aduan) }}">Ubah</a>
+                                {{-- Tombol hapus (minta konfirmasi via JS) --}}
+                                <form method="POST" action="{{ route('admin.aduan.destroy', $aduan) }}" data-konfirmasi="Hapus aduan {{ $aduan->judul }}?">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-kecil btn-hapus">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -65,6 +71,17 @@
         {{-- Navigasi halaman --}}
         {{ $aduans->links() }}
     </section>
+
+    {{-- Popup hasil aksi (tampil jika ada pesan sesi) --}}
+    @if (session('success'))
+        <div class="popup" id="popup" role="alertdialog" aria-modal="true" aria-label="Hasil aksi">
+            <div class="popup-kartu">
+                <i class="ph ph-check-circle popup-ok" aria-hidden="true"></i>
+                <p>{{ session('success') }}</p>
+                <button type="button" class="btn-kecil btn-setuju" data-tutup>Tutup</button>
+            </div>
+        </div>
+    @endif
 @endsection
 
 {{-- JS khusus halaman ini dimuat via stack layout --}}
