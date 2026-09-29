@@ -13,38 +13,65 @@
     {{-- Profil resmi desa; kosong = pesan jujur --}}
     <section class="page-container profil-desa" aria-labelledby="profil-desa-judul">
         @if ($profil)
-            {{-- Kepala: logo + nama desa --}}
-            <div class="profil-kepala">
-                @if ($profil->logo)
-                    <figure class="profil-logo">
-                        <img src="{{ asset('storage/' . $profil->logo) }}" alt="Logo {{ $profil->nama_desa }}">
-                    </figure>
+            <div class="profil-wrap">
+                {{-- Kepala: label + nama + wilayah --}}
+                <p class="profil-kicker">Profil Desa</p>
+                <h1 id="profil-desa-judul">{{ $profil->nama_desa }}</h1>
+                {{-- Wilayah statis Kalimanah Wetan --}}
+                <p class="profil-wilayah">Kecamatan Kalimanah · Kabupaten Purbalingga</p>
+
+                {{-- Visi desa kutipan utama --}}
+                <h2 class="profil-label">Visi</h2>
+                <blockquote class="visi-card">
+                    <p>{{ $profil->visi }}</p>
+                </blockquote>
+
+                {{-- Misi desa: pecah per baris bernomor + judul --}}
+                <h2 class="profil-label">Misi</h2>
+                @php
+                    // Judul baku RPJM desa (teks misi tidak punya pemisah judul-isi,
+                    // jadi cocokkan awalan baris; terpanjang dulu; tak cocok = teks utuh)
+                    $judulMisi = ['Berdaya Saing', 'Berakhlak Mulia', 'Mandiri', 'Sejahtera', 'Maju'];
+                    $barisMisi = preg_split('/\R\s*\R|\R/', trim($profil->misi));
+                    $misiList = [];
+                    foreach ((array) $barisMisi as $baris) {
+                        $baris = trim(preg_replace('/^\s*\d+[.)]\s*/', '', $baris));
+                        if ($baris === '') {
+                            continue;
+                        }
+                        $judul = null;
+                        foreach ($judulMisi as $cocok) {
+                            if (stripos($baris, $cocok) === 0) {
+                                $judul = $cocok;
+                                $baris = trim(substr($baris, strlen($cocok)));
+                                break;
+                            }
+                        }
+                        $misiList[] = ['judul' => $judul, 'isi' => $baris];
+                    }
+                @endphp
+                <ol class="misi-grid">
+                    @foreach ($misiList as $misi)
+                        <li>
+                            <span class="misi-nomor" aria-hidden="true">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                            <div>
+                                @if ($misi['judul'])
+                                    <strong class="misi-judul">{{ $misi['judul'] }}</strong>
+                                @endif
+                                <p>{{ $misi['isi'] }}</p>
+                            </div>
+                        </li>
+                    @endforeach
+                </ol>
+
+                @if ($profil->sejarah)
+                    {{-- Sejarah desa dalam kotak --}}
+                    <h2 class="profil-label">Sejarah</h2>
+                    <div class="isi-box">
+                        <div class="pra">{!! nl2br(e($profil->sejarah)) !!}</div>
+                    </div>
                 @endif
-                <div>
-                    <p class="profil-kicker">Profil Resmi</p>
-                    <h1 id="profil-desa-judul">{{ $profil->nama_desa }}</h1>
-                </div>
             </div>
-
-            {{-- Visi desa kutipan utama --}}
-            <h2 class="profil-label">Visi</h2>
-            <blockquote class="visi-card">
-                <p>{{ $profil->visi }}</p>
-            </blockquote>
-
-            {{-- Misi desa --}}
-            <h2 class="profil-label">Misi</h2>
-            <div class="isi-card">
-                <p class="pra">{!! nl2br(e($profil->misi)) !!}</p>
-            </div>
-
-            @if ($profil->sejarah)
-                {{-- Sejarah desa --}}
-                <h2 class="profil-label">Sejarah</h2>
-                <div class="isi-card">
-                    <div class="pra">{!! nl2br(e($profil->sejarah)) !!}</div>
-                </div>
-            @endif
         @else
             <h1 id="profil-desa-judul">Profil Desa</h1>
             <p><strong>Profil belum diisi.</strong></p>
