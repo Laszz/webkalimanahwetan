@@ -15,6 +15,7 @@
         <h1 id="penerima-judul">Penerima Bantuan</h1>
         <p class="page-sub">Warga penerima tiap program per periode penyaluran.</p>
         <a class="btn-tambah" href="{{ route('admin.penerima-bantuan.create') }}">Tambah Penerima</a>
+        <a class="btn-tambah btn-export" href="{{ route('admin.penerima-bantuan.export') }}">Export Excel</a>
     </section>
 
     {{-- Tabel penerima --}}
