@@ -50,6 +50,16 @@ class AuthenticatedSessionController extends Controller
             ? route('admin.dashboard', absolute: false)
             : route('warga.dashboard', absolute: false);
 
+        // Abaikan URL tujuan jika beda area peran (mis. admin yang terpental
+        // dari halaman warga saat belum login tetap ke dashboard admin)
+        $tertuju = $request->session()->get('url.intended');
+        if (is_string($tertuju)) {
+            $path = parse_url($tertuju, PHP_URL_PATH) ?: '/';
+            if (str_starts_with($path, '/admin') !== $request->user()->isAdmin()) {
+                $request->session()->forget('url.intended');
+            }
+        }
+
         return redirect()->intended($tujuan);
     }
 
