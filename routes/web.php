@@ -150,6 +150,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Data warga
     Route::get('/warga', [AdminWargaController::class, 'index'])->name('warga.index');
+    Route::get('/warga/export', [AdminWargaController::class, 'export'])->name('warga.export');
     Route::get('/warga/{warga}', [AdminWargaController::class, 'show'])->name('warga.show');
     Route::delete('/warga/{warga}', [AdminWargaController::class, 'destroy'])->name('warga.destroy');
 
@@ -203,6 +204,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Penerima bantuan
     Route::get('/penerima-bantuan', [AdminPenerimaController::class, 'index'])->name('penerima-bantuan.index');
+    Route::get('/penerima-bantuan/export', [AdminPenerimaController::class, 'export'])->name('penerima-bantuan.export');
     Route::get('/penerima-bantuan/buat', [AdminPenerimaController::class, 'create'])->name('penerima-bantuan.create');
     Route::post('/penerima-bantuan', [AdminPenerimaController::class, 'store'])->name('penerima-bantuan.store');
     Route::delete('/penerima-bantuan/{penerimaBantuan}', [AdminPenerimaController::class, 'destroy'])->name('penerima-bantuan.destroy');
