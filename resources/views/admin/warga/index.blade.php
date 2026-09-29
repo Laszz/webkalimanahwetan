@@ -10,10 +10,11 @@
 @endpush
 
 @section('content')
-    {{-- Judul halaman --}}
+    {{-- Judul halaman + tombol export --}}
     <section class="page-head" aria-labelledby="warga-judul">
         <h1 id="warga-judul">Data Warga</h1>
         <p class="page-sub">Biodata kependudukan yang sudah diisi warga.</p>
+        <a class="btn-tambah" href="{{ route('admin.warga.export') }}">Export Excel</a>
     </section>
 
     {{-- Tabel biodata warga --}}
