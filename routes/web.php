@@ -186,6 +186,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Verifikasi pengajuan
     Route::get('/pengajuan', [AdminPengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'show'])->name('pengajuan.show');
+    // Unduh berkas syarat via controller (bukan URL publik langsung)
+    Route::get('/pengajuan/{pengajuan}/syarat/{upload}', [AdminPengajuanController::class, 'unduhSyarat'])->name('pengajuan.syarat.unduh');
     Route::get('/pengajuan/{pengajuan}/edit', [AdminPengajuanController::class, 'edit'])->name('pengajuan.edit');
     Route::put('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'update'])->name('pengajuan.update');
     Route::delete('/pengajuan/{pengajuan}', [AdminPengajuanController::class, 'destroy'])->name('pengajuan.destroy');
