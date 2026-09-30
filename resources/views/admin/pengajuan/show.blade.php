@@ -35,7 +35,7 @@
                         <div class="berkas-head">
                             <strong>{{ $upload->syaratLayanan->nama ?? '-' }}</strong>
                             @if ($upload->file_path)
-                                <a href="{{ asset('storage/' . $upload->file_path) }}" target="_blank" rel="noopener">Lihat file</a>
+                                <a href="{{ route('admin.pengajuan.syarat.unduh', [$pengajuan, $upload]) }}" target="_blank" rel="noopener">Lihat file</a>
                             @else
                                 <span>{{ $upload->isi }}</span>
                             @endif
