@@ -33,16 +33,17 @@ class MakeAdmin extends Command
         }
 
         // Buat baru atau perbarui milik email ini; password plain otomatis di-hash oleh cast model
+        // role/status diisi eksplisit (bukan mass-assign) karena di luar Fillable model
         $user = User::updateOrCreate(
             ['email' => $email],
             [
                 'name' => $name,
                 'password' => $password,
-                'role' => 'admin',
-                'status' => 'disetujui',
-                'email_verified_at' => now(),
             ],
         );
+        $user->role = 'admin';
+        $user->status = 'disetujui';
+        $user->save();
 
         $this->info("Admin siap: {$user->name} <{$user->email}>");
 
