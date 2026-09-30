@@ -8,12 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Models\PengajuanLayanan;
 use App\Models\PerangkatDesa;
 use App\Models\ProfilDesa;
+use App\Models\UploadSyaratLayanan;
 use App\Notifications\PengajuanStatus;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\View\View;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -87,6 +89,8 @@ class PengajuanController extends Controller
 
         foreach ($pengajuan->uploadSyaratLayanan as $upload) {
             if ($upload->file_path) {
+                // Hapus di kedua disk: arsip lama masih di publik, unggahan baru di private
+                Storage::disk('local')->delete($upload->file_path);
                 Storage::disk('public')->delete($upload->file_path);
             }
         }
@@ -99,6 +103,24 @@ class PengajuanController extends Controller
         return redirect()
             ->route('admin.pengajuan.index')
             ->with('success', 'Pengajuan dihapus.');
+    }
+
+    // Unduh berkas syarat satu pengajuan (admin saja via grup middleware)
+    public function unduhSyarat(PengajuanLayanan $pengajuan, UploadSyaratLayanan $upload): BinaryFileResponse|RedirectResponse
+    {
+        // Berkas harus milik pengajuan ini dan ada isinya
+        if ($upload->pengajuan_layanan_id !== $pengajuan->id || ! $upload->file_path) {
+            return redirect()->route('admin.pengajuan.show', $pengajuan);
+        }
+
+        // Cari di disk private dulu; arsip lama yang belum dipindah masih di publik
+        $disk = Storage::disk('local')->exists($upload->file_path) ? 'local'
+            : (Storage::disk('public')->exists($upload->file_path) ? 'public' : null);
+        if (! $disk) {
+            return redirect()->route('admin.pengajuan.show', $pengajuan);
+        }
+
+        return Storage::disk($disk)->download($upload->file_path);
     }
 
     // Nomor surat otomatis: 470/{id 3 digit}/{bulan romawi}/{tahun}, mis. 470/004/IX/2026

@@ -32,7 +32,8 @@ class UserController extends Controller
             'status' => ['required', 'in:disetujui,ditolak'],
         ]);
 
-        $user->update($data);
+        $user->status = $data['status'];
+        $user->save();
 
         return redirect()
             ->route('admin.pengguna.index')
