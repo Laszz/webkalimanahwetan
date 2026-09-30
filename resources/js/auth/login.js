@@ -69,4 +69,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Bersihkan pesan saat user mengetik agar tidak menempel
     input.addEventListener('input', () => input.setCustomValidity(''));
   });
+
+  // Hitung mundur realtime untuk pesan throttle ("coba lagi dalam 46 detik" / "try again in 46 seconds")
+  const throttleEl = [...document.querySelectorAll('.field-error')].find((el) => /(\d+)\s*(detik|second)/i.test(el.textContent));
+  if (throttleEl) {
+    const cocok = throttleEl.textContent.match(/(\d+)\s*(detik|seconds?)/i);
+    let sisa = parseInt(cocok[1], 10);
+    const satuan = cocok[2].toLowerCase().startsWith('detik') ? 'detik' : 'seconds';
+    const awal = throttleEl.textContent;
+    const timer = setInterval(() => {
+      sisa -= 1;
+      if (sisa <= 0) { clearInterval(timer); throttleEl.textContent = 'Silakan coba masuk lagi sekarang.'; return; }
+      throttleEl.textContent = awal.replace(/(\d+)\s*(detik|seconds?)/i, `${sisa} ${satuan}`);
+    }, 1000);
+  }
 });
