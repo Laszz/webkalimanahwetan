@@ -20,7 +20,7 @@ class StorePenerimaBantuanRequest extends FormRequest
     {
         return [
             'jenis_bantuan_id' => ['required', 'exists:jenis_bantuans,id'],
-            // Warga terdaftar; kombinasi jenis + warga + tahun harus unik
+            // Warga terdaftar; kombinasi jenis + warga + tahun + bulan harus unik
             'warga_id' => [
                 'required',
                 'exists:wargas,id',
@@ -28,6 +28,7 @@ class StorePenerimaBantuanRequest extends FormRequest
                     fn ($query) => $query
                         ->where('jenis_bantuan_id', $this->input('jenis_bantuan_id'))
                         ->where('tahun', $this->input('tahun'))
+                        ->where('bulan', $this->input('bulan'))
                 ),
             ],
             'keterangan' => ['nullable', 'string'],
