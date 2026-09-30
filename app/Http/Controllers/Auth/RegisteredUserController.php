@@ -35,7 +35,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // Kecocokan dicek via password_confirmation+same agar pesannya tampil di bawah kolom konfirmasi
+            'password' => ['required', Rules\Password::defaults()],
+            'password_confirmation' => ['required', 'same:password'],
+        ], [
+            'password.required' => 'Silakan isi password.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password_confirmation.required' => 'Silakan isi konfirmasi password.',
+            'password_confirmation.same' => 'Konfirmasi password tidak sama dengan password.',
         ]);
 
         $user = User::create([
