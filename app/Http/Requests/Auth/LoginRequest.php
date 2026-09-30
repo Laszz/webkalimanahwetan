@@ -43,21 +43,20 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        // Email tidak terdaftar: salah di emailnya
+        // Sengaja satu pesan untuk email salah maupun password salah (anti enumerasi akun)
         if (! User::where('email', $this->input('email'))->exists()) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => 'Email belum terdaftar. Silakan periksa kembali atau daftar terlebih dahulu.',
+                'email' => 'Email atau password salah. Silakan coba lagi.',
             ]);
         }
 
-        // Email ada tapi password tidak cocok: salah di passwordnya
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'password' => 'Password anda salah, silahkan coba lagi.',
+                'email' => 'Email atau password salah. Silakan coba lagi.',
             ]);
         }
 
@@ -80,10 +79,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
+            'email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
         ]);
     }
 
