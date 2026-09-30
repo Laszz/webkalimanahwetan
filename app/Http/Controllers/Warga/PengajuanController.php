@@ -80,7 +80,7 @@ class PengajuanController extends Controller
                 if ($file) {
                     $pengajuan->uploadSyaratLayanan()->create([
                         'syarat_layanan_id' => $syarat->id,
-                        'file_path' => $file->store('syarat', 'public'),
+                        'file_path' => $file->store('syarat', 'local'),
                     ]);
                 } elseif ($teks) {
                     $pengajuan->uploadSyaratLayanan()->create([
