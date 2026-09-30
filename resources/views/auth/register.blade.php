@@ -61,6 +61,11 @@
                 {{-- Kolom konfirmasi password (wajib cocok dengan password) --}}
                 <label class="field-label" for="password_confirmation">Konfirmasi Password</label>
                 <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
+                @if ($activeForm === 'register')
+                    @foreach ((array) $errors->get('password_confirmation') as $msg)
+                        <p class="field-error" role="alert">{{ $msg }}</p>
+                    @endforeach
+                @endif
                 <div style="height:10px"></div>
                 {{-- Tombol kirim pendaftaran --}}
                 <button type="submit" class="solid">Daftar</button>
