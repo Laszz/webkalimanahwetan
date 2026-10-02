@@ -17,11 +17,9 @@ use App\Http\Controllers\Admin\PertanyaanController;
 use App\Http\Controllers\Admin\ProfilDesaController as AdminProfilDesaController;
 use App\Http\Controllers\Admin\SurveyController as AdminSurveyController;
 use App\Http\Controllers\Admin\SyaratController;
-use App\Http\Controllers\Admin\TanggapanController;
 use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WargaController as AdminWargaController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Warga\AduanController as WargaAduanController;
 use App\Http\Controllers\Warga\AgendaController as WargaAgendaController;
 use App\Http\Controllers\Warga\ApbdesController as WargaApbdesController;
@@ -82,13 +80,6 @@ Route::get('/dashboard', function () {
     return redirect()->route(auth()->user()->isAdmin() ? 'admin.dashboard' : 'warga.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Profil akun sendiri (butuh login)
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 // ============================================================
 // WARGA - semua di bawah /warga, wajib login
 // ============================================================
@@ -128,7 +119,6 @@ Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () 
 
     // Survei
     Route::get('/survey', [WargaSurveyController::class, 'index'])->name('survey.index');
-    Route::get('/survey/{survey}', [WargaSurveyController::class, 'show'])->name('survey.show');
     // Tahan spam klik ganda: maks 5 kiriman per menit
     Route::post('/survey/{survey}', [WargaSurveyController::class, 'store'])->middleware('throttle:5,1')->name('survey.store');
 });
@@ -160,11 +150,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/aduan/{aduan}/edit', [AdminAduanController::class, 'edit'])->name('aduan.edit');
     Route::put('/aduan/{aduan}', [AdminAduanController::class, 'update'])->name('aduan.update');
     Route::delete('/aduan/{aduan}', [AdminAduanController::class, 'destroy'])->name('aduan.destroy');
-
-    // Tanggapan aduan
-    Route::post('/aduan/{aduan}/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store');
-    Route::put('/tanggapan/{tanggapan}', [TanggapanController::class, 'update'])->name('tanggapan.update');
-    Route::delete('/tanggapan/{tanggapan}', [TanggapanController::class, 'destroy'])->name('tanggapan.destroy');
 
     // Berita (nama parameter disamakan dengan variabel controller)
     Route::resource('/berita', AdminBeritaController::class)->names('berita')->parameters(['berita' => 'berita']);
@@ -213,9 +198,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Survei dan pertanyaan (nama parameter disamakan dengan variabel controller)
     Route::resource('/survey', AdminSurveyController::class)->names('survey')->parameters(['survey' => 'survey']);
-    Route::post('/survey/{survey}/pertanyaan', [PertanyaanController::class, 'store'])->name('pertanyaan.store');
-    Route::put('/pertanyaan/{pertanyaan}', [PertanyaanController::class, 'update'])->name('pertanyaan.update');
-    Route::delete('/pertanyaan/{pertanyaan}', [PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy');
     Route::delete('/jawaban/{jawaban}', [PertanyaanController::class, 'destroyJawaban'])->name('jawaban.destroy');
 
     // Template hasil layanan
