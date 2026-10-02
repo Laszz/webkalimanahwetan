@@ -64,6 +64,17 @@ class PengajuanController extends Controller
         $data = $request->validated();
         $layanan = Layanan::aktif()->findOrFail($data['layanan_id']);
 
+        // Tolak klik ganda: layanan sama yang baru diajukan <60 detik dianggap duplikat
+        $baruSaja = $request->user()->pengajuanLayanan()
+            ->where('layanan_id', $layanan->id)
+            ->where('created_at', '>=', now()->subMinute())
+            ->exists();
+        if ($baruSaja) {
+            return redirect()
+                ->route('warga.pengajuan.index')
+                ->with('success', 'Pengajuan sudah terkirim, silakan cek riwayat.');
+        }
+
         $pengajuan = null;
         DB::transaction(function () use ($request, $data, $layanan, &$pengajuan) {
             // Pengajuan induk milik user login

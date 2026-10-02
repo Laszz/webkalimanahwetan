@@ -59,12 +59,6 @@ class SurveyController extends Controller
         return view('warga.survey.index', compact('surveys', 'semuaTerisi'));
     }
 
-    // Tautan lama: isi survei kini langsung di daftar
-    public function show(): RedirectResponse
-    {
-        return redirect()->route('warga.survey.index');
-    }
-
     // Simpan jawaban sekaligus dalam satu transaksi
     public function store(IsiSurveyRequest $request, Survey $survey): RedirectResponse
     {
