@@ -44,8 +44,9 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         // Sengaja satu pesan untuk email salah maupun password salah (anti enumerasi akun)
+        // Jeda 15 menit: tiap gagal memperpanjang hitungan agar brute-force tidakmungkin
         if (! User::where('email', $this->input('email'))->exists()) {
-            RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->throttleKey(), 900);
 
             throw ValidationException::withMessages([
                 'email' => 'Email atau password salah. Silakan coba lagi.',
@@ -53,7 +54,7 @@ class LoginRequest extends FormRequest
         }
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->throttleKey(), 900);
 
             throw ValidationException::withMessages([
                 'email' => 'Email atau password salah. Silakan coba lagi.',
@@ -78,8 +79,13 @@ class LoginRequest extends FormRequest
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
+        // Sisa <2 menit tampil detik (countdown realtime); selebihnya tampil menit
+        $pesan = $seconds < 120
+            ? "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik."
+            : 'Terlalu banyak percobaan login. Silakan coba lagi dalam ' . (int) ceil($seconds / 60) . ' menit.';
+
         throw ValidationException::withMessages([
-            'email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
+            'email' => $pesan,
         ]);
     }
 
