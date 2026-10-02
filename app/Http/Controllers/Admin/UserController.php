@@ -15,7 +15,7 @@ class UserController extends Controller
     // Semua akun warga + biodata, bisa saring per status, terbaru dulu 15 per halaman
     public function index(Request $request): View
     {
-        $users = User::with('warga:id,user_id,nama,nik')
+        $users = User::with('warga:id,user_id,nama')
             ->where('role', 'warga')
             ->when($request->query('status'), fn ($query, $status) => $query->where('status', $status))
             ->latest()
