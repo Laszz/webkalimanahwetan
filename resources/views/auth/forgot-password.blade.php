@@ -34,11 +34,12 @@
             @foreach ((array) $errors->get('email') as $msg)
                 <p class="field-error" role="alert">{{ $msg }}</p>
             @endforeach
-            {{-- Tombol kirim link reset --}}
-            <button type="submit" class="solid">Kirim Link Reset</button>
+            {{-- Baris aksi: kirim sejajar dengan kembali masuk --}}
+            <div class="aksi-baris">
+                <button type="submit" class="solid">Kirim Link Reset</button>
+                <a class="tautan-kembali" href="{{ route('login') }}">Kembali masuk</a>
+            </div>
         </form>
-        {{-- Jalan kembali ke halaman masuk --}}
-        <p class="auth-back"><a href="{{ route('login') }}">Kembali masuk</a></p>
     </section>
 </main>
 </body>
