@@ -1,4 +1,14 @@
-// JS kerangka WARGA - mode gelap/terang (tombol hanya ada di halaman tertentu).
+// JS kerangka WARGA - mode gelap/terang (tombol hanya ada di halaman tertentu) + smooth scroll.
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
+
+// Smooth scroll Lenis untuk semua halaman layout warga (welcome + folder warga)
+// autoRaf = loop bawaan; anchors = link #aduan/#berita tetap jalan;
+// reduced-motion dihormati otomatis oleh Lenis (default respectReducedMotion)
+try {
+  new Lenis({ autoRaf: true, anchors: true });
+} catch (e) {}
+
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
 
