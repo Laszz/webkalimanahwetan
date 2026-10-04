@@ -34,12 +34,11 @@
             <div><dt>Status Pernikahan</dt><dd>{{ $warga->status_kawin }}</dd></div>
             <div><dt>Pekerjaan</dt><dd>{{ $warga->pekerjaan ?? '-' }}</dd></div>
             <div><dt>No. Telepon</dt><dd>{{ $warga->telepon ?? '-' }}</dd></div>
+            {{-- Tombol ubah biodata di dalam kartu --}}
+            <div class="aksi-dalam">
+                <a class="btn-profil" href="{{ route('warga.profil.edit') }}">Ubah Biodata</a>
+            </div>
         </dl>
-
-        {{-- Tombol ubah biodata --}}
-        <div class="aksi-baris">
-            <a class="btn-profil" href="{{ route('warga.profil.edit') }}">Ubah Biodata</a>
-        </div>
 
         {{-- Form ganti password akun (pakai rute Breeze password.update) --}}
         <h2 class="profil-label" id="ganti-password">Ganti Password</h2>
