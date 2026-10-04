@@ -22,6 +22,7 @@ class StoreProfilDesaRequest extends FormRequest
             'visi' => ['required', 'string'],
             'misi' => ['required', 'string'],
             'sejarah' => ['nullable', 'string'],
+            'sambutan' => ['nullable', 'string'],
             'alamat' => ['nullable', 'string'],
             'kode_pos' => ['nullable', 'string', 'max:10'],
             'telepon' => ['nullable', 'string', 'max:20'],
