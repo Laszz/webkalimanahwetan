@@ -51,6 +51,14 @@
                     <p class="field-error" role="alert">{{ $msg }}</p>
                 @endforeach
             </div>
+            {{-- Sambutan kepala desa untuk beranda --}}
+            <div class="field">
+                <label for="sambutan">Sambutan Kepala Desa</label>
+                <textarea id="sambutan" name="sambutan" rows="5">{{ old('sambutan', $profil->sambutan ?? '') }}</textarea>
+                @foreach ((array) $errors->get('sambutan') as $msg)
+                    <p class="field-error" role="alert">{{ $msg }}</p>
+                @endforeach
+            </div>
             {{-- Alamat balai --}}
             <div class="field">
                 <label for="alamat">Alamat</label>
