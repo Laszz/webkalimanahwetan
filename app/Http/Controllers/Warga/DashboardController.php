@@ -9,6 +9,8 @@ use App\Models\Aduan;
 use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\PenerimaBantuan;
+use App\Models\PerangkatDesa;
+use App\Models\ProfilDesa;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -23,12 +25,17 @@ class DashboardController extends Controller
         $beritas = Berita::published()->take(5)->get();
         $agendas = Agenda::mendatang()->take(3)->get();
 
+        // Profil desa (sambutan) + kepala desa aktif untuk seksi sambutan
+        $profil = ProfilDesa::first();
+        $kepalaDesa = PerangkatDesa::aktif()->where('jabatan', 'like', '%kepala%')->first()
+            ?? PerangkatDesa::aktif()->first();
+
         // Bantuan yang diterima warga ini (lewat biodatanya); kosong jika belum terdata
         $wargaId = auth()->user()->warga?->id;
         $bantuanSaya = $wargaId
             ? PenerimaBantuan::with('jenisBantuan:id,nama')->where('warga_id', $wargaId)->latest()->take(5)->get()
             : collect();
 
-        return view('warga.dashboard', compact('riwayat', 'aduans', 'beritas', 'agendas', 'bantuanSaya'));
+        return view('warga.dashboard', compact('riwayat', 'profil', 'kepalaDesa', 'aduans', 'beritas', 'agendas', 'bantuanSaya'));
     }
 }
