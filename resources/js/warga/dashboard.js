@@ -1,5 +1,8 @@
-// JS dashboard WARGA - tutup popup info. Jalan setelah HTML selesai dibaca.
+// JS dashboard WARGA - tutup popup info + animasi scroll-reveal. Jalan setelah HTML selesai dibaca.
+import { initReveals } from '../partials/reveal.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  initReveals();
   // Popup info (mis. pengalihan survei lunas): tombol tutup + klik latar gelap
   const popup = document.getElementById('popup');
   if (!popup) return;
