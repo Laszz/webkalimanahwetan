@@ -42,9 +42,14 @@
   .layanan-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* HP (≤480px): judul mengecil, kartu 1 kolom */
+/* HP (≤480px): judul mengecil, kartu 1 kolom, cari menumpuk, pil geser sebaris */
 @media (max-width: 480px) {
   .layanan h1 { font-size: 1.3rem; }
   .layanan-grid { grid-template-columns: 1fr; }
-  .cari-bar { align-items: stretch; }
+  .cari-bar { flex-direction: column; align-items: stretch; }
+  .cari-field { min-width: 0; }
+  .btn-cari { width: 100%; }
+  .btn-reset { text-align: center; }
+  .filter-nav { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; }
+  .filter-nav a { flex-shrink: 0; }
 }
