@@ -13,7 +13,8 @@
 .profil-card div + div { border-top: 1px solid #f3f4f6; }
 .profil-card dt { width: 200px; flex-shrink: 0; font-size: 13px; font-weight: 600; color: #6b7280; }
 .profil-card dd { margin: 0; font-size: 14px; }
-/* Tombol ubah biodata */
+/* Tombol di dalam kartu: tanpa gaya baris data */
+.profil-card .aksi-dalam { display: block; border-top: 1px solid #f3f4f6; padding: 16px 0 8px; }
 .btn-profil { display: inline-block; background: #0077b6; color: #fff; padding: 12px 30px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; border: none; cursor: pointer; font-family: inherit; }
 .btn-profil:hover { background: #005b85; }
 .btn-profil:active { transform: scale(.98); }
@@ -57,6 +58,7 @@
   .profil-card div { flex-direction: column; gap: 2px; }
   .profil-card dt { width: auto; }
   .btn-profil { display: block; text-align: center; }
+  .form-card .btn-profil { width: 100%; }
   .aksi-baris { flex-direction: column; }
   .aksi-baris .btn-sekunder { text-align: center; }
 }
