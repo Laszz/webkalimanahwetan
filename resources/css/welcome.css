@@ -34,10 +34,58 @@
 .btn-kedua { border: 1.5px solid #fff; color: #fff; }
 .btn-kedua:hover { background: rgba(255, 255, 255, .12); }
 .btn:active { transform: scale(.98); }
+/* Hero tanpa foto: teks rata tengah */
+.hero-tengah { justify-content: center; text-align: center; }
+.hero-tengah .hero-teks { max-width: 640px; }
+.hero-tengah .hero-deskripsi { margin-left: auto; margin-right: auto; }
 /* Foto hero dengan caption fungsional di bawah (bukan overlay) */
 .hero-foto { margin: 0; max-width: 440px; }
 .hero-foto img { width: 100%; height: auto; display: block; border-radius: 14px; }
 .hero-foto figcaption { font-size: 12px; color: var(--desa-sky); margin-top: 8px; }
+
+/* SAMBUTAN: foto kiri + teks kanan ala profil pejabat */
+.sambutan { padding: 16px 0 8px; }
+.sambutan-inner { display: flex; gap: 40px; align-items: center; padding-top: 16px; padding-bottom: 16px; }
+/* Bingkai foto vertikal */
+.sambutan-foto { margin: 0; max-width: 280px; flex-shrink: 0; }
+.sambutan-foto img { width: 100%; height: auto; display: block; border-radius: 14px; aspect-ratio: 4 / 5; object-fit: cover; }
+/* Judul rata kiri khusus seksi ini */
+.judul-kiri { text-align: left; }
+/* Kicker di latar terang: biru tua agar terbaca (hero-kicker aslinya untuk latar gelap) */
+.sambutan-teks .hero-kicker { color: var(--desa-blue-dark); }
+.sambutan-teks .pra { font-size: 14px; color: #4b5563; line-height: 1.8; margin: 0 0 16px; white-space: normal; }
+/* Nama + jabatan penutup sambutan */
+.sambutan-nama { margin: 0; }
+.sambutan-nama strong { display: block; font-size: 1.05rem; }
+.sambutan-nama span { font-size: 13px; color: var(--desa-muted); }
+
+/* UNGGULAN (berita + aduan): 1 utama besar + daftar mini horizontal */
+.unggulan-wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start; }
+/* Kartu utama: foto + teks menumpuk di atas foto; proporsi dikunci agar tidak melar */
+/* Hapus underline bawaan karena seluruh kartu adalah link */
+.unggulan-utama { position: relative; display: block; border-radius: 14px; overflow: hidden; text-decoration: none; aspect-ratio: 16 / 10; }
+.unggulan-utama img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.unggulan-overlay { position: absolute; inset: auto 0 0 0; padding: 80px 24px 24px; background: linear-gradient(transparent, rgba(2, 62, 138, .9)); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.unggulan-tanggal { font-size: 12px; color: var(--desa-sky); display: inline-flex; align-items: center; gap: 8px; }
+.unggulan-tanggal .ph { font-size: 15px; }
+.unggulan-overlay .unggulan-judul { font-size: 1.4rem; font-weight: 700; color: #fff; line-height: 1.3; }
+/* Daftar mini kanan */
+.unggulan-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.unggulan-list li { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.unggulan-list li:hover { transform: translateY(-2px); border-color: var(--desa-blue); box-shadow: 0 8px 20px rgba(0, 119, 182, .12); }
+.unggulan-list a { display: flex; gap: 16px; align-items: flex-start; padding: 12px 16px; text-decoration: none; color: inherit; }
+.unggulan-list img { width: 120px; height: 80px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.unggulan-mini-badan { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; min-width: 0; padding-top: 4px; }
+.unggulan-mini-badan .unggulan-tanggal { color: var(--desa-muted); }
+.unggulan-mini-judul { font-weight: 700; font-size: 14px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.unggulan-list a:hover .unggulan-mini-judul { color: var(--desa-blue-dark); }
+/* Status aduan polos tanpa kotak pil */
+.aduan-status-teks { font-size: 12px; color: var(--desa-muted); }
+.unggulan-overlay .aduan-status-teks { color: var(--desa-sky); }
+/* Pesan kosong rata tengah */
+.kosong-tengah { text-align: center; color: #4b5563; padding: 16px 0; }
+.kosong-tengah strong { display: block; margin-bottom: 4px; }
+.kosong-tengah span { font-size: 13px; color: var(--desa-muted); }
 
 /* ADUAN + BERITA: kartu foto + judul + ringkasan, 3 kolom */
 .aduan { padding: 16px 0 8px; }
@@ -113,6 +161,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--desa-blue-dark)
 
 /* HP/tablet (≤768px): semua grid jadi 1 kolom, hero menumpuk */
 @media (max-width: 768px) {
+  .unggulan-wrap { grid-template-columns: 1fr; }
+  .unggulan-utama { aspect-ratio: 16 / 10; }
+  .sambutan-inner { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  .sambutan-foto { max-width: 200px; }
+  .sambutan-teks .judul-kiri { text-align: center; }
+  .sambutan-teks .pra { text-align: center; }
+  .sambutan-nama { text-align: center; }
   .hero-inner { flex-direction: column; align-items: stretch; padding-top: 32px; padding-bottom: 32px; }
   .hero h1 { font-size: 1.7rem; }
   .hero-foto { max-width: none; }
