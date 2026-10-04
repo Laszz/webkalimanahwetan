@@ -26,8 +26,9 @@
                 <input id="q" type="search" name="q" value="{{ $cari }}" placeholder="Cari layanan..." autocomplete="off">
             </div>
             <button type="submit" class="btn-cari">Cari</button>
-            @if ($cari !== '' || $kategori !== '')
-                <a class="btn-reset" href="{{ route('warga.layanan.index') }}">Reset</a>
+            {{-- Reset hanya untuk pencarian kata kunci; kategori cukup lewat pil Semua --}}
+            @if ($cari !== '')
+                <a class="btn-reset" href="{{ route('warga.layanan.index') }}">Hapus</a>
             @endif
         </form>
 
