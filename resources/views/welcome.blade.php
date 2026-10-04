@@ -12,68 +12,22 @@
 {{-- Seluruh konten halaman masuk ke <main> layout via @yield('content') --}}
 @section('content')
 
-    {{-- HERO: teks kiri + foto asli kanan; maksimal 4 elemen teks (kicker, judul, deskripsi, tombol) --}}
+    {{-- HERO: teks rata tengah tanpa foto --}}
     <section class="hero" aria-labelledby="hero-judul">
-        <div class="page-container hero-inner">
+        <div class="page-container hero-inner hero-tengah">
             <div class="hero-teks">
                 <p class="hero-kicker">Website Resmi Pemerintah Desa</p>
                 <h1 id="hero-judul">Selamat Datang di Desa Kalimanah</h1>
                 <p class="hero-deskripsi">Urus surat keterangan, pantau pengumuman, dan kenal layanan desa. Semua dari satu tempat, tanpa antre.</p>
             </div>
-            {{-- Foto asli balai desa tanpa caption --}}
-            <figure class="hero-foto">
-                <img src="https://picsum.photos/seed/kalimanah-balai-desa/880/660" width="880" height="660" alt="Suasana balai Desa Kalimanah" fetchpriority="high">
-            </figure>
         </div>
     </section>
 
-    {{-- ADUAN: kartu 5 laporan terbaru (data dari WelcomeController, kosong = pesan jujur) --}}
-    <section class="aduan" id="aduan" aria-labelledby="aduan-judul">
-        <div class="page-container">
-            <h2 id="aduan-judul" class="judul-seksi">Aduan Terbaru Warga</h2>
-            <p class="sub-seksi">Laporan yang masuk dan sedang ditindaklanjuti perangkat desa.</p>
-            <ul class="kartu-grid kartu-grid-5">
-                @forelse (($aduans ?? []) as $aduan)
-                    {{-- Tiap kartu: foto + judul + ringkasan isi + tanggal dan status --}}
-                    <li>
-                        <img src="{{ $aduan->gambar ? asset('storage/' . $aduan->gambar) : 'https://picsum.photos/seed/kalimanah-aduan-' . $aduan->id . '/640/360' }}" width="640" height="360" loading="lazy" alt="{{ $aduan->judul }}">
-                        <div class="kartu-badan">
-                            <h3><a href="{{ route('warga.aduan.show', $aduan) }}">{{ $aduan->judul }}</a></h3>
-                            <p>{{ \Illuminate\Support\Str::limit($aduan->isi, 100) }}</p>
-                            <p class="kartu-meta"><span>{{ $aduan->created_at->format('d M Y') }}</span><span class="status status-{{ $aduan->status }}">{{ ucfirst($aduan->status) }}</span></p>
-                        </div>
-                    </li>
-                @empty
-                    {{-- Belum ada aduan masuk --}}
-                    <li class="kosong"><div><strong>Belum ada aduan.</strong><span>Jadilah pelapor pertama.</span></div></li>
-                @endforelse
-            </ul>
-        </div>
-    </section>
+    {{-- SAMBUTAN: foto + teks kepala desa --}}
+    @include('partials.sambutan')
 
-    {{-- BERITA: 5 berita terbaru berupa kartu foto + teks (sama seperti aduan) --}}
-    <section class="berita" id="berita" aria-labelledby="berita-judul">
-        <div class="page-container">
-            <h2 id="berita-judul" class="judul-seksi">Berita dan Pengumuman</h2>
-            <p class="sub-seksi">Kabar dan pengumuman terbaru desa.</p>
-            <ul class="kartu-grid kartu-grid-5">
-                @forelse (($beritas ?? []) as $berita)
-                    {{-- Tiap kartu: foto + judul + ringkasan + tanggal --}}
-                    <li>
-                        <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://picsum.photos/seed/kalimanah-berita-' . $berita->id . '/640/360' }}" width="640" height="360" loading="lazy" alt="{{ $berita->judul }}">
-                        <div class="kartu-badan">
-                            <h3><a href="{{ route('warga.berita.show', $berita->slug) }}">{{ $berita->judul }}</a></h3>
-                            <p>{{ $berita->ringkasan }}</p>
-                            <p class="kartu-meta"><span>{{ $berita->published_at?->format('d M Y') }}</span></p>
-                        </div>
-                    </li>
-                @empty
-                    {{-- Belum ada berita terbit --}}
-                    <li class="kosong"><div><p><strong>Belum ada berita.</strong></p></div></li>
-                @endforelse
-            </ul>
-        </div>
-    </section>
+    {{-- BERITA pola sorotan: 1 utama + daftar mini --}}
+    @include('partials.berita-unggulan')
 
     {{-- AGENDA: jadwal terdekat berupa baris penanda tanggal --}}
     <section class="agenda" id="agenda" aria-labelledby="agenda-judul">
@@ -103,7 +57,10 @@
         </div>
     </section>
 
-    {{-- PETA: lokasi balai desa --}}
+    {{-- ADUAN pola sorotan: 1 utama + daftar mini --}}
+    @include('partials.aduan-unggulan')
+
+    {{-- PETA: lokasi balai desa (paling bawah) --}}
     @include('partials.peta-desa')
 @endsection
 
