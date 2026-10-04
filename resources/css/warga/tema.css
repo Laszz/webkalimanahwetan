@@ -32,7 +32,7 @@ html[data-theme="dark"] .notif-drop li a:hover, html[data-theme="dark"] .notif-s
 html[data-theme="dark"] .notif-semua { color: #38bdf8; border-color: #334155; }
 html[data-theme="dark"] .theme-toggle:hover { color: #38bdf8; }
 /* Kartu putih + garis tepi */
-html[data-theme="dark"] .form-card, html[data-theme="dark"] .table-wrap, html[data-theme="dark"] .syarat-list > li, html[data-theme="dark"] .isi-card, html[data-theme="dark"] .profil-card, html[data-theme="dark"] .biodata-card, html[data-theme="dark"] .ringkas-grid > div, html[data-theme="dark"] .notif-list > li, html[data-theme="dark"] .bantuan-grid li, html[data-theme="dark"] .aduan-list li, html[data-theme="dark"] .aduan-hero, html[data-theme="dark"] .berita-list li, html[data-theme="dark"] .berita-hero, html[data-theme="dark"] .layanan-grid li, html[data-theme="dark"] .perangkat-grid li, html[data-theme="dark"] .galeri-grid > li, html[data-theme="dark"] .survei-grid > li, html[data-theme="dark"] .popup-kartu, html[data-theme="dark"] .kartu-grid li, html[data-theme="dark"] .agenda-list li, html[data-theme="dark"] .info-card { background: #1e293b; border-color: #334155; }
+html[data-theme="dark"] .form-card, html[data-theme="dark"] .table-wrap, html[data-theme="dark"] .syarat-list > li, html[data-theme="dark"] .isi-card, html[data-theme="dark"] .profil-card, html[data-theme="dark"] .biodata-card, html[data-theme="dark"] .ringkas-grid > div, html[data-theme="dark"] .notif-list > li, html[data-theme="dark"] .bantuan-grid li, html[data-theme="dark"] .aduan-list li, html[data-theme="dark"] .aduan-hero, html[data-theme="dark"] .berita-list li, html[data-theme="dark"] .berita-hero, html[data-theme="dark"] .layanan-grid li, html[data-theme="dark"] .perangkat-grid li, html[data-theme="dark"] .galeri-grid > li, html[data-theme="dark"] .survei-grid > li, html[data-theme="dark"] .popup-kartu, html[data-theme="dark"] .kartu-grid li, html[data-theme="dark"] .agenda-list li, html[data-theme="dark"] .unggulan-list li, html[data-theme="dark"] .info-card { background: #1e293b; border-color: #334155; }
 /* Baris tabel */
 html[data-theme="dark"] .data-table th, html[data-theme="dark"] .data-table td { border-color: #334155; }
 html[data-theme="dark"] .data-table thead th { background: #0f172a; color: #94a3b8; }
@@ -86,6 +86,14 @@ html[data-theme="dark"] .kosong, html[data-theme="dark"] li.kosong strong, html[
 html[data-theme="dark"] .layanan-grid li.kosong { background: none; border: none; }
 /* Baris kosong tetap tanpa kartu di mode gelap */
 html[data-theme="dark"] .kartu-grid li.kosong, html[data-theme="dark"] .agenda-list li.kosong { background: none; border: none; box-shadow: none; }
+/* Teks kartu sorotan (berita + aduan): judul terang, tanggal abu */
+html[data-theme="dark"] .unggulan-mini-judul, html[data-theme="dark"] .sambutan-nama strong { color: #e2e8f0; }
+html[data-theme="dark"] .unggulan-mini-badan .unggulan-tanggal, html[data-theme="dark"] .sambutan-nama span, html[data-theme="dark"] .sambutan-teks .pra, html[data-theme="dark"] .kosong-tengah { color: #94a3b8; }
+html[data-theme="dark"] .kosong-tengah strong { color: #e2e8f0; }
+/* Teks kartu perangkat: nama terang, jabatan aksen */
+html[data-theme="dark"] .perangkat-grid h3 { color: #e2e8f0; }
+html[data-theme="dark"] .perangkat-grid p { color: #94a3b8; }
+html[data-theme="dark"] .staf-jabatan { color: #38bdf8; }
 /* Susulan: teks yang masih gelap di latar gelap */
 html[data-theme="dark"] .survei-grid h2, html[data-theme="dark"] .galeri-grid span { color: #e2e8f0; }
 html[data-theme="dark"] .profil-wrap, html[data-theme="dark"] .isi-box { background: #1e293b; border-color: #334155; }
