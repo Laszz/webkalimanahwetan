@@ -22,7 +22,7 @@
         @endphp
 
         @if ($kepala)
-            {{-- Label + kartu besar kepala desa --}}
+            {{-- Label + kartu besar kepala desa rata tengah --}}
             <h2 class="perangkat-label">Kepala Desa</h2>
             <article class="kepala-card" aria-label="Kepala Desa">
                 @if ($kepala->foto)
@@ -30,13 +30,11 @@
                 @else
                     <span class="perangkat-inisial" aria-hidden="true">{{ strtoupper(substr($kepala->nama, 0, 1)) }}</span>
                 @endif
-                <div>
-                    <p class="kepala-label">Kepala Desa</p>
-                    <h2>{{ $kepala->nama }}</h2>
-                    @if ($kepala->telepon)
-                        <p><a href="tel:{{ $kepala->telepon }}">{{ $kepala->telepon }}</a></p>
-                    @endif
-                </div>
+                <p class="kepala-label">Kepala Desa</p>
+                <h2>{{ $kepala->nama }}</h2>
+                @if ($kepala->telepon)
+                    <p><a href="tel:{{ $kepala->telepon }}">{{ $kepala->telepon }}</a></p>
+                @endif
             </article>
         @endif
 
@@ -52,12 +50,14 @@
                         @else
                             <span class="perangkat-inisial" aria-hidden="true">{{ strtoupper(substr($perangkat->nama, 0, 1)) }}</span>
                         @endif
-                        {{-- Nama + jabatan + telepon --}}
-                        <h3>{{ $perangkat->nama }}</h3>
-                        <p>{{ $perangkat->jabatan }}</p>
-                        @if ($perangkat->telepon)
-                            <p><a href="tel:{{ $perangkat->telepon }}">{{ $perangkat->telepon }}</a></p>
-                        @endif
+                        {{-- Jabatan di atas, nama di bawahnya --}}
+                        <div>
+                            <p class="staf-jabatan">{{ $perangkat->jabatan }}</p>
+                            <h3>{{ $perangkat->nama }}</h3>
+                            @if ($perangkat->telepon)
+                                <p><a href="tel:{{ $perangkat->telepon }}">{{ $perangkat->telepon }}</a></p>
+                            @endif
+                        </div>
                     </li>
                 @endforeach
             </ul>
