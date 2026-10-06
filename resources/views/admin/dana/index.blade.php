@@ -35,7 +35,7 @@
             </div>
             <button type="submit" class="btn-kecil btn-lihat">Tampilkan</button>
             @if (request('tahun') || request('sumber'))
-                <a class="btn-kecil btn-sekunder-inline" href="{{ route('admin.dana.index') }}">Reset</a>
+                <a class="btn-kecil btn-sekunder-inline" href="{{ route('admin.dana.index') }}">Hapus</a>
             @endif
         </form>
     </section>
