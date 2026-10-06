@@ -35,7 +35,7 @@
             </div>
             <button type="submit" class="btn-kecil btn-lihat">Tampilkan</button>
             @if (request('tahun') || request('bidang'))
-                <a class="btn-kecil btn-sekunder-inline" href="{{ route('admin.belanja.index') }}">Reset</a>
+                <a class="btn-kecil btn-sekunder-inline" href="{{ route('admin.belanja.index') }}">Hapus</a>
             @endif
         </form>
     </section>
