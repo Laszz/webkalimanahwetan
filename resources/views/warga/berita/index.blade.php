@@ -23,7 +23,7 @@
             </div>
             <button type="submit" class="btn-cari">Cari</button>
             @if ($cari !== '')
-                <a class="btn-reset" href="{{ route('warga.berita.index') }}">Reset</a>
+                <a class="btn-reset" href="{{ route('warga.berita.index') }}">Hapus</a>
             @endif
         </form>
 
@@ -46,10 +46,12 @@
                         </div>
                     </li>
                 @empty
-                    {{-- Tidak cocok dengan kata kunci --}}
-                    <li class="kosong"><p><strong>Tidak ada berita yang cocok.</strong></p></li>
                 @endforelse
             </ul>
+            {{-- Tidak cocok: teks polos rata tengah tanpa kartu --}}
+            @if ($beritas->isEmpty())
+                <p class="kosong-teks"><strong>Tidak ada berita yang cocok.</strong></p>
+            @endif
         @else
             @if ($beritaTerbaru)
                 {{-- Label + berita paling baru di atas --}}
