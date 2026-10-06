@@ -1,15 +1,29 @@
-// JS kerangka WARGA - mode gelap/terang (tombol hanya ada di halaman tertentu) + smooth scroll.
+// JS kerangka WARGA - mode gelap/terang (tombol hanya ada di halaman tertentu) + smooth scroll + transisi halaman.
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
+import { initTransisi } from '../partials/transisi.js';
 
 // Smooth scroll Lenis untuk semua halaman layout warga (welcome + folder warga)
 // autoRaf = loop bawaan; anchors = link #aduan/#berita tetap jalan;
+// allowNestedScroll = scroller horizontal (pil filter, kartu geser) tetap native;
 // reduced-motion dihormati otomatis oleh Lenis (default respectReducedMotion)
 try {
-  new Lenis({ autoRaf: true, anchors: true });
+  // Singleton: cegah instans ganda (mis. hot-reload dev) yang bikin scroll ngebut
+  if (window.__desaLenis) window.__desaLenis.destroy();
+  window.__desaLenis = new Lenis({ autoRaf: true, anchors: true, allowNestedScroll: true, syncTouch: true });
 } catch (e) {}
 
+// Klik peta = aktifkan interaksi iframe (default nonaktif agar scroll halaman tetap mulus)
+document.addEventListener('click', (e) => {
+  const bingkai = e.target.closest('.peta-wrap');
+  if (bingkai && !bingkai.classList.contains('peta-aktif')) {
+    bingkai.classList.add('peta-aktif');
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
+  initTransisi();
+
   const root = document.documentElement;
 
   // Terapkan simpanan bila ada (anti-kedip utama ditangani cuplikan di <head> layout)
@@ -32,12 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   selaraskan();
 
-  // Klik = tukar tema + simpan pilihan
+  // Klik = tukar tema + simpan pilihan (transisi mulus bila browser mendukung)
   btn.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    try {
-      localStorage.setItem('desa-theme', root.dataset.theme);
-    } catch (e) {}
-    selaraskan();
+    const ganti = () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      try {
+        localStorage.setItem('desa-theme', root.dataset.theme);
+      } catch (e) {}
+      selaraskan();
+    };
+    // View Transitions API: cross-fade 60fps; fallback = transisi CSS sementara
+    if (document.startViewTransition) {
+      document.startViewTransition(ganti);
+    } else {
+      root.classList.add('tema-animasi');
+      ganti();
+      setTimeout(() => root.classList.remove('tema-animasi'), 450);
+    }
   });
 });
