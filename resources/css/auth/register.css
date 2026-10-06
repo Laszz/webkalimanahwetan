@@ -1,18 +1,18 @@
-/* Satu palet terkunci: aksen biru dipakai identik di semua bagian */
+/* Palet 3 (60-30-10): Soft White #FAFAFA dominan, Bold Blue #1E466B sekunder, Light Blue #67BAF4 aksen, Jet Black #0D0D0D gelap */
 :root {
-  --desa-blue: #00b4d8;
-  --desa-blue-dark: #0077b6;
-  --desa-blue-deep: #005b85;
-  --desa-navy: #023e8a;
-  --desa-sky: #caf0f8;
+  --desa-blue: #67BAF4;
+  --desa-blue-dark: #1E466B;
+  --desa-blue-deep: #173C5C;
+  --desa-navy: #1E466B;
+  --desa-sky: #D6E9FA;
   --desa-ink: #1f2937;
   --desa-label: #374151;
-  --desa-paper: #fffffc;
+  --desa-paper: #FAFAFA;
 }
 /* Aturan radius: tombol pil, kartu 14px, permukaan kecil 8px */
 
-/* Font Figtree untuk seluruh halaman auth */
-@import url('https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap');
+/* Font Poppins untuk seluruh halaman auth */
+@import url('https://fonts.bunny.net/css?family=poppins:400,500,600,700&display=swap');
 
 /* Semua elemen hitung lebar termasuk padding/border (agar layout pas) */
 * { box-sizing: border-box; }
@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 24px;
 }
 
@@ -95,7 +95,7 @@
 .container {
   background-color: #fff;
   border-radius: 14px;
-  box-shadow: 0 14px 28px rgba(0, 119, 182, .18), 0 10px 10px rgba(0, 119, 182, .12);
+  box-shadow: 0 14px 28px rgba(30, 70, 107, .18), 0 10px 10px rgba(30, 70, 107, .12);
   position: relative;
   overflow: hidden;
   width: 860px;
