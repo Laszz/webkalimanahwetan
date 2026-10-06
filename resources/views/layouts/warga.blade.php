@@ -17,7 +17,7 @@
     <title>@yield('title', config('app.name', 'Desa Kalimanah'))</title>
     {{-- Percepat koneksi ke server font --}}
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700&display=swap" rel="stylesheet" />
     {{-- Ikon Phosphor (satu keluarga ikon untuk seluruh situs) --}}
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     {{-- Terapkan tema tersimpan sebelum render agar tidak kedip --}}
