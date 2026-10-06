@@ -24,7 +24,7 @@
             </div>
             <button type="submit" class="btn-cari">Cari</button>
             @if ($cari !== '')
-                <a class="btn-reset" href="{{ route('warga.aduan.index') }}">Reset</a>
+                <a class="btn-reset" href="{{ route('warga.aduan.index') }}">Hapus</a>
             @endif
         </form>
 
