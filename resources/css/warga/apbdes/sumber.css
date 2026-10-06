@@ -1,7 +1,7 @@
 /* CSS halaman SUMBER DANA APBDES warga - daftar garis tanpa kartu */
 
 /* Judul + sub deskripsi */
-.apbdes h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.apbdes h1 { font-size: 1.5rem; margin: 0 0 6px; color: #1E466B; }
 .apbdes-sub { color: #6b7280; margin: 0 0 20px; }
 /* Baris dana: tanpa kartu, pisah garis tipis */
 .dana-row { padding: 16px 0; }
@@ -19,7 +19,7 @@
 .dana-rows dd { margin: 0; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
 /* Batang serapan */
 .serapan { height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
-.serapan-isi { height: 100%; background: #00b4d8; border-radius: 999px; }
+.serapan-isi { height: 100%; background: #67BAF4; border-radius: 999px; }
 /* Batang tipis khusus baris dana */
 .serapan-tipis { height: 6px; }
 /* Keterangan progres */
@@ -27,8 +27,8 @@
 /* Teks kosong */
 .kosong-teks { color: #6b7280; font-size: 14px; }
 /* Tombol kembali outline */
-.btn-kembali { display: inline-block; margin-top: 20px; border: 1.5px solid #0077b6; color: #0077b6; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
-.btn-kembali:hover { background: #caf0f8; }
+.btn-kembali { display: inline-block; margin-top: 20px; border: 1.5px solid #1E466B; color: #1E466B; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-kembali:hover { background: #D6E9FA; }
 
 /* HP (≤480px): judul mengecil, tombol selebar layar */
 @media (max-width: 480px) {

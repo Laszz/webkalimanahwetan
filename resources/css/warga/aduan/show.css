@@ -1,12 +1,12 @@
 /* CSS halaman DETAIL ADUAN warga - isi lengkap ala baca berita */
 
 /* Judul + baris meta */
-.detail h1 { font-size: 1.6rem; margin: 0 0 6px; color: #0077b6; line-height: 1.3; }
+.detail h1 { font-size: 1.6rem; margin: 0 0 6px; color: #1E466B; line-height: 1.3; }
 .detail-meta { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; font-size: 13px; color: #6b7280; flex-wrap: wrap; }
 /* Penanda status aduan */
 .status { display: inline-block; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
 .status-menunggu { background: #fef3c7; color: #92400e; }
-.status-diproses { background: #caf0f8; color: #023e8a; }
+.status-diproses { background: #D6E9FA; color: #1E466B; }
 .status-selesai { background: #e5e7eb; color: #374151; }
 /* Foto bukti dibatasi rasio 16/9 agar seragam */
 .detail-foto { margin: 0 0 16px; }
@@ -14,7 +14,7 @@
 /* Isi laporan polos */
 .detail-teks { font-size: 15px; line-height: 1.8; max-width: 70ch; }
 /* Judul blok */
-.kartu-judul { font-size: 1rem; margin: 24px 0 12px; color: #0077b6; }
+.kartu-judul { font-size: 1rem; margin: 24px 0 12px; color: #1E466B; }
 /* Daftar tanggapan polos pisah garis */
 .tanggapan-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .tanggapan-list > li { padding: 12px 0; }
@@ -23,8 +23,8 @@
 .tanggapan-list span { font-size: 12px; color: #6b7280; }
 .tanggapan-list li.kosong { text-align: center; color: #6b7280; font-size: 14px; }
 /* Tombol kembali outline */
-.btn-kembali { display: inline-block; margin-top: 20px; border: 1.5px solid #0077b6; color: #0077b6; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
-.btn-kembali:hover { background: #caf0f8; }
+.btn-kembali { display: inline-block; margin-top: 20px; border: 1.5px solid #1E466B; color: #1E466B; padding: 10px 28px; border-radius: 999px; font-weight: 700; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.btn-kembali:hover { background: #D6E9FA; }
 
 /* HP (≤480px): judul mengecil, tombol selebar layar */
 @media (max-width: 480px) {

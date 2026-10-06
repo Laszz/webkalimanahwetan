@@ -1,21 +1,21 @@
 /* CSS halaman BANTUAN warga - kartu program + total penerima */
 
 /* Judul + sub deskripsi */
-.bantuan h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.bantuan h1 { font-size: 1.5rem; margin: 0 0 6px; color: #1E466B; }
 .bantuan-sub { color: #6b7280; margin: 0 0 24px; }
 /* Kisi kartu program */
 .bantuan-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 /* Tiap kartu program */
 .bantuan-grid li { display: flex; flex-direction: column; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 22px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-.bantuan-grid li:hover { transform: translateY(-3px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); }
-.bantuan-grid h2 { margin: 0 0 4px; font-size: 1.05rem; color: #0077b6; }
+.bantuan-grid li:hover { transform: translateY(-3px); border-color: #67BAF4; box-shadow: 0 8px 20px rgba(30, 70, 107, .15); }
+.bantuan-grid h2 { margin: 0 0 4px; font-size: 1.05rem; color: #1E466B; }
 /* Total penerima menonjol + ikon */
-.bantuan-total { display: flex; align-items: center; gap: 8px; font-size: 1.4rem; font-weight: 700; margin: 0 0 8px; color: #023e8a; }
-.bantuan-total .ph { font-size: 1.3rem; color: #0077b6; }
+.bantuan-total { display: flex; align-items: center; gap: 8px; font-size: 1.4rem; font-weight: 700; margin: 0 0 8px; color: #1E466B; }
+.bantuan-total .ph { font-size: 1.3rem; color: #1E466B; }
 .bantuan-grid p { margin: 0 0 16px; font-size: 14px; color: #4b5563; }
 /* Tombol lihat penerima selebar kartu */
-.btn-lihat { display: block; text-align: center; margin-top: auto; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
-.btn-lihat:hover { background: #005b85; }
+.btn-lihat { display: block; text-align: center; margin-top: auto; background: #1E466B; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.btn-lihat:hover { background: #173C5C; }
 .btn-lihat:active { transform: scale(.98); }
 
 /* Tablet (≤900px): 2 kolom */

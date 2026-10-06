@@ -5,40 +5,47 @@
 .theme-toggle:hover { color: var(--desa-blue-dark); }
 .theme-toggle:active { transform: scale(.95); }
 
+/* Transisi tema sinematik: cross-fade View Transitions API (0.35 detik) */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.35s; }
+/* Fallback browser lama: transisikan warna selama kelas menempel (dilepas JS 450ms) */
+.tema-animasi, .tema-animasi *, .tema-animasi *::before, .tema-animasi *::after {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
+}
+
 /* MODE GELAP: timpa variabel + permukaan hardcoded (html: menangan atas :root) */
 html[data-theme="dark"] {
   --desa-ink: #e2e8f0;
   --desa-muted: #94a3b8;
-  --desa-paper: #0f172a;
+  --desa-paper: #0D0D0D;
 }
 /* Judul halaman (hero putih dikembalikan di bawah) */
-html[data-theme="dark"] h1 { color: #38bdf8; }
+html[data-theme="dark"] h1 { color: #67BAF4; }
 html[data-theme="dark"] .hero h1 { color: #fff; }
 /* Label seksi + judul kartu */
-html[data-theme="dark"] .judul-seksi, html[data-theme="dark"] .berita-label, html[data-theme="dark"] .aduan-label, html[data-theme="dark"] .perangkat-label, html[data-theme="dark"] .profil-label, html[data-theme="dark"] .kartu-judul { color: #38bdf8; }
+html[data-theme="dark"] .judul-seksi, html[data-theme="dark"] .berita-label, html[data-theme="dark"] .aduan-label, html[data-theme="dark"] .perangkat-label, html[data-theme="dark"] .profil-label, html[data-theme="dark"] .kartu-judul { color: #67BAF4; }
 /* Sub deskripsi abu (kecuali isi konten + hero) */
 html[data-theme="dark"] [class$="-sub"]:not(.detail-sub):not(.hero-deskripsi) { color: var(--desa-muted); }
 html[data-theme="dark"] .detail-sub { color: #cbd5e1; }
 /* Kepala + menu + lonceng */
-html[data-theme="dark"] .site-header { background: #0f172a; box-shadow: 0 1px 4px rgba(0, 0, 0, .4); }
-html[data-theme="dark"] .nav-brand { color: #38bdf8; }
+html[data-theme="dark"] .site-header { background: #0D0D0D; box-shadow: 0 1px 4px rgba(0, 0, 0, .4); }
+html[data-theme="dark"] .nav-brand { color: #67BAF4; }
 html[data-theme="dark"] .nav-sub { background: #1e293b; border-color: #334155; }
-html[data-theme="dark"] .nav-links a:hover, html[data-theme="dark"] .nav-links a.active, html[data-theme="dark"] .nav-drop-btn:hover { color: #38bdf8; }
+html[data-theme="dark"] .nav-links a:hover, html[data-theme="dark"] .nav-links a.active, html[data-theme="dark"] .nav-drop-btn:hover { color: #67BAF4; }
 html[data-theme="dark"] .nav-toggle { border-color: #475569; }
 html[data-theme="dark"] .notif-drop { background: #1e293b; border-color: #334155; }
 html[data-theme="dark"] .notif-drop li + li { border-color: #334155; }
-html[data-theme="dark"] .notif-judul p { color: #38bdf8; }
+html[data-theme="dark"] .notif-judul p { color: #67BAF4; }
 html[data-theme="dark"] .notif-drop li a:hover, html[data-theme="dark"] .notif-semua:hover { background: #334155; }
-html[data-theme="dark"] .notif-semua { color: #38bdf8; border-color: #334155; }
-html[data-theme="dark"] .theme-toggle:hover { color: #38bdf8; }
+html[data-theme="dark"] .notif-semua { color: #67BAF4; border-color: #334155; }
+html[data-theme="dark"] .theme-toggle:hover { color: #67BAF4; }
 /* Kartu putih + garis tepi */
 html[data-theme="dark"] .form-card, html[data-theme="dark"] .table-wrap, html[data-theme="dark"] .syarat-list > li, html[data-theme="dark"] .isi-card, html[data-theme="dark"] .profil-card, html[data-theme="dark"] .biodata-card, html[data-theme="dark"] .ringkas-grid > div, html[data-theme="dark"] .notif-list > li, html[data-theme="dark"] .bantuan-grid li, html[data-theme="dark"] .aduan-list li, html[data-theme="dark"] .aduan-hero, html[data-theme="dark"] .berita-list li, html[data-theme="dark"] .berita-hero, html[data-theme="dark"] .layanan-grid li, html[data-theme="dark"] .perangkat-grid li, html[data-theme="dark"] .galeri-grid > li, html[data-theme="dark"] .survei-grid > li, html[data-theme="dark"] .popup-kartu, html[data-theme="dark"] .kartu-grid li, html[data-theme="dark"] .agenda-list li, html[data-theme="dark"] .unggulan-list li, html[data-theme="dark"] .info-card { background: #1e293b; border-color: #334155; }
 /* Baris tabel */
 html[data-theme="dark"] .data-table th, html[data-theme="dark"] .data-table td { border-color: #334155; }
-html[data-theme="dark"] .data-table thead th { background: #0f172a; color: #94a3b8; }
+html[data-theme="dark"] .data-table thead th { background: #0D0D0D; color: #94a3b8; }
 html[data-theme="dark"] .data-table tbody tr:hover { background: #243247; }
 /* Input + label form */
-html[data-theme="dark"] .field input, html[data-theme="dark"] .field select, html[data-theme="dark"] .field textarea, html[data-theme="dark"] .cari-field input, html[data-theme="dark"] .soal textarea { background: #0f172a; border-color: #334155; color: var(--desa-ink); }
+html[data-theme="dark"] .field input, html[data-theme="dark"] .field select, html[data-theme="dark"] .field textarea, html[data-theme="dark"] .cari-field input, html[data-theme="dark"] .soal textarea { background: #0D0D0D; border-color: #334155; color: var(--desa-ink); }
 html[data-theme="dark"] .field label, html[data-theme="dark"] .field-inline label { color: #cbd5e1; }
 html[data-theme="dark"] .field-error { color: #f87171; }
 html[data-theme="dark"] .field-info { color: #94a3b8; }
@@ -46,9 +53,9 @@ html[data-theme="dark"] .field-info { color: #94a3b8; }
 html[data-theme="dark"] .kartu-badan p, html[data-theme="dark"] .kartu-meta > span:not(.status), html[data-theme="dark"] .agenda-meta, html[data-theme="dark"] .detail-meta, html[data-theme="dark"] .baca-isi, html[data-theme="dark"] .biodata-card dd, html[data-theme="dark"] .tanggapan-list p, html[data-theme="dark"] .notif-list strong, html[data-theme="dark"] .survei-grid h2, html[data-theme="dark"] .popup-kartu p, html[data-theme="dark"] .aduan-hero h2, html[data-theme="dark"] .aduan-hero div p:not(.aduan-tanggal), html[data-theme="dark"] .detail-teks { color: #cbd5e1; }
 html[data-theme="dark"] .tanggapan-list > li + li { border-color: #334155; }
 html[data-theme="dark"] dt { color: var(--desa-muted); }
-html[data-theme="dark"] .biodata-card dd a { color: #38bdf8; }
+html[data-theme="dark"] .biodata-card dd a { color: #67BAF4; }
 /* Aksen biru yang terlalu gelap di latar gelap */
-html[data-theme="dark"] .agenda-meta .ph, html[data-theme="dark"] .berita-tanggal, html[data-theme="dark"] .aduan-tanggal, html[data-theme="dark"] .galeri-tanggal, html[data-theme="dark"] .layanan-nama, html[data-theme="dark"] .form-grup legend, html[data-theme="dark"] .bantuan-grid h2, html[data-theme="dark"] .info-card h2, html[data-theme="dark"] .info-card a, html[data-theme="dark"] .info-link, html[data-theme="dark"] .lihat-password:hover, html[data-theme="dark"] .soal-nomor, html[data-theme="dark"] .survei-nomor { color: #38bdf8; }
+html[data-theme="dark"] .agenda-meta .ph, html[data-theme="dark"] .berita-tanggal, html[data-theme="dark"] .aduan-tanggal, html[data-theme="dark"] .galeri-tanggal, html[data-theme="dark"] .layanan-nama, html[data-theme="dark"] .form-grup legend, html[data-theme="dark"] .bantuan-grid h2, html[data-theme="dark"] .info-card h2, html[data-theme="dark"] .info-card a, html[data-theme="dark"] .info-link, html[data-theme="dark"] .lihat-password:hover, html[data-theme="dark"] .soal-nomor, html[data-theme="dark"] .survei-nomor { color: #67BAF4; }
 html[data-theme="dark"] .layanan-kategori, html[data-theme="dark"] .detail-meta, html[data-theme="dark"] .tanggapan-list span, html[data-theme="dark"] .notif-list span, html[data-theme="dark"] .lihat-password { color: var(--desa-muted); }
 html[data-theme="dark"] .bantuan-nominal { color: #7dd3fc; }
 html[data-theme="dark"] .info-bantuan li { background: transparent; border-color: #334155; }
@@ -56,19 +63,19 @@ html[data-theme="dark"] .terima-card { background: #1e293b; border-color: #33415
 html[data-theme="dark"] .terima-card div + div { border-color: #334155; }
 html[data-theme="dark"] .terima-card dd, html[data-theme="dark"] .kartu-judul { color: #e2e8f0; }
 html[data-theme="dark"] .terima-sub { color: var(--desa-muted); }
-html[data-theme="dark"] .btn-kembali { border-color: #38bdf8; color: #38bdf8; }
+html[data-theme="dark"] .btn-kembali { border-color: #67BAF4; color: #67BAF4; }
 html[data-theme="dark"] .btn-kembali:hover { background: #334155; }
 /* Tombol outline */
-html[data-theme="dark"] .btn-sekunder, html[data-theme="dark"] .btn-reset, html[data-theme="dark"] .btn-kembali, html[data-theme="dark"] .info-link.btn-detail { border-color: #38bdf8; color: #38bdf8; }
+html[data-theme="dark"] .btn-sekunder, html[data-theme="dark"] .btn-reset, html[data-theme="dark"] .btn-kembali, html[data-theme="dark"] .info-link.btn-detail { border-color: #67BAF4; color: #67BAF4; }
 html[data-theme="dark"] .btn-sekunder:hover, html[data-theme="dark"] .btn-reset:hover, html[data-theme="dark"] .btn-kembali:hover, html[data-theme="dark"] .info-link.btn-detail:hover { background: #334155; }
 /* Saringan pil */
 html[data-theme="dark"] .filter-nav a { background: #1e293b; border-color: #334155; color: #cbd5e1; }
 /* Pil status: kunci kombinasi terang-gelap agar selalu terbaca */
 html[data-theme="dark"] .status-menunggu { background: #fef3c7; color: #92400e; }
-html[data-theme="dark"] .status-diproses { background: #caf0f8; color: #023e8a; }
+html[data-theme="dark"] .status-diproses { background: #D6E9FA; color: #1E466B; }
 html[data-theme="dark"] .status-selesai { background: #e5e7eb; color: #374151; }
 html[data-theme="dark"] .status-ditolak { background: #fee2e2; color: #991b1b; }
-html[data-theme="dark"] .status-buka { background: #caf0f8; color: #023e8a; }
+html[data-theme="dark"] .status-buka { background: #D6E9FA; color: #1E466B; }
 html[data-theme="dark"] .status-tutup { background: #e5e7eb; color: #374151; }
 /* Status sudah mengisi */
 html[data-theme="dark"] .survei-sudah { color: #86efac; }
@@ -76,11 +83,11 @@ html[data-theme="dark"] .survei-sudah { color: #86efac; }
 html[data-theme="dark"] .hero-deskripsi { color: #fff; }
 /* Panel menu HP ikut gelap */
 @media (max-width: 768px) {
-  html[data-theme="dark"] .nav-links { background: #0f172a; box-shadow: 0 8px 16px rgba(0, 0, 0, .4); }
+  html[data-theme="dark"] .nav-links { background: #0D0D0D; box-shadow: 0 8px 16px rgba(0, 0, 0, .4); }
   html[data-theme="dark"] .nav-links a, html[data-theme="dark"] .nav-drop-btn, html[data-theme="dark"] .nav-sub { border-color: #334155; }
 }
 /* Kaki halaman ikut gelap */
-html[data-theme="dark"] .site-footer { background: #0f172a; border-top: 1px solid #334155; }
+html[data-theme="dark"] .site-footer { background: #0D0D0D; border-top: 1px solid #334155; }
 /* Teks kosong seragam */
 html[data-theme="dark"] .kosong, html[data-theme="dark"] li.kosong strong, html[data-theme="dark"] li.kosong p, html[data-theme="dark"] li.kosong span, html[data-theme="dark"] .kosong-teks { color: #94a3b8; }
 html[data-theme="dark"] .layanan-grid li.kosong { background: none; border: none; }
@@ -90,15 +97,24 @@ html[data-theme="dark"] .kartu-grid li.kosong, html[data-theme="dark"] .agenda-l
 html[data-theme="dark"] .unggulan-mini-judul, html[data-theme="dark"] .sambutan-nama strong { color: #e2e8f0; }
 html[data-theme="dark"] .unggulan-mini-badan .unggulan-tanggal, html[data-theme="dark"] .sambutan-nama span, html[data-theme="dark"] .sambutan-teks .pra, html[data-theme="dark"] .kosong-tengah { color: #94a3b8; }
 html[data-theme="dark"] .kosong-tengah strong { color: #e2e8f0; }
+/* Kicker sambutan: aksen terang di mode gelap (pasangan perbaikan light-mode) */
+html[data-theme="dark"] .sambutan-teks .hero-kicker { color: #67BAF4; }
 /* Teks kartu perangkat: nama terang, jabatan aksen */
 html[data-theme="dark"] .perangkat-grid h3 { color: #e2e8f0; }
 html[data-theme="dark"] .perangkat-grid p { color: #94a3b8; }
-html[data-theme="dark"] .staf-jabatan { color: #38bdf8; }
+html[data-theme="dark"] .staf-jabatan { color: #9CD2F7; font-size: 12px; }
+/* Judul kartu daftar (berita/aduan/layanan): terang di mode gelap */
+html[data-theme="dark"] .berita-hero h2, html[data-theme="dark"] .berita-list h3,
+html[data-theme="dark"] .aduan-list h3, html[data-theme="dark"] .layanan-grid h2 { color: #e2e8f0; }
+/* Deskripsi kartu + sub halaman: abu terang agar terbaca */
+html[data-theme="dark"] .berita-hero p, html[data-theme="dark"] .berita-list p,
+html[data-theme="dark"] .aduan-list p, html[data-theme="dark"] .berita-sub,
+html[data-theme="dark"] .aduan-sub, html[data-theme="dark"] .layanan-sub { color: #94a3b8; }
 /* Susulan: teks yang masih gelap di latar gelap */
 html[data-theme="dark"] .survei-grid h2, html[data-theme="dark"] .galeri-grid span { color: #e2e8f0; }
 html[data-theme="dark"] .profil-wrap, html[data-theme="dark"] .isi-box { background: #1e293b; border-color: #334155; }
 html[data-theme="dark"] .profil-wilayah { border-color: #334155; }
-html[data-theme="dark"] .visi-card { background: #0f172a; border-color: #334155; }
+html[data-theme="dark"] .visi-card { background: #0D0D0D; border-color: #334155; }
 html[data-theme="dark"] .visi-card p { color: #cbd5e1; }
 html[data-theme="dark"] .misi-grid li { border-color: #334155; }
 html[data-theme="dark"] .misi-grid p, html[data-theme="dark"] .isi-box p, html[data-theme="dark"] .isi-box .pra { color: #cbd5e1; }
@@ -113,15 +129,15 @@ html[data-theme="dark"] .bidang-jumlah { color: #94a3b8; }
 html[data-theme="dark"] .pos-nomor { color: #64748b; }
 html[data-theme="dark"] .dana-nomor { color: #64748b; }
 html[data-theme="dark"] .pos-list { border-color: #334155; }
-html[data-theme="dark"] .pos-persen { color: #38bdf8; }
-html[data-theme="dark"] .apbdes-label { color: #38bdf8; }
+html[data-theme="dark"] .pos-persen { color: #67BAF4; }
+html[data-theme="dark"] .apbdes-label { color: #67BAF4; }
 html[data-theme="dark"] .ringkas-card, html[data-theme="dark"] .nav-card { background: #1e293b; border-color: #334155; }
 html[data-theme="dark"] .ringkas-row strong { color: #7dd3fc; }
 html[data-theme="dark"] .progress-label, html[data-theme="dark"] .progress-persen { color: #cbd5e1; }
 html[data-theme="dark"] .terbaru-list { border-color: #334155; }
 html[data-theme="dark"] .terbaru-list li + li { border-color: #334155; }
 html[data-theme="dark"] .terbaru-list span { color: #94a3b8; }
-html[data-theme="dark"] .terbaru-list a, html[data-theme="dark"] .nav-card strong, html[data-theme="dark"] .nav-panah { color: #38bdf8; }
+html[data-theme="dark"] .terbaru-list a, html[data-theme="dark"] .nav-card strong, html[data-theme="dark"] .nav-panah { color: #67BAF4; }
 html[data-theme="dark"] .nav-card span { color: #94a3b8; }
 html[data-theme="dark"] .dana-row + .dana-row, html[data-theme="dark"] .apbdes-label + .dana-row { border-color: #334155; }
 html[data-theme="dark"] .progress-label { color: #cbd5e1; }
