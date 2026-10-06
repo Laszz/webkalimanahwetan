@@ -3,7 +3,9 @@
 /* Baris isi navbar: logo kiri, menu kanan, lebar max tengah, satu baris di desktop */
 .navbar { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 /* Logo/nama desa */
-.nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--desa-blue-dark); text-decoration: none; }
+.nav-brand { display: inline-flex; align-items: center; font-weight: 700; font-size: 1.1rem; color: var(--desa-blue-dark); text-decoration: none; cursor: default; }
+/* Logo gambar desa */
+.nav-brand img { height: 40px; width: auto; display: block; }
 /* Grup kanan bar: lonceng + hamburger selalu terlihat */
 .nav-kanan { display: flex; align-items: center; gap: 4px; }
 /* Daftar menu desktop berjajar; terdorong ke kanan */
@@ -20,7 +22,7 @@
 /* Panah muter saat submenu dibuka */
 .nav-drop.open .nav-drop-btn .ph { transform: rotate(180deg); }
 /* Submenu mengambang, sembunyi default */
-.nav-sub { display: none; position: absolute; top: 100%; left: 0; min-width: 180px; list-style: none; margin: 8px 0 0; padding: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); z-index: 120; }
+.nav-sub { display: none; position: absolute; top: 100%; left: 0; min-width: 180px; list-style: none; margin: 8px 0 0; padding: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(30, 70, 107, .15); z-index: 120; }
 /* Tampil saat dibuka */
 .nav-drop.open .nav-sub { display: block; }
 .nav-sub a { display: block; padding: 10px 14px !important; border-radius: 8px; white-space: nowrap; }
@@ -39,7 +41,7 @@
 .nav-bel-btn .ph { font-size: 22px; }
 .nav-badge { position: absolute; top: -6px; right: -8px; background: #dc2626; color: #fff; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 999px; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
 /* Kotak 5 notifikasi mengambang di bawah lonceng, tampil saat details dibuka */
-.notif-drop { display: none; position: absolute; top: 100%; right: 0; width: 300px; max-width: calc(100vw - 32px); margin-top: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); z-index: 120; overflow: hidden; }
+.notif-drop { display: none; position: absolute; top: 100%; right: 0; width: 300px; max-width: calc(100vw - 32px); margin-top: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(30, 70, 107, .15); z-index: 120; overflow: hidden; }
 .nav-bel-wrap[open] .notif-drop { display: block; }
 /* Kepala kotak: judul kiri + tong sampah kanan */
 .notif-judul { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 8px 8px 16px; border-bottom: 1px solid #f3f4f6; }
@@ -61,7 +63,7 @@
 @media (max-width: 768px) {
   .nav-toggle { display: block; }
   .nav-kanan { margin-left: auto; }
-  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; align-items: stretch; gap: 0; box-shadow: 0 8px 16px rgba(0, 119, 182, .12); }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; flex-direction: column; align-items: stretch; gap: 0; box-shadow: 0 8px 16px rgba(30, 70, 107, .12); }
   /* Tampil saat hamburger diklik (class menu-open oleh navbar.js) */
   .navbar.menu-open .nav-links { display: flex; }
   .nav-links a { display: block; padding: 12px 20px; border-top: 1px solid #f3f4f6; }
