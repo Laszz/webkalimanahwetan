@@ -1,18 +1,18 @@
 /* CSS halaman DANA admin - filter + tabel + tombol aksi + popup */
 
 /* Judul + sub deskripsi */
-.page-head h1 { font-size: 1.5rem; margin: 0 0 6px; color: #0077b6; }
+.page-head h1 { font-size: 1.5rem; margin: 0 0 6px; color: #1E466B; }
 .page-sub { color: #6b7280; margin: 0 0 20px; }
 /* Tombol tambah pil biru */
-.btn-tambah { display: inline-block; background: #0077b6; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; margin-bottom: 20px; }
-.btn-tambah:hover { background: #005b85; }
+.btn-tambah { display: inline-block; background: #1E466B; color: #fff; padding: 10px 24px; border-radius: 999px; font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap; margin-bottom: 20px; }
+.btn-tambah:hover { background: #173C5C; }
 /* Baris saring tahun */
 .filter-bar { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 16px; }
 .field-inline label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; }
 .field-inline input, .field-inline select { width: 160px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 9px 12px; font-size: 14px; font-family: inherit; color: inherit; }
-.field-inline input:focus, .field-inline select:focus { outline: none; border-color: #00b4d8; }
+.field-inline input:focus, .field-inline select:focus { outline: none; border-color: #67BAF4; }
 .field-inline select { width: auto; min-width: 200px; }
-.btn-sekunder-inline { display: inline-block; border: 1.5px solid #0077b6; color: #0077b6; border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 700; text-decoration: none; }
+.btn-sekunder-inline { display: inline-block; border: 1.5px solid #1E466B; color: #1E466B; border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 700; text-decoration: none; }
 /* Pembungkus tabel: geser horizontal di HP */
 .table-wrap { overflow-x: auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
 /* Tabel data */
@@ -30,18 +30,18 @@
 .data-table td form { display: inline; margin-left: 6px; }
 /* Tombol aksi kecil */
 .btn-kecil { display: inline-block; border: none; border-radius: 999px; padding: 8px 16px; font-size: 12px; font-weight: 700; cursor: pointer; color: #fff; text-decoration: none; }
-.btn-lihat { background: #0077b6; }
-.btn-lihat:hover { background: #005b85; }
+.btn-lihat { background: #1E466B; }
+.btn-lihat:hover { background: #173C5C; }
 .btn-ubah { background: #f59e0b; }
 .btn-ubah:hover { background: #b45309; }
 .btn-hapus { background: #4b5563; }
 .btn-hapus:hover { background: #1f2937; }
-.btn-setuju { background: #0077b6; }
+.btn-setuju { background: #1E466B; }
 /* Popup hasil aksi: latar gelap penuh + kartu tengah */
-.popup { position: fixed; inset: 0; z-index: 200; background: rgba(2, 62, 138, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.popup { position: fixed; inset: 0; z-index: 200; background: rgba(30, 70, 107, .45); display: flex; align-items: center; justify-content: center; padding: 20px; }
 .popup-kartu { background: #fff; border-radius: 14px; padding: 32px; max-width: 380px; width: 100%; text-align: center; }
 .popup-kartu .ph { font-size: 48px; display: block; margin-bottom: 12px; }
-.popup-ok { color: #0077b6; }
+.popup-ok { color: #1E466B; }
 .popup-gagal { color: #dc2626; }
 .popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
 /* Navigasi halaman Laravel */

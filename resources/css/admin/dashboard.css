@@ -1,21 +1,21 @@
 /* CSS dashboard ADMIN - sapaan + kartu angka ringkas */
 
 /* Judul sapaan + sub deskripsi */
-.dash h1 { font-size: 1.6rem; margin: 0 0 6px; color: #0077b6; }
+.dash h1 { font-size: 1.6rem; margin: 0 0 6px; color: #1E466B; }
 .dash-sub { color: #6b7280; margin: 0 0 24px; }
 /* Kisi kartu angka: 4 kolom di desktop */
 .stat-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 /* Tiap kartu: ikon + angka besar + label + tautan aksi */
 .stat-card { position: relative; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 4px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-.stat-card:hover { transform: translateY(-3px); border-color: #00b4d8; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); }
-.stat-card strong { font-size: 2rem; color: #0077b6; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat-card:hover { transform: translateY(-3px); border-color: #67BAF4; box-shadow: 0 8px 20px rgba(30, 70, 107, .15); }
+.stat-card strong { font-size: 2rem; color: #1E466B; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat-card span { font-size: 13px; color: #6b7280; }
 /* Kartu peringatan (butuh tindakan): angka oranye */
 .stat-warn strong { color: #b45309; }
 /* Tautan aksi direntangkan seukuran kartu */
-.stat-card a { margin-top: 8px; font-size: 13px; font-weight: 600; color: #0077b6; text-decoration: none; }
+.stat-card a { margin-top: 8px; font-size: 13px; font-weight: 600; color: #1E466B; text-decoration: none; }
 .stat-card a::after { content: ""; position: absolute; inset: 0; }
-.stat-card:hover a { color: #005b85; }
+.stat-card:hover a { color: #173C5C; }
 
 /* Tablet (≤1024px): 2 kolom */
 @media (max-width: 1024px) {
@@ -27,12 +27,12 @@
 .notif-bel { position: absolute; top: 4px; right: 0; }
 .notif-bel summary { position: relative; display: flex; cursor: pointer; color: #374151; font-size: 26px; list-style: none; padding: 4px; line-height: 1; }
 .notif-bel summary::-webkit-details-marker { display: none; }
-.notif-bel summary:hover { color: #0077b6; }
+.notif-bel summary:hover { color: #1E466B; }
 /* Angka belum dibaca */
 .notif-badge { position: absolute; top: -4px; right: -6px; background: #dc2626; color: #fff; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 999px; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
 /* Daftar nongol di bawah lonceng saat dibuka */
 .notif-bel[open] .notif-list { display: flex; }
-.notif-list { display: none; position: absolute; top: 100%; right: 0; width: 320px; list-style: none; margin: 8px 0 0; padding: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 119, 182, .15); z-index: 120; flex-direction: column; }
+.notif-list { display: none; position: absolute; top: 100%; right: 0; width: 320px; list-style: none; margin: 8px 0 0; padding: 8px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 20px rgba(30, 70, 107, .15); z-index: 120; flex-direction: column; }
 .notif-list li { padding: 10px 12px; display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-radius: 8px; }
 .notif-list li + li { border-top: 1px solid #f3f4f6; }
 .notif-list li:hover { background: #f0f9ff; }
