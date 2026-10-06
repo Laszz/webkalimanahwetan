@@ -18,8 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
 
         // Alias middleware peran admin untuk grup route admin
+        // Alias tamu404: pengganti auth agar tamu dapat 404 (anti bocor URL)
         $middleware->alias([
-            'admin' => \App\Http\Middleware\IsAdmin::class
+            'admin' => \App\Http\Middleware\IsAdmin::class,
+            'tamu404' => \App\Http\Middleware\Tamu404::class,
         ]);
 
     })
