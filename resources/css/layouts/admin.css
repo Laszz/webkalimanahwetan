@@ -1,19 +1,19 @@
-/* Satu palet terkunci untuk seluruh situs */
+/* Palet 3 (60-30-10): Soft White #FAFAFA dominan, Bold Blue #1E466B sekunder, Light Blue #67BAF4 aksen, Jet Black #0D0D0D gelap */
 :root {
-  --desa-blue: #00b4d8;
-  --desa-blue-dark: #0077b6;
-  --desa-blue-deep: #005b85;
-  --desa-navy: #023e8a;
-  --desa-sky: #caf0f8;
+  --desa-blue: #67BAF4;
+  --desa-blue-dark: #1E466B;
+  --desa-blue-deep: #173C5C;
+  --desa-navy: #1E466B;
+  --desa-sky: #D6E9FA;
   --desa-ink: #1f2937;
   --desa-muted: #6b7280;
-  --desa-paper: #fffffc;
+  --desa-paper: #FAFAFA;
 }
 /* Aturan radius: tombol pil, kartu 14px, permukaan kecil 8px */
 
 /* Reset dasar + font */
 * { box-sizing: border-box; }
-body { margin: 0; font-family: 'Figtree', sans-serif; color: var(--desa-ink); background: #f3f4f6; }
+body { margin: 0; font-family: 'Poppins', sans-serif; color: var(--desa-ink); background: #f3f4f6; }
 
 /* Link lompat konten: sembunyi sampai difokuskan keyboard */
 .skip-link { position: absolute; left: -9999px; top: 0; background: var(--desa-blue-dark); color: #fff; padding: 8px 16px; z-index: 300; border-radius: 0 0 8px 0; }
@@ -27,7 +27,7 @@ body { margin: 0; font-family: 'Figtree', sans-serif; color: var(--desa-ink); ba
 /* Tombol hamburger: disembunyikan di desktop */
 .sidebar-toggle { display: none; }
 /* Tombol melayang HP: lingkaran biru kanan bawah */
-.sidebar-fab { position: fixed; right: 16px; bottom: 16px; z-index: 150; width: 52px; height: 52px; border-radius: 50%; border: none; background: var(--desa-blue-dark); color: #fff; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 119, 182, .35); align-items: center; justify-content: center; }
+.sidebar-fab { position: fixed; right: 16px; bottom: 16px; z-index: 150; width: 52px; height: 52px; border-radius: 50%; border: none; background: var(--desa-blue-dark); color: #fff; cursor: pointer; box-shadow: 0 8px 20px rgba(30, 70, 107, .35); align-items: center; justify-content: center; }
 .sidebar-fab .ph { font-size: 24px; display: block; }
 /* Area konten dengan batas lebar */
 .admin-content { flex: 1; padding: 28px 24px; max-width: 1200px; width: 100%; margin: 0 auto; }
@@ -43,7 +43,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--desa-blue-dark)
 /* Latar gelap di balik laci: sembunyi di desktop, tampil saat laci terbuka di HP */
 .sidebar-backdrop { display: none; }
 @media (max-width: 860px) {
-  .admin-shell.sidebar-open .sidebar-backdrop { display: block; position: fixed; inset: 0; z-index: 150; background: rgba(2, 62, 138, .45); }
+  .admin-shell.sidebar-open .sidebar-backdrop { display: block; position: fixed; inset: 0; z-index: 150; background: rgba(30, 70, 107, .45); }
 }
 
 /* Gerak minimal: matikan transisi bila pengguna meminta */

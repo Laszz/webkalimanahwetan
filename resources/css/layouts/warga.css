@@ -1,13 +1,13 @@
-/* Satu palet terkunci untuk seluruh situs */
+/* Palet 3 (60-30-10): Soft White #FAFAFA dominan, Bold Blue #1E466B sekunder, Light Blue #67BAF4 aksen, Jet Black #0D0D0D gelap */
 :root {
-  --desa-blue: #00b4d8;
-  --desa-blue-dark: #0077b6;
-  --desa-blue-deep: #005b85;
-  --desa-navy: #023e8a;
-  --desa-sky: #caf0f8;
+  --desa-blue: #67BAF4;
+  --desa-blue-dark: #1E466B;
+  --desa-blue-deep: #173C5C;
+  --desa-navy: #1E466B;
+  --desa-sky: #D6E9FA;
   --desa-ink: #1f2937;
   --desa-muted: #6b7280;
-  --desa-paper: #fffffc;
+  --desa-paper: #FAFAFA;
 }
 /* Aturan radius: tombol pil, kartu 14px, permukaan kecil 8px */
 
@@ -15,7 +15,7 @@
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--desa-ink);
   background: var(--desa-paper);
   min-height: 100vh;
@@ -28,7 +28,7 @@ body {
 .skip-link:focus { left: 0; }
 
 /* Kepala halaman: cangkang navbar putih menempel di atas, tinggi max 80px (isi navbar di partials/navbar.css) */
-.site-header { position: sticky; top: 0; z-index: 100; background: #fff; box-shadow: 0 1px 4px rgba(0, 119, 182, .1); }
+.site-header { position: sticky; top: 0; z-index: 100; background: #fff; box-shadow: 0 1px 4px rgba(30, 70, 107, .1); }
 
 /* Konten utama: tumbuh mengisi ruang antara header dan footer */
 .site-main { flex: 1; }
