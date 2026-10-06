@@ -1,7 +1,13 @@
 {{-- Navigasi atas publik - dipakai welcome + dashboard warga (di dalam <header> layout warga) --}}
 <nav class="navbar" aria-label="Navigasi utama">
-    {{-- Logo/nama desa di kiri, klik kembali ke beranda --}}
-    <a class="nav-brand" href="{{ url('/') }}">Desa Kalimanah</a>
+    {{-- Logo desa (gambar saja, bukan link; teks hanya cadangan jika logo belum ada) --}}
+    <span class="nav-brand">
+        @if (! empty($logoDesa ?? null))
+            <img src="{{ asset('storage/' . $logoDesa) }}" alt="Logo Desa Kalimanah">
+        @else
+            Desa Kalimanah
+        @endif
+    </span>
     {{-- Tautan navigasi di tengah/kanan + tombol ajakan utama di paling kanan --}}
     <ul class="nav-links">
         @auth
