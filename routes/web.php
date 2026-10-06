@@ -67,7 +67,7 @@ Route::name('warga.')->group(function () {
     Route::get('/bantuan', [WargaBantuanController::class, 'index'])->name('penerimabantuan.index');
     Route::get('/bantuan/{bantuan}', [WargaBantuanController::class, 'show'])->name('penerimabantuan.show');
     // Detail milik sendiri: wajib login (tamu dilempar ke login, bukan pemilik dapat 403)
-    Route::get('/bantuan/terima/{penerima}', [WargaBantuanController::class, 'detail'])->middleware('auth')->name('penerimabantuan.detail');
+    Route::get('/bantuan/terima/{penerima}', [WargaBantuanController::class, 'detail'])->middleware('tamu404')->name('penerimabantuan.detail');
 
     // Aduan warga (daftar + detail publik; buat milik sendiri tetap wajib login di bawah)
     Route::get('/aduan', [WargaAduanController::class, 'index'])->name('aduan.index');
@@ -78,12 +78,12 @@ Route::name('warga.')->group(function () {
 // Dashboard bawaan Breeze dialihkan sesuai peran (view-nya sudah tidak dipakai)
 Route::get('/dashboard', function () {
     return redirect()->route(auth()->user()->isAdmin() ? 'admin.dashboard' : 'warga.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['tamu404', 'verified'])->name('dashboard');
 
 // ============================================================
 // WARGA - semua di bawah /warga, wajib login
 // ============================================================
-Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () {
+Route::middleware(['tamu404'])->prefix('warga')->name('warga.')->group(function () {
     // Dashboard warga
     Route::get('/', [WargaDashboardController::class, 'index'])->name('dashboard');
 
@@ -100,11 +100,9 @@ Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () 
     Route::post('/aduan', [WargaAduanController::class, 'store'])->middleware('throttle:5,1')->name('aduan.store');
 
     // Katalog layanan
-    Route::get('/layanan', [WargaLayananController::class, 'index'])->name('layanan.index');
     Route::get('/layanan/{layanan}', [WargaLayananController::class, 'show'])->name('layanan.show');
 
     // Pengajuan surat
-    Route::get('/pengajuan', [WargaPengajuanController::class, 'index'])->name('pengajuan.index');
     Route::get('/pengajuan/buat', [WargaPengajuanController::class, 'create'])->name('pengajuan.create');
     // Tahan spam klik ganda: maks 5 kiriman per menit
     Route::post('/pengajuan', [WargaPengajuanController::class, 'store'])->middleware('throttle:5,1')->name('pengajuan.store');
@@ -118,15 +116,22 @@ Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () 
     Route::delete('/notifikasi/{id}', [WargaNotifikasiController::class, 'destroy'])->name('notifikasi.destroy');
 
     // Survei
-    Route::get('/survey', [WargaSurveyController::class, 'index'])->name('survey.index');
     // Tahan spam klik ganda: maks 5 kiriman per menit
     Route::post('/survey/{survey}', [WargaSurveyController::class, 'store'])->middleware('throttle:5,1')->name('survey.store');
+});
+
+// Halaman indeks yang terpampang di navbar publik: tamu dilempar ke login (bukan 404)
+// agar warga awam dituntun masuk; sisanya tetap tamu404 anti bocor URL
+Route::middleware(['auth'])->prefix('warga')->name('warga.')->group(function () {
+    Route::get('/layanan', [WargaLayananController::class, 'index'])->name('layanan.index');
+    Route::get('/pengajuan', [WargaPengajuanController::class, 'index'])->name('pengajuan.index');
+    Route::get('/survey', [WargaSurveyController::class, 'index'])->name('survey.index');
 });
 
 // ============================================================
 // ADMIN - semua di bawah /admin, wajib login + peran admin
 // ============================================================
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['tamu404', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard statistik
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
