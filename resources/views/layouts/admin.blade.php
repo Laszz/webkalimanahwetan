@@ -11,6 +11,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- Judul tab browser; tiap halaman bisa kirim @section('title', ...) --}}
     <title>@yield('title', config('app.name', 'Admin Desa Kalimanah'))</title>
+    {{-- Ikon tab browser: logo desa --}}
+    <link rel="icon" type="image/webp" href="{{ asset('storage/Logo.webp') }}">
     {{-- Percepat koneksi ke server font --}}
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700&display=swap" rel="stylesheet" />
