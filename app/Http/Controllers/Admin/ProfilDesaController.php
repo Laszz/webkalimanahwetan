@@ -32,9 +32,6 @@ class ProfilDesaController extends Controller
 
         ProfilDesa::updateOrCreate(['id' => ProfilDesa::first()?->id], $data);
 
-        // Logo navbar ikut berubah langsung
-        cache()->forget('logo-desa');
-
         return redirect()
             ->route('admin.profil-desa.edit')
             ->with('success', 'Profil desa diperbarui.');
