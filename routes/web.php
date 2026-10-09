@@ -83,7 +83,7 @@ Route::get('/dashboard', function () {
 // ============================================================
 // WARGA - semua di bawah /warga, wajib login
 // ============================================================
-Route::middleware(['tamu404'])->prefix('warga')->name('warga.')->group(function () {
+Route::middleware(['tamu404', 'nonadmin'])->prefix('warga')->name('warga.')->group(function () {
     // Dashboard warga
     Route::get('/', [WargaDashboardController::class, 'index'])->name('dashboard');
 
