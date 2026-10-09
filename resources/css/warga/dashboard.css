@@ -17,7 +17,6 @@
 .info-link { font-size: 13px; font-weight: 600; }
 /* Baris bantuan: ikon + isi sejajar */
 .info-bantuan li { display: flex; gap: 14px; align-items: center; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px 16px; transition: border-color .2s ease, box-shadow .2s ease; }
-.info-bantuan li:hover { border-color: #67BAF4; box-shadow: 0 4px 14px rgba(30, 70, 107, .12); }
 /* Ikon kado lingkaran */
 .bantuan-ikon { margin: 0; flex-shrink: 0; }
 .bantuan-ikon .ph { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: #D6E9FA; color: #1E466B; font-size: 20px; }
@@ -38,7 +37,10 @@
 .popup-info { color: #1E466B; }
 .popup-kartu p { margin: 0 0 20px; font-size: 14px; color: #374151; }
 
-/* HP (≤480px): judul mengecil */
+/* HP (≤480px): judul mengecil, kartu bantuan menumpuk, tombol selebar kartu */
 @media (max-width: 480px) {
   .dash h1 { font-size: 1.3rem; }
+  .info-bantuan li { flex-direction: column; align-items: stretch; text-align: center; }
+  .bantuan-ikon { align-self: center; }
+  .info-link.btn-detail { text-align: center; }
 }
