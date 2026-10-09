@@ -26,7 +26,10 @@
                 <li>
                     {{-- Judul survei bernomor urut kartu --}}
                     <h2><span class="survei-nomor">{{ $loop->iteration }}.</span> {{ $survey->judul }}</h2>
-                    @if ($survey->sudah_isi)
+                    @if (auth()->check() && auth()->user()->isAdmin())
+                        {{-- Admin hanya melihat, pengisian khusus warga --}}
+                        <p class="survei-sudah"><i class="ph ph-info" aria-hidden="true"></i>Pengisian survei khusus warga.</p>
+                    @elseif ($survey->sudah_isi)
                         {{-- Sudah isi bulan ini: teks terima kasih, tanpa tombol --}}
                         <p class="survei-sudah"><i class="ph ph-check-circle" aria-hidden="true"></i>Terima kasih sudah mengisi.</p>
                     @else
