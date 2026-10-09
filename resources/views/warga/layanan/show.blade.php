@@ -25,7 +25,9 @@
         @endif
 
         {{-- Tombol ajukan layanan ini --}}
-        <a class="btn-ajukan" href="{{ route('warga.pengajuan.create', ['layanan' => $layanan->id]) }}">Ajukan Sekarang</a>
+        @if (! (auth()->check() && auth()->user()->isAdmin()))
+            <a class="btn-ajukan" href="{{ route('warga.pengajuan.create', ['layanan' => $layanan->id]) }}">Ajukan Sekarang</a>
+        @endif
 
         {{-- Daftar syarat yang harus dipenuhi --}}
         <h2 class="kartu-judul">Syarat yang Dibutuhkan</h2>

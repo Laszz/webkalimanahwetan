@@ -48,8 +48,10 @@
                     <p class="layanan-kategori">{{ $layanan->kategori ?? '-' }}</p>
                     <h2>{{ $layanan->nama }}</h2>
                     <p class="layanan-meta">{{ $layanan->syarat_layanan_count }} syarat{{ $layanan->estimasi_hari ? ' · ' . $layanan->estimasi_hari . ' hari' : '' }}</p>
-                    {{-- Tombol ajukan ke form pengajuan layanan ini --}}
-                    <a class="btn-ajukan" href="{{ route('warga.pengajuan.create', ['layanan' => $layanan->id]) }}">Ajukan</a>
+                    {{-- Tombol ajukan ke form pengajuan layanan ini (khusus warga, bukan admin) --}}
+                    @if (! (auth()->check() && auth()->user()->isAdmin()))
+                        <a class="btn-ajukan" href="{{ route('warga.pengajuan.create', ['layanan' => $layanan->id]) }}">Ajukan</a>
+                    @endif
                 </li>
             @empty
                 {{-- Tidak cocok saringan / belum ada layanan dibuka --}}
