@@ -14,7 +14,9 @@
     <section class="page-container aduan" aria-labelledby="aduan-judul">
         <h1 id="aduan-judul">{{ $judul }}</h1>
         <p class="aduan-sub">{{ $sub }}</p>
-        <a class="btn-tambah" href="{{ auth()->check() ? route('warga.aduan.create') : route('login') }}">Buat Aduan</a>
+        @if (! (auth()->check() && auth()->user()->isAdmin()))
+            <a class="btn-tambah" href="{{ auth()->check() ? route('warga.aduan.create') : route('login') }}">Buat Aduan</a>
+        @endif
 
         {{-- Kolom pencarian judul/isi --}}
         <form class="cari-bar" method="GET" action="{{ route('warga.aduan.index') }}" role="search">
