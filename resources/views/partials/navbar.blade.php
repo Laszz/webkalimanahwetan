@@ -1,18 +1,18 @@
 {{-- Navigasi atas publik - dipakai welcome + dashboard warga (di dalam <header> layout warga) --}}
 <nav class="navbar" aria-label="Navigasi utama">
-    {{-- Logo desa (gambar saja, bukan link; teks hanya cadangan jika logo belum ada) --}}
+    {{-- Logo desa (gambar tetap, bukan link) --}}
     <span class="nav-brand">
-        @if (! empty($logoDesa ?? null))
-            <img src="{{ asset('storage/' . $logoDesa) }}" alt="Logo Desa Kalimanah">
-        @else
-            Desa Kalimanah
-        @endif
+        <img src="{{ asset('storage/Logo.webp') }}" alt="Logo Desa Kalimanah">
     </span>
     {{-- Tautan navigasi di tengah/kanan + tombol ajakan utama di paling kanan --}}
     <ul class="nav-links">
         @auth
-            {{-- Sudah masuk: Beranda menuju dashboard warga --}}
-            <li><a href="{{ route('warga.dashboard') }}">Beranda</a></li>
+            {{-- Sudah masuk: Beranda sesuai peran (admin pulang ke dashboard admin) --}}
+            @if (auth()->user()->isAdmin())
+                <li><a href="{{ route('admin.dashboard') }}">Beranda</a></li>
+            @else
+                <li><a href="{{ route('warga.dashboard') }}">Beranda</a></li>
+            @endif
         @else
             {{-- Belum masuk: Beranda menuju halaman depan publik --}}
             <li><a href="{{ url('/') }}">Beranda</a></li>
@@ -57,8 +57,10 @@
             <li><a class="btn-nav" href="{{ route('login') }}">Masuk</a></li>
             <li><a class="btn-nav" href="{{ route('register') }}">Daftar</a></li>
         @else
-            {{-- Sudah masuk: tombol profil + tombol keluar --}}
-            <li><a class="btn-nav" href="{{ route('warga.profil.show') }}">Profil</a></li>
+            {{-- Sudah masuk: tombol profil + tombol keluar (warga saja, admin tak punya biodata) --}}
+            @if (! auth()->user()->isAdmin())
+                <li><a class="btn-nav" href="{{ route('warga.profil.show') }}">Profil</a></li>
+            @endif
             <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -74,7 +76,8 @@
             <i class="ph ph-moon" aria-hidden="true"></i>
         </button>
         @auth
-            {{-- Lonceng notifikasi: hanya tampil setelah login dan tidak di halaman depan publik --}}
+            {{-- Lonceng notifikasi warga saja: hanya tampil setelah login bukan admin dan tidak di halaman depan publik --}}
+            @if (! auth()->user()->isAdmin())
             @unless (request()->is('/'))
                 {{-- 5 terbaru apa pun status bacanya; yang lama kegeser jika lebih dari 5 --}}
                 @php($notif5 = auth()->user()->notifications()->latest()->take(5)->get())
@@ -113,6 +116,7 @@
                     </div>
                 </details>
             @endunless
+            @endif
         @endauth
         {{-- Tombol hamburger khusus HP (buka/tutup menu oleh partials/navbar.js) --}}
         <button type="button" class="nav-toggle" aria-label="Buka tutup menu" aria-expanded="false">
